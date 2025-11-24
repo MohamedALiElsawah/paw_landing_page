@@ -4,7 +4,50 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title', __('PawApp - Everything Your Pet Needs in One Place'))</title>
+
+    <!-- Dynamic SEO Meta Tags -->
+    @php
+        use App\Services\SEOService;
+        $metaTags = SEOService::generateMetaTags(
+            $title ?? null,
+            $description ?? null,
+            $keywords ?? null,
+            $image ?? null,
+            $url ?? null,
+            $type ?? 'website',
+        );
+    @endphp
+
+    <title>{{ $metaTags['title'] }}</title>
+    <meta name="description" content="{{ $metaTags['description'] }}">
+    <meta name="keywords" content="{{ $metaTags['keywords'] }}">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ $metaTags['og_title'] }}">
+    <meta property="og:description" content="{{ $metaTags['og_description'] }}">
+    <meta property="og:image" content="{{ $metaTags['og_image'] }}">
+    <meta property="og:url" content="{{ $metaTags['og_url'] }}">
+    <meta property="og:type" content="{{ $metaTags['og_type'] }}">
+    <meta property="og:site_name" content="{{ \App\Models\Setting::getValue('site_name', 'PawApp') }}">
+    <meta property="og:locale" content="{{ app()->getLocale() }}">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="{{ $metaTags['twitter_card'] }}">
+    <meta name="twitter:title" content="{{ $metaTags['twitter_title'] }}">
+    <meta name="twitter:description" content="{{ $metaTags['twitter_description'] }}">
+    <meta name="twitter:image" content="{{ $metaTags['twitter_image'] }}">
+
+    <!-- SEO Verification Tags -->
+    {!! SEOService::generateVerificationTags() !!}
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+        {!! json_encode(SEOService::generateSchemaMarkup('Organization')) !!}
+    </script>
+
+    <!-- Analytics Scripts -->
+    {!! SEOService::generateAnalyticsScripts() !!}
+
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;600;700&display=swap"
         rel="stylesheet" />

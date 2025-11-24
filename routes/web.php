@@ -12,11 +12,17 @@ use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ContactSubmissionController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SEOManagementController;
+use App\Http\Controllers\SitemapController;
 
 // Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/contact', [HomeController::class, 'contact'])->name('contact.submit');
 Route::get('/locale/{locale}', [HomeController::class, 'changeLocale'])->name('locale.change');
+
+// SEO Routes
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -53,4 +59,14 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Settings
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+
+    // SEO Management
+    Route::prefix('seo')->name('seo.')->group(function () {
+        Route::get('/', [SEOManagementController::class, 'index'])->name('index');
+        Route::put('/', [SEOManagementController::class, 'update'])->name('update');
+        Route::post('regenerate', [SEOManagementController::class, 'regenerate'])->name('regenerate');
+        Route::get('preview-sitemap', [SEOManagementController::class, 'previewSitemap'])->name('preview-sitemap');
+        Route::get('preview-robots', [SEOManagementController::class, 'previewRobots'])->name('preview-robots');
+        Route::get('analytics', [SEOManagementController::class, 'analytics'])->name('analytics');
+    });
 });
