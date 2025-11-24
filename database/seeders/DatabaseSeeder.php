@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
             PetPostSeeder::class,
             ReviewSeeder::class,
             PartnerSeeder::class,
+            SettingSeeder::class,
+            ArabicTranslationSeeder::class,
+            ImageMigrationSeeder::class,
         ]);
     }
 }

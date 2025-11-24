@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\ImageService;
 
 class Partner extends Model
 {
@@ -38,5 +39,21 @@ class Partner extends Model
         $locale = $locale ?: app()->getLocale();
         $translations = json_decode($this->attributes[$field] ?? '{}', true);
         return $translations[$locale] ?? '';
+    }
+
+    /**
+     * Get logo URL for display
+     */
+    public function getLogoUrlAttribute(): ?string
+    {
+        return ImageService::getImageUrl($this->attributes['logo'] ?? null);
+    }
+
+    /**
+     * Get the logo path for storage
+     */
+    public function getLogoPathAttribute(): ?string
+    {
+        return $this->attributes['logo'] ?? null;
     }
 }

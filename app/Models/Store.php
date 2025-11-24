@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\ImageService;
 
 class Store extends Model
 {
@@ -71,5 +72,37 @@ class Store extends Model
         $locale = $locale ?: app()->getLocale();
         $translations = json_decode($this->attributes[$field] ?? '{}', true);
         return $translations[$locale] ?? '';
+    }
+
+    /**
+     * Get image URL for display
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return ImageService::getImageUrl($this->attributes['image'] ?? null);
+    }
+
+    /**
+     * Get logo URL for display
+     */
+    public function getLogoUrlAttribute(): ?string
+    {
+        return ImageService::getImageUrl($this->attributes['logo'] ?? null);
+    }
+
+    /**
+     * Get the image path for storage
+     */
+    public function getImagePathAttribute(): ?string
+    {
+        return $this->attributes['image'] ?? null;
+    }
+
+    /**
+     * Get the logo path for storage
+     */
+    public function getLogoPathAttribute(): ?string
+    {
+        return $this->attributes['logo'] ?? null;
     }
 }

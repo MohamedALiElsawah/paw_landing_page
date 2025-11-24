@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\ImageService;
 
 class Review extends Model
 {
@@ -60,5 +61,21 @@ class Review extends Model
         $locale = $locale ?: app()->getLocale();
         $translations = json_decode($this->attributes[$field] ?? '{}', true);
         return $translations[$locale] ?? '';
+    }
+
+    /**
+     * Get reviewer image URL for display
+     */
+    public function getReviewerImageUrlAttribute(): ?string
+    {
+        return ImageService::getImageUrl($this->attributes['reviewer_image'] ?? null);
+    }
+
+    /**
+     * Get the reviewer image path for storage
+     */
+    public function getReviewerImagePathAttribute(): ?string
+    {
+        return $this->attributes['reviewer_image'] ?? null;
     }
 }
