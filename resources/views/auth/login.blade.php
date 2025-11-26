@@ -9,15 +9,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --pawapp-primary: #8B4513;
-            --pawapp-secondary: #D2691E;
-            --pawapp-accent: #FFA500;
-            --pawapp-light: #F5F5DC;
-            --pawapp-dark: #654321;
+            --pawapp-navy: #0D1B2A;
+            --pawapp-navy-light: #1B263B;
+            --pawapp-yellow: #FFD700;
+            --pawapp-yellow-dark: #E6C200;
+            --pawapp-light: #F8F9FA;
+            --pawapp-gray: #E9ECEF;
         }
 
         body {
-            background: linear-gradient(135deg, var(--pawapp-primary) 0%, var(--pawapp-secondary) 100%);
+            background: linear-gradient(135deg, var(--pawapp-navy) 0%, var(--pawapp-navy-light) 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -25,21 +26,21 @@
         }
 
         .login-container {
-            background: white;
+            background: var(--pawapp-light);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 15px 35px rgba(13, 27, 42, 0.2);
             overflow: hidden;
-            border: 3px solid var(--pawapp-light);
+            border: 1px solid var(--pawapp-gray);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .login-container:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.3);
+            box-shadow: 0 20px 40px rgba(13, 27, 42, 0.3);
         }
 
         .login-header {
-            background: linear-gradient(45deg, var(--pawapp-primary), var(--pawapp-secondary));
+            background: linear-gradient(45deg, var(--pawapp-navy), var(--pawapp-navy-light));
             color: white;
             padding: 40px 30px;
             text-align: center;
@@ -54,7 +55,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
             animation: float 6s ease-in-out infinite;
         }
@@ -75,7 +76,7 @@
             font-size: 3rem;
             margin-bottom: 15px;
             display: inline-block;
-            background: linear-gradient(45deg, var(--pawapp-accent), #FFD700);
+            background: linear-gradient(45deg, var(--pawapp-yellow), #FFE55C);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
@@ -87,48 +88,66 @@
         }
 
         .form-control {
-            border: 2px solid #e9ecef;
+            border: 2px solid var(--pawapp-gray);
             border-radius: 10px;
             padding: 12px 15px;
             transition: all 0.3s ease;
+            background: white;
         }
 
         .form-control:focus {
-            border-color: var(--pawapp-primary);
-            box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+            border-color: var(--pawapp-navy);
+            box-shadow: 0 0 0 0.2rem rgba(13, 27, 42, 0.25);
             transform: translateY(-2px);
         }
 
+        .form-control::placeholder {
+            color: #6C757D;
+        }
+
         .input-group-text {
-            background: var(--pawapp-primary);
-            border: 2px solid var(--pawapp-primary);
+            background: var(--pawapp-navy);
+            border: 2px solid var(--pawapp-navy);
             color: white;
             border-radius: 10px 0 0 10px;
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, var(--pawapp-primary), var(--pawapp-secondary));
+            background: var(--pawapp-yellow);
             border: none;
             border-radius: 10px;
             padding: 12px;
             font-weight: 600;
+            color: var(--pawapp-navy);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
         }
 
         .btn-primary:hover {
+            background: var(--pawapp-yellow-dark);
+            color: var(--pawapp-navy);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
-            background: linear-gradient(45deg, var(--pawapp-secondary), var(--pawapp-primary));
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
         }
 
         .back-link {
-            color: var(--pawapp-primary);
+            color: var(--pawapp-navy);
             transition: color 0.3s ease;
+            font-weight: 500;
         }
 
         .back-link:hover {
-            color: var(--pawapp-secondary);
+            color: var(--pawapp-navy-light);
+        }
+
+        .form-label {
+            color: var(--pawapp-navy);
+            font-weight: 600;
+        }
+
+        .alert {
+            border-radius: 10px;
+            border: none;
         }
     </style>
 </head>
@@ -160,7 +179,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     <input type="email" class="form-control" id="email" name="email"
-                                        value="{{ old('email') }}" required autofocus>
+                                        value="{{ old('email') }}" required autofocus placeholder="Enter your email">
                                 </div>
                             </div>
 
@@ -168,7 +187,8 @@
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <input type="password" class="form-control" id="password" name="password" required
+                                        placeholder="Enter your password">
                                 </div>
                             </div>
 
@@ -178,7 +198,7 @@
                         </form>
 
                         <div class="text-center mt-4">
-                            <a href="{{ route('home') }}" class="text-decoration-none">
+                            <a href="{{ route('home') }}" class="back-link text-decoration-none">
                                 <i class="fas fa-arrow-left me-1"></i>Back to Website
                             </a>
                         </div>

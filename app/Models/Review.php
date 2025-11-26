@@ -24,7 +24,8 @@ class Review extends Model
     protected $casts = [
         'reviewer_name' => 'array',
         'content' => 'array',
-        'is_approved' => 'boolean'
+        'is_approved' => 'boolean',
+        'date' => 'datetime'
     ];
 
     /**

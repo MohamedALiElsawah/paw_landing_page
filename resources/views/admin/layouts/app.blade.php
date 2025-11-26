@@ -12,10 +12,11 @@
     <link href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
     <style>
         :root {
-            --paw-primary: #FF6B6B;
-            --paw-secondary: #4ECDC4;
-            --paw-accent: #FFD166;
-            --paw-dark: #2C3E50;
+            --paw-primary: #0D1B2A;
+            --paw-secondary: #1B263B;
+            --paw-accent: #FFD700;
+            --paw-accent-dark: #E6C200;
+            --paw-dark: #0D1B2A;
             --paw-light: #F8F9FA;
             --paw-gray: #6C757D;
             --paw-success: #28A745;
@@ -149,17 +150,37 @@
 
         .btn-paw {
             background: var(--paw-primary);
-            border: none;
+            border: 2px solid var(--paw-primary);
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
             transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         .btn-paw:hover {
+            background: var(--paw-accent);
+            border-color: var(--paw-accent);
+            color: var(--paw-primary);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--paw-primary);
+            color: var(--paw-primary);
+            background: transparent;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--paw-primary);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 27, 42, 0.3);
         }
 
         .card-custom {
