@@ -18,12 +18,24 @@ class Setting extends Model
     ];
 
     /**
-     * Get setting value by key
+     * Get setting value by key with translation support
      */
-    public static function getValue($key, $default = null)
+    public static function getValue($key, $default = null, $locale = null)
     {
+        $locale = $locale ?: app()->getLocale();
         $setting = static::where('key', $key)->first();
-        return $setting ? $setting->value : $default;
+
+        if (!$setting) {
+            return $default;
+        }
+
+        // If setting type is json, parse and return translated value
+        if ($setting->type === 'json') {
+            $translations = json_decode($setting->value, true);
+            return $translations[$locale] ?? $translations['en'] ?? $default;
+        }
+
+        return $setting->value ?: $default;
     }
 
     /**
