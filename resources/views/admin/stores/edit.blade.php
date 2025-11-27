@@ -48,8 +48,7 @@
                         <div class="mb-3">
                             <label for="name_en" class="form-label">Store Name (English)</label>
                             <input type="text" class="form-control @error('name_en') is-invalid @enderror" id="name_en"
-                                name="name_en" value="{{ old('name_en', $store->getRawOriginal('name')['en'] ?? '') }}"
-                                required>
+                                name="name_en" value="{{ old('name_en', $store->getTranslation('name', 'en')) }}" required>
                             @error('name_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -59,7 +58,7 @@
                             <label for="location_en" class="form-label">Location (English)</label>
                             <input type="text" class="form-control @error('location_en') is-invalid @enderror"
                                 id="location_en" name="location_en"
-                                value="{{ old('location_en', $store->getRawOriginal('location')['en'] ?? '') }}" required>
+                                value="{{ old('location_en', $store->getTranslation('location', 'en')) }}" required>
                             @error('location_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -69,7 +68,7 @@
                             <label for="working_hours_en" class="form-label">Working Hours (English)</label>
                             <input type="text" class="form-control @error('working_hours_en') is-invalid @enderror"
                                 id="working_hours_en" name="working_hours_en"
-                                value="{{ old('working_hours_en', $store->getRawOriginal('working_hours')['en'] ?? '') }}"
+                                value="{{ old('working_hours_en', $store->getTranslation('working_hours', 'en')) }}"
                                 required>
                             @error('working_hours_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -83,8 +82,7 @@
                         <div class="mb-3">
                             <label for="name_ar" class="form-label">Store Name (Arabic)</label>
                             <input type="text" class="form-control @error('name_ar') is-invalid @enderror" id="name_ar"
-                                name="name_ar" value="{{ old('name_ar', $store->getRawOriginal('name')['ar'] ?? '') }}"
-                                required>
+                                name="name_ar" value="{{ old('name_ar', $store->getTranslation('name', 'ar')) }}" required>
                             @error('name_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -94,7 +92,7 @@
                             <label for="location_ar" class="form-label">Location (Arabic)</label>
                             <input type="text" class="form-control @error('location_ar') is-invalid @enderror"
                                 id="location_ar" name="location_ar"
-                                value="{{ old('location_ar', $store->getRawOriginal('location')['ar'] ?? '') }}" required>
+                                value="{{ old('location_ar', $store->getTranslation('location', 'ar')) }}" required>
                             @error('location_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -104,7 +102,7 @@
                             <label for="working_hours_ar" class="form-label">Working Hours (Arabic)</label>
                             <input type="text" class="form-control @error('working_hours_ar') is-invalid @enderror"
                                 id="working_hours_ar" name="working_hours_ar"
-                                value="{{ old('working_hours_ar', $store->getRawOriginal('working_hours')['ar'] ?? '') }}"
+                                value="{{ old('working_hours_ar', $store->getTranslation('working_hours', 'ar')) }}"
                                 required>
                             @error('working_hours_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>

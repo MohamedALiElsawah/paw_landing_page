@@ -37,7 +37,7 @@
                         <div class="mb-3">
                             <label for="name_en" class="form-label">Partner Name (English)</label>
                             <input type="text" class="form-control @error('name_en') is-invalid @enderror" id="name_en"
-                                name="name_en" value="{{ old('name_en', $partner->getRawOriginal('name')['en'] ?? '') }}"
+                                name="name_en" value="{{ old('name_en', $partner->getTranslation('name', 'en')) }}"
                                 required>
                             @error('name_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -47,7 +47,7 @@
                         <div class="mb-3">
                             <label for="description_en" class="form-label">Description (English)</label>
                             <textarea class="form-control @error('description_en') is-invalid @enderror" id="description_en" name="description_en"
-                                rows="3">{{ old('description_en', $partner->getRawOriginal('description')['en'] ?? '') }}</textarea>
+                                rows="3">{{ old('description_en', $partner->getTranslation('description', 'en')) }}</textarea>
                             @error('description_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -60,7 +60,7 @@
                         <div class="mb-3">
                             <label for="name_ar" class="form-label">Partner Name (Arabic)</label>
                             <input type="text" class="form-control @error('name_ar') is-invalid @enderror" id="name_ar"
-                                name="name_ar" value="{{ old('name_ar', $partner->getRawOriginal('name')['ar'] ?? '') }}"
+                                name="name_ar" value="{{ old('name_ar', $partner->getTranslation('name', 'ar')) }}"
                                 required>
                             @error('name_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -70,7 +70,7 @@
                         <div class="mb-3">
                             <label for="description_ar" class="form-label">Description (Arabic)</label>
                             <textarea class="form-control @error('description_ar') is-invalid @enderror" id="description_ar" name="description_ar"
-                                rows="3" dir="rtl">{{ old('description_ar', $partner->getRawOriginal('description')['ar'] ?? '') }}</textarea>
+                                rows="3" dir="rtl">{{ old('description_ar', $partner->getTranslation('description', 'ar')) }}</textarea>
                             @error('description_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

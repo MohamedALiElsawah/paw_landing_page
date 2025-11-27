@@ -182,7 +182,7 @@ class SEOService
         ];
 
         // Add clinics to sitemap
-        $clinics = Clinic::where('status', 'active')->get();
+        $clinics = Clinic::all();
         foreach ($clinics as $clinic) {
             $urls[] = [
                 'loc' => url("/clinics/{$clinic->id}"),
@@ -193,7 +193,7 @@ class SEOService
         }
 
         // Add services to sitemap
-        $services = Service::where('status', 'active')->get();
+        $services = Service::all();
         foreach ($services as $service) {
             $urls[] = [
                 'loc' => url("/services/{$service->id}"),
@@ -204,7 +204,7 @@ class SEOService
         }
 
         // Add stores to sitemap
-        $stores = Store::where('status', 'active')->get();
+        $stores = Store::all();
         foreach ($stores as $store) {
             $urls[] = [
                 'loc' => url("/stores/{$store->id}"),
@@ -215,7 +215,7 @@ class SEOService
         }
 
         // Add pet posts to sitemap
-        $petPosts = PetPost::where('status', 'active')->get();
+        $petPosts = PetPost::all();
         foreach ($petPosts as $post) {
             $urls[] = [
                 'loc' => url("/pet-posts/{$post->id}"),
@@ -226,81 +226,81 @@ class SEOService
         }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
-        foreach ($urls as $url) {
-            $xml .= '<url>';
-            $xml .= "<loc>{$url['loc']}</loc>";
-            $xml .= "<lastmod>{$url['lastmod']}</lastmod>";
-            $xml .= "<changefreq>{$url['changefreq']}</changefreq>";
-            $xml .= "<priority>{$url['priority']}</priority>";
-            $xml .= '</url>';
-        }
-
-        $xml .= '</urlset>';
-
-        return $xml;
+    foreach ($urls as $url) {
+    $xml .= '<url>';
+        $xml .= "<loc>{$url['loc']}</loc>";
+        $xml .= "<lastmod>{$url['lastmod']}</lastmod>";
+        $xml .= "<changefreq>{$url['changefreq']}</changefreq>";
+        $xml .= "<priority>{$url['priority']}</priority>";
+        $xml .= '</url>';
     }
 
-    /**
-     * Generate sitemap XML (legacy method)
-     */
-    public static function generateSitemap()
-    {
-        return self::generateDynamicSitemap();
-    }
+    $xml .= '</urlset>';
 
-    /**
-     * Generate robots.txt content
-     */
-    public static function generateRobotsTxt()
-    {
-        $customRobots = Setting::getValue('custom_robots_txt');
+return $xml;
+}
 
-        if ($customRobots) {
-            return $customRobots;
-        }
+/**
+* Generate sitemap XML (legacy method)
+*/
+public static function generateSitemap()
+{
+return self::generateDynamicSitemap();
+}
 
-        return "User-agent: *\n" .
-            "Allow: /\n" .
-            "Disallow: /admin/\n" .
-            "Disallow: /login\n" .
-            "Sitemap: " . url('/sitemap.xml') . "\n";
-    }
+/**
+* Generate robots.txt content
+*/
+public static function generateRobotsTxt()
+{
+$customRobots = Setting::getValue('custom_robots_txt');
 
-    /**
-     * Generate Open Graph tags
-     */
-    public static function generateOpenGraphTags($title, $description, $image = null, $url = null, $type = 'website')
-    {
-        $ogImage = $image ?: (Setting::getValue('og_image') ? asset(Storage::url(Setting::getValue('og_image'))) :
-            asset('assets/images/og-default.jpg'));
-        $siteName = Setting::getValue('site_name', 'PawApp');
+if ($customRobots) {
+return $customRobots;
+}
 
-        return [
-            'og:title' => $title,
-            'og:description' => $description,
-            'og:image' => $ogImage,
-            'og:url' => $url ?: url()->current(),
-            'og:type' => $type,
-            'og:site_name' => $siteName,
-            'og:locale' => app()->getLocale(),
-        ];
-    }
+return "User-agent: *\n" .
+"Allow: /\n" .
+"Disallow: /admin/\n" .
+"Disallow: /login\n" .
+"Sitemap: " . url('/sitemap.xml') . "\n";
+}
 
-    /**
-     * Generate Twitter Card tags
-     */
-    public static function generateTwitterCardTags($title, $description, $image = null)
-    {
-        $twitterImage = $image ?: (Setting::getValue('og_image') ? asset(Storage::url(Setting::getValue('og_image'))) :
-            asset('assets/images/og-default.jpg'));
+/**
+* Generate Open Graph tags
+*/
+public static function generateOpenGraphTags($title, $description, $image = null, $url = null, $type = 'website')
+{
+$ogImage = $image ?: (Setting::getValue('og_image') ? asset(Storage::url(Setting::getValue('og_image'))) :
+asset('assets/images/og-default.jpg'));
+$siteName = Setting::getValue('site_name', 'PawApp');
 
-        return [
-            'twitter:card' => 'summary_large_image',
-            'twitter:title' => $title,
-            'twitter:description' => $description,
-            'twitter:image' => $twitterImage,
-        ];
-    }
+return [
+'og:title' => $title,
+'og:description' => $description,
+'og:image' => $ogImage,
+'og:url' => $url ?: url()->current(),
+'og:type' => $type,
+'og:site_name' => $siteName,
+'og:locale' => app()->getLocale(),
+];
+}
+
+/**
+* Generate Twitter Card tags
+*/
+public static function generateTwitterCardTags($title, $description, $image = null)
+{
+$twitterImage = $image ?: (Setting::getValue('og_image') ? asset(Storage::url(Setting::getValue('og_image'))) :
+asset('assets/images/og-default.jpg'));
+
+return [
+'twitter:card' => 'summary_large_image',
+'twitter:title' => $title,
+'twitter:description' => $description,
+'twitter:image' => $twitterImage,
+];
+}
 }

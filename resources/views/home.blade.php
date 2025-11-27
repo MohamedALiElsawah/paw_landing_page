@@ -4,7 +4,8 @@
     <!-- Dynamic Banner -->
     <section class="dynamic-banner" id="dynamic-banner">
         <div class="banner-content">
-            <div class="banner-text active" id="banner-text" data-banner-index="0">New pet profiles feature now available</div>
+            <div class="banner-text active" id="banner-text" data-banner-index="0">
+                {{ __('New pet profiles feature now available') }}</div>
             <img src="{{ asset('assets/images/catBanner.png') }}" alt="Cat" class="banner-cat">
         </div>
     </section>
@@ -81,12 +82,12 @@
                 <div class="info-box" data-info-type="location">
                     <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                     <h4>{{ __('Store Location') }}</h4>
-                    <p>123 Pet Street, Paw City</p>
+                    <p>{{ __('123 Pet Street, Paw City') }}</p>
                 </div>
                 <div class="info-box" data-info-type="hours">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <h4>{{ __('Opening Hours') }}</h4>
-                    <p>Mon-Sun: 9AM - 9PM</p>
+                    <p>{{ __('Mon-Sun: 9AM - 9PM') }}</p>
                 </div>
                 <div class="info-box" data-info-type="contact">
                     <div class="icon"><i class="fas fa-phone"></i></div>
@@ -96,7 +97,7 @@
                 <div class="info-box" data-info-type="delivery">
                     <div class="icon"><i class="fas fa-truck"></i></div>
                     <h4>{{ __('Delivery') }}</h4>
-                    <p>Free delivery over $50</p>
+                    <p>{{ __('Free delivery over $50') }}</p>
                 </div>
             </div>
         </div>
@@ -173,7 +174,7 @@
             <div class="dr-bo-content">
                 <h2>{{ __('Meet Dr. Bo') }}</h2>
                 <p>{{ __('Your smart AI assistant') }}</p>
-                <div class="typing-text">Ask me anything about pet health, nutrition, behavior...</div>
+                <div class="typing-text">{{ __('Ask me anything about pet health, nutrition, behavior...') }}</div>
                 <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank" class="talk-btn"
                     data-action="talk-to-drbo">{{ __('Talk to Dr. Bo Now') }}</a>
             </div>
@@ -182,14 +183,15 @@
                     <div class="chat-avatar">DB</div>
                     <div>
                         <h4 style="margin:0;color:white;">Dr. Bo</h4>
-                        <p style="margin:0;font-size:14px;opacity:0.9;">Always here to help</p>
+                        <p style="margin:0;font-size:14px;opacity:0.9;">{{ __('Always here to help') }}</p>
                     </div>
                 </div>
-                <div class="chat-message">My dog isn't eating well today. Should I be worried?</div>
-                <div class="chat-message">Don't worry! It's normal for dogs to have occasional appetite changes. Monitor
-                    for 24 hours. If symptoms persist or worsen, consult a vet.</div>
+                <div class="chat-message">{{ __('My dog isn\'t eating well today. Should I be worried?') }}</div>
+                <div class="chat-message">
+                    {{ __('Don\'t worry! It\'s normal for dogs to have occasional appetite changes. Monitor for 24 hours. If symptoms persist or worsen, consult a vet.') }}
+                </div>
                 <div class="typing-indicator">
-                    <span>Ask Dr. Bo anything...</span>
+                    <span>{{ __('Ask Dr. Bo anything...') }}</span>
                     <div class="typing-dots">
                         <div class="typing-dot"></div>
                         <div class="typing-dot"></div>
@@ -278,10 +280,11 @@
             <div class="about-img"><img src="{{ asset('assets/images/team.png') }}" alt="PawApp Team"></div>
             <div class="about-content">
                 <h2>{{ __('About Us') }}</h2>
-                <p>PawApp — where every pet finds care, love, and connection.</p>
-                <p>We make pet care simple and smart — from finding trusted vets to shopping for essentials and chatting
-                    with our AI friend "Dr. Bo."</p>
-                <p>Our goal is to create a better world for pets and their humans — because your pet deserves the best.</p>
+                <p>{{ __('PawApp — where every pet finds care, love, and connection.') }}</p>
+                <p>{{ __('We make pet care simple and smart — from finding trusted vets to shopping for essentials and chatting with our AI friend Dr. Bo.') }}
+                </p>
+                <p>{{ __('Our goal is to create a better world for pets and their humans — because your pet deserves the best.') }}
+                </p>
             </div>
         </div>
     </section>
@@ -296,8 +299,9 @@
         <div class="container contact-container animate">
             <div class="contact-info">
                 <h2>{{ __('Contact Us') }}</h2>
-                <p>Let's talk with us</p>
-                <p>Questions, comments, or suggestions? Simply fill in the form and we'll be in touch shortly.</p>
+                <p>{{ __('Let\'s talk with us') }}</p>
+                <p>{{ __('Questions, comments, or suggestions? Simply fill in the form and we\'ll be in touch shortly.') }}
+                </p>
                 <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> Pet City, PC 12345</div>
                 <div class="contact-detail"><i class="fas fa-phone"></i> <a href="tel:+96541117003"
                         class="phone-link">+96541117003</a></div>
@@ -307,15 +311,19 @@
             <form class="contact-form" id="contact-form" action="{{ route('contact.submit') }}" method="POST">
                 @csrf
                 <div class="form-row">
-                    <div class="form-group"><input type="text" placeholder="First Name*" required name="first_name">
+                    <div class="form-group"><input type="text" placeholder="{{ __('First Name*') }}" required
+                            name="first_name">
                     </div>
-                    <div class="form-group"><input type="text" placeholder="Last Name*" required name="last_name">
+                    <div class="form-group"><input type="text" placeholder="{{ __('Last Name*') }}" required
+                            name="last_name">
                     </div>
                 </div>
-                <div class="form-group"><input type="email" placeholder="Email*" required name="email"></div>
-                <div class="form-group"><input type="tel" placeholder="Phone Number*" required name="phone"></div>
+                <div class="form-group"><input type="email" placeholder="{{ __('Email*') }}" required
+                        name="email"></div>
+                <div class="form-group"><input type="tel" placeholder="{{ __('Phone Number*') }}" required
+                        name="phone"></div>
                 <div class="form-group">
-                    <textarea placeholder="Your message..." rows="5" name="message"></textarea>
+                    <textarea placeholder="{{ __('Your message...') }}" rows="5" name="message"></textarea>
                 </div>
                 <button type="submit" class="submit-btn">{{ __('Send Message') }}</button>
             </form>
@@ -342,7 +350,8 @@
         <div class="container footer-content">
             <div class="footer-top">
                 <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo" class="footer-logo">
-                <span class="footer-text">Your complete pet care companion. Everything your pet needs in one place.</span>
+                <span
+                    class="footer-text">{{ __('Your complete pet care companion. Everything your pet needs in one place.') }}</span>
             </div>
             <hr class="footer-line">
             <div class="footer-grid">

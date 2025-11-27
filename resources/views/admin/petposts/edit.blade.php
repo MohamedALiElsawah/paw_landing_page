@@ -38,7 +38,7 @@
                             <label for="title_en" class="form-label">Title (English)</label>
                             <input type="text" class="form-control @error('title_en') is-invalid @enderror"
                                 id="title_en" name="title_en"
-                                value="{{ old('title_en', $petpost->getRawOriginal('title')['en'] ?? '') }}" required>
+                                value="{{ old('title_en', $petpost->getTranslation('title', 'en')) }}" required>
                             @error('title_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -47,7 +47,7 @@
                         <div class="mb-3">
                             <label for="content_en" class="form-label">Content (English)</label>
                             <textarea class="form-control @error('content_en') is-invalid @enderror" id="content_en" name="content_en"
-                                rows="5" required>{{ old('content_en', $petpost->getRawOriginal('content')['en'] ?? '') }}</textarea>
+                                rows="5" required>{{ old('content_en', $petpost->getTranslation('content', 'en')) }}</textarea>
                             @error('content_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -61,7 +61,7 @@
                             <label for="title_ar" class="form-label">Title (Arabic)</label>
                             <input type="text" class="form-control @error('title_ar') is-invalid @enderror"
                                 id="title_ar" name="title_ar"
-                                value="{{ old('title_ar', $petpost->getRawOriginal('title')['ar'] ?? '') }}" required>
+                                value="{{ old('title_ar', $petpost->getTranslation('title', 'ar')) }}" required>
                             @error('title_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -70,7 +70,7 @@
                         <div class="mb-3">
                             <label for="content_ar" class="form-label">Content (Arabic)</label>
                             <textarea class="form-control @error('content_ar') is-invalid @enderror" id="content_ar" name="content_ar"
-                                rows="5" required dir="rtl">{{ old('content_ar', $petpost->getRawOriginal('content')['ar'] ?? '') }}</textarea>
+                                rows="5" required dir="rtl">{{ old('content_ar', $petpost->getTranslation('content', 'ar')) }}</textarea>
                             @error('content_ar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

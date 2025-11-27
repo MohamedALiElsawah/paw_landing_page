@@ -1177,11 +1177,12 @@ section {
 
 .dr-bo-img {
     position: absolute;
-    right: 0;
+    right: -20px;
     top: 50%;
     transform: translateY(-30%);
     z-index: 1;
 }
+
 
 .dr-bo-img img {
     border-radius: var(--border-radius-lg);
@@ -1212,6 +1213,12 @@ section {
 
 .dr-bo-content {
     flex: 1;
+    padding-left: 40px;
+}
+
+[dir="rtl"] .dr-bo-content {
+    padding-left: 0;
+    padding-right: 40px;
 }
 
 .dr-bo-content h2 {
@@ -1351,13 +1358,14 @@ section {
 /* === REVIEWS === */
 .reviews {
     background: var(--white);
+    padding: var(--spacing-xl) 0 var(--spacing-lg) 0;
 }
 
 .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 28px;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
 }
 
 .review-card {
@@ -1417,6 +1425,10 @@ section {
 }
 
 /* === STATS === */
+.stats {
+    padding: var(--spacing-lg) 0;
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1439,6 +1451,7 @@ section {
 .about-us {
     background: var(--light-bg);
     position: relative;
+    padding: var(--spacing-xl) 0 var(--spacing-lg) 0;
 }
 
 .about-us::before {
@@ -1637,6 +1650,20 @@ textarea {
 
     100% {
         transform: translateX(-50%);
+    }
+}
+
+[dir="rtl"] .partners-track {
+    animation: scroll-rtl 25s linear infinite;
+}
+
+@keyframes scroll-rtl {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(50%);
     }
 }
 

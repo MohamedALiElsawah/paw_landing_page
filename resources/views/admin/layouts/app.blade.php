@@ -320,8 +320,6 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#"><i
                                                 class="fas fa-user me-2"></i>Profile</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="fas fa-bell me-2"></i>Notifications</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
