@@ -217,8 +217,14 @@
                 <div class="position-sticky pt-3">
                     <div class="sidebar-header">
                         <a href="{{ route('admin.dashboard') }}" class="sidebar-logo">
-                            <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo">
-                            <div class="sidebar-logo-text">PawApp Admin</div>
+                            @if (App\Models\Setting::getValue('site_logo'))
+                                <img src="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}"
+                                    alt="{{ App\Models\Setting::getValue('site_name', 'PawApp') }} Logo">
+                            @else
+                                <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo">
+                            @endif
+                            <div class="sidebar-logo-text">{{ App\Models\Setting::getValue('site_name', 'PawApp') }}
+                                Admin</div>
                         </a>
                     </div>
                     <ul class="nav flex-column">

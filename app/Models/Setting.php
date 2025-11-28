@@ -14,7 +14,8 @@ class Setting extends Model
         'value',
         'type',
         'group',
-        'description'
+        'description',
+        'is_multilingual'
     ];
 
     /**
@@ -33,6 +34,14 @@ class Setting extends Model
         if ($setting->type === 'json') {
             $translations = json_decode($setting->value, true);
             return $translations[$locale] ?? $translations['en'] ?? $default;
+        }
+
+        // For multilingual settings, check if value is JSON with translations
+        if ($setting->is_multilingual && $setting->value) {
+            $translations = json_decode($setting->value, true);
+            if (is_array($translations)) {
+                return $translations[$locale] ?? $translations['en'] ?? $default;
+            }
         }
 
         return $setting->value ?: $default;

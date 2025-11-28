@@ -363,7 +363,12 @@
     <footer role="contentinfo">
         <div class="container footer-content">
             <div class="footer-top">
-                <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo" class="footer-logo">
+                @if (App\Models\Setting::getValue('site_logo'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}"
+                        alt="{{ App\Models\Setting::getValue('site_name', 'PawApp') }} Logo" class="footer-logo">
+                @else
+                    <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo" class="footer-logo">
+                @endif
                 <span
                     class="footer-text">{{ App\Models\Setting::getValue('footer_description', __('Your complete pet care companion. Everything your pet needs in one place.')) }}</span>
             </div>

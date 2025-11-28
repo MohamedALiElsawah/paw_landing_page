@@ -25,9 +25,14 @@ class SettingController extends Controller
     {
         $validated = $request->validate([
             'settings' => 'required|array',
-            'settings.*' => 'nullable|string'
+            'settings.*' => 'nullable|string',
+            'multilingual_settings' => 'sometimes|array',
+            'multilingual_settings.*' => 'sometimes|array',
+            'multilingual_settings.*.en' => 'nullable|string',
+            'multilingual_settings.*.ar' => 'nullable|string'
         ]);
 
+        // Update regular settings
         foreach ($validated['settings'] as $key => $value) {
             $setting = Setting::where('key', $key)->first();
             if ($setting) {
@@ -48,6 +53,19 @@ class SettingController extends Controller
             }
         }
 
+        // Update multilingual settings
+        if (isset($validated['multilingual_settings'])) {
+            foreach ($validated['multilingual_settings'] as $key => $translations) {
+                $setting = Setting::where('key', $key)->first();
+                if ($setting) {
+                    // Store translations as JSON
+                    $setting->value = json_encode($translations);
+                    $setting->is_multilingual = true;
+                    $setting->save();
+                }
+            }
+        }
+
         return redirect()->route('admin.settings.index')
             ->with('success', 'Settings updated successfully!');
     }
@@ -64,21 +82,24 @@ class SettingController extends Controller
                 'value' => 'PawApp',
                 'type' => 'text',
                 'group' => 'general',
-                'description' => 'Website name'
+                'description' => 'Website name',
+                'is_multilingual' => true
             ],
             [
                 'key' => 'site_description',
                 'value' => 'Your trusted pet care companion',
                 'type' => 'textarea',
                 'group' => 'general',
-                'description' => 'Website description'
+                'description' => 'Website description',
+                'is_multilingual' => true
             ],
             [
                 'key' => 'site_logo',
                 'value' => null,
                 'type' => 'image',
                 'group' => 'general',
-                'description' => 'Website logo'
+                'description' => 'Website logo',
+                'is_multilingual' => false
             ],
 
             // Contact Settings
@@ -87,28 +108,32 @@ class SettingController extends Controller
                 'value' => '+1 (555) 123-4567',
                 'type' => 'phone',
                 'group' => 'contact',
-                'description' => 'Primary phone number'
+                'description' => 'Primary phone number',
+                'is_multilingual' => false
             ],
             [
                 'key' => 'email',
                 'value' => 'info@pawapp.com',
                 'type' => 'email',
                 'group' => 'contact',
-                'description' => 'Contact email'
+                'description' => 'Contact email',
+                'is_multilingual' => false
             ],
             [
                 'key' => 'address',
                 'value' => '123 Pet Street, Animal City',
                 'type' => 'textarea',
                 'group' => 'contact',
-                'description' => 'Business address'
+                'description' => 'Business address',
+                'is_multilingual' => true
             ],
             [
                 'key' => 'working_hours',
                 'value' => 'Mon-Fri: 9AM-6PM, Sat: 10AM-4PM',
                 'type' => 'text',
                 'group' => 'contact',
-                'description' => 'Working hours'
+                'description' => 'Working hours',
+                'is_multilingual' => true
             ],
 
             // Social Media Settings

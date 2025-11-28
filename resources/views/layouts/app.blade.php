@@ -74,7 +74,11 @@
     <header class="header" id="header">
         <div class="container header-container">
             <div class="logo">
-                <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo">
+                @if (App\Models\Setting::getValue('site_logo'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}" alt="{{ App\Models\Setting::getValue('site_name', 'PawApp') }} Logo">
+                @else
+                    <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo">
+                @endif
             </div>
             <button class="hamburger" id="hamburger" data-action="toggle-sidebar">
                 <span></span>
