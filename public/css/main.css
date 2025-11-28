@@ -362,6 +362,149 @@ h4 {
     }
 }
 
+/* === SCROLLABLE BANNER === */
+.scrollable-banner {
+    background: var(--yellow);
+    padding: 16px 0;
+    margin-top: 80px;
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+}
+
+.banner-container {
+    position: relative;
+    height: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.banner-slider {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.banner-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.banner-slide.prev {
+    transform: translateX(-100%);
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    gap: var(--spacing-lg);
+}
+
+.banner-text {
+    flex: 1;
+    text-align: left;
+    color: #333;
+}
+
+.banner-text h3 {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: #333;
+}
+
+.banner-text p {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: 500;
+    color: #555;
+    line-height: 1.4;
+}
+
+.banner-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--border-radius-md);
+    flex-shrink: 0;
+}
+
+.banner-controls {
+    position: absolute;
+    bottom: var(--spacing-sm);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    z-index: 10;
+}
+
+.banner-prev,
+.banner-next {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--blue);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+
+.banner-prev:hover,
+.banner-next:hover {
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.banner-indicators {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+
+.banner-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.banner-indicator.active {
+    background: var(--white);
+    transform: scale(1.2);
+}
+
+.banner-indicator:hover {
+    background: var(--white);
+}
+
 /* === HERO SECTION === */
 .hero {
     padding: var(--spacing-xxl) 0 var(--spacing-xl);
@@ -989,15 +1132,90 @@ section {
 .clinics-map {
     flex: 1;
     background: var(--white);
-    padding: 0px 0;
+    padding: 0;
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    height: 400px;
+    position: relative;
 }
 
 .clinics-map img {
     width: 100%;
     display: block;
+}
+
+#clinics-map-container {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius-lg);
+}
+
+.clinic-card.highlighted {
+    background: var(--light-bg);
+    border-color: var(--blue);
+    box-shadow: 0 4px 15px rgba(0, 45, 114, 0.15);
+    transform: translateY(-2px);
+}
+
+.clinic-card.highlighted .clinic-name {
+    color: var(--blue);
+}
+
+.browse-location-btn {
+    background: var(--yellow);
+    color: var(--blue);
+    padding: 6px 12px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all var(--transition-fast);
+    border: none;
+    cursor: pointer;
+    margin-top: var(--spacing-sm);
+}
+
+.browse-location-btn:hover {
+    background: var(--blue);
+    color: var(--white);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Google Maps Info Window Styles */
+.gm-style .gm-style-iw-c {
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm);
+    box-shadow: var(--shadow-md);
+}
+
+.gm-style .gm-style-iw-t::after {
+    background: var(--white);
+}
+
+.clinic-info-window {
+    padding: var(--spacing-sm);
+    min-width: 200px;
+}
+
+.clinic-info-window h4 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.clinic-info-window p {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.clinic-info-window .browse-location-btn {
+    margin-top: var(--spacing-xs);
+    font-size: 12px;
+    padding: 4px 10px;
 }
 
 .clinics-content {
@@ -1969,4 +2187,142 @@ footer::before {
     .right-column img {
         max-width: 80px;
     }
+}
+
+/* === OPENSTREETMAP LEAFLET STYLES === */
+#clinics-map {
+    height: 500px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    z-index: 1;
+}
+
+/* Leaflet map container */
+.leaflet-container {
+    background: #f8f9fa;
+    border-radius: 12px;
+    font-family: var(--font-family-primary);
+}
+
+/* Clinic marker styles */
+.clinic-marker {
+    background: transparent !important;
+    border: none !important;
+}
+
+.clinic-marker-icon {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.clinic-marker.highlighted .clinic-marker-icon {
+    transform: scale(1.2);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Clinic popup styles */
+.clinic-popup-container .leaflet-popup-content-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--blue);
+    background: var(--white);
+}
+
+.clinic-popup-container .leaflet-popup-content {
+    margin: 12px;
+    font-family: var(--font-family-primary);
+    line-height: 1.4;
+}
+
+.clinic-popup {
+    padding: 8px;
+    max-width: 250px;
+}
+
+.clinic-popup h4 {
+    color: var(--blue);
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.clinic-popup p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.clinic-popup i {
+    width: 16px;
+    margin-right: 6px;
+    color: var(--blue);
+}
+
+.browse-location-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: var(--blue);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.browse-location-btn:hover {
+    background: var(--yellow);
+    color: var(--blue);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 45, 114, 0.3);
+}
+
+/* Leaflet popup close button */
+.leaflet-popup-close-button {
+    background: var(--blue) !important;
+    color: var(--white) !important;
+    border-radius: 50% !important;
+    width: 20px !important;
+    height: 20px !important;
+    line-height: 18px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+}
+
+.leaflet-popup-close-button:hover {
+    background: var(--yellow) !important;
+    color: var(--blue) !important;
+}
+
+/* Leaflet control styles */
+.leaflet-control-zoom a {
+    background: var(--blue) !important;
+    color: var(--white) !important;
+    border: none !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background: var(--yellow) !important;
+    color: var(--blue) !important;
+}
+
+.leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 4px !important;
+    font-size: 10px !important;
+    padding: 4px 8px !important;
+}
+
+/* Remove old Google Maps styles */
+.clinic-info-window,
+.browse-btn-map {
+    display: none;
 }

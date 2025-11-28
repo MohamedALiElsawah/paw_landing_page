@@ -97,13 +97,27 @@
 
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="distance" class="form-label">Distance (km)</label>
-                            <input type="number" step="0.1"
-                                class="form-control @error('distance') is-invalid @enderror" id="distance" name="distance"
-                                value="{{ old('distance') }}">
-                            @error('distance')
+                            <label for="latitude" class="form-label">Latitude</label>
+                            <input type="number" step="0.000001"
+                                class="form-control @error('latitude') is-invalid @enderror" id="latitude" name="latitude"
+                                value="{{ old('latitude') }}" placeholder="e.g., 29.3340">
+                            @error('latitude')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="longitude" class="form-label">Longitude</label>
+                            <input type="number" step="0.000001"
+                                class="form-control @error('longitude') is-invalid @enderror" id="longitude"
+                                name="longitude" value="{{ old('longitude') }}" placeholder="e.g., 48.0760">
+                            @error('longitude')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror>
                         </div>
                     </div>
                 </div>

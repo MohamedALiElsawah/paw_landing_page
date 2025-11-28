@@ -54,8 +54,9 @@
             <div class="card stat-card" style="background: linear-gradient(135deg, #667eea, #764ba2);">
                 <div class="card-body text-center">
                     <i class="fas fa-map-marker-alt stat-icon"></i>
-                    <div class="stat-number">{{ $clinics->whereNotNull('distance')->count() }}</div>
-                    <div class="stat-label">With Distance</div>
+                    <div class="stat-number">{{ $clinics->whereNotNull('latitude')->whereNotNull('longitude')->count() }}
+                    </div>
+                    <div class="stat-label">With Location</div>
                 </div>
             </div>
         </div>
@@ -79,7 +80,7 @@
                             <th width="20%">Name</th>
                             <th width="20%">Location</th>
                             <th width="15%">Phone</th>
-                            <th width="10%">Distance</th>
+                            <th width="15%">Coordinates</th>
                             <th width="10%">Status</th>
                             <th width="10%">Actions</th>
                         </tr>
@@ -110,10 +111,14 @@
                                     </a>
                                 </td>
                                 <td>
-                                    @if ($clinic->distance)
-                                        <span class="badge bg-info">{{ $clinic->distance }} km</span>
+                                    @if ($clinic->latitude && $clinic->longitude)
+                                        <span class="badge bg-success" data-bs-toggle="tooltip"
+                                            title="Lat: {{ $clinic->latitude }}, Lng: {{ $clinic->longitude }}">
+                                            <i class="fas fa-map-marker-alt me-1"></i>
+                                            Located
+                                        </span>
                                     @else
-                                        <span class="badge bg-secondary">N/A</span>
+                                        <span class="badge bg-secondary">No Location</span>
                                     @endif
                                 </td>
                                 <td>

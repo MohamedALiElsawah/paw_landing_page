@@ -75,7 +75,8 @@
         <div class="container header-container">
             <div class="logo">
                 @if (App\Models\Setting::getValue('site_logo'))
-                    <img src="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}" alt="{{ App\Models\Setting::getValue('site_name', 'PawApp') }} Logo">
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}"
+                        alt="{{ App\Models\Setting::getValue('site_name', 'PawApp') }} Logo">
                 @else
                     <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo">
                 @endif
@@ -156,6 +157,9 @@
         </div>
     </div>
 
+    <!-- Leaflet CSS & JS for OpenStreetMap -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
         // Language switching functionality

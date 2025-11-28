@@ -8,6 +8,7 @@ use App\Models\Store;
 use App\Models\PetPost;
 use App\Models\Review;
 use App\Models\Partner;
+use App\Models\Banner;
 use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class HomeController extends Controller
         $petPosts = PetPost::where('is_published', true)->take(3)->get();
         $reviews = Review::where('is_approved', true)->take(3)->get();
         $partners = Partner::where('is_active', true)->orderBy('order')->get();
+        $banners = Banner::active()->get();
 
         return view('home', compact(
             'services',
@@ -28,7 +30,8 @@ class HomeController extends Controller
             'clinics',
             'petPosts',
             'reviews',
-            'partners'
+            'partners',
+            'banners'
         ));
     }
 

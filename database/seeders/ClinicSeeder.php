@@ -29,6 +29,8 @@ class ClinicSeeder extends Seeder
                     'ar' => 'مفتوح 24/7'
                 ],
                 'distance' => 2.3,
+                'latitude' => 29.3340,
+                'longitude' => 48.0760,
                 'image' => null,
                 'is_active' => true,
             ],
@@ -47,6 +49,8 @@ class ClinicSeeder extends Seeder
                     'ar' => '8 صباحاً - 10 مساءً'
                 ],
                 'distance' => 6.3,
+                'latitude' => 29.3375,
+                'longitude' => 47.6581,
                 'image' => null,
                 'is_active' => true,
             ],
@@ -65,6 +69,8 @@ class ClinicSeeder extends Seeder
                     'ar' => '9 صباحاً - 9 مساءً'
                 ],
                 'distance' => 6.3,
+                'latitude' => 29.3329,
+                'longitude' => 48.0305,
                 'image' => null,
                 'is_active' => true,
             ],

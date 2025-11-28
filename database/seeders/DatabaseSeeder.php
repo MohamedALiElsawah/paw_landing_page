@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             ReviewSeeder::class,
             PartnerSeeder::class,
             SettingSeeder::class,
+            BannerSeeder::class,
             ArabicTranslationSeeder::class,
             ImageMigrationSeeder::class,
         ]);

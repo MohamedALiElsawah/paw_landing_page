@@ -30,7 +30,8 @@ class ClinicController extends Controller
             'phone' => 'required|string|max:20',
             'working_hours_en' => 'required|string|max:255',
             'working_hours_ar' => 'required|string|max:255',
-            'distance' => 'nullable|numeric',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -53,7 +54,8 @@ class ClinicController extends Controller
                 'en' => $request->working_hours_en,
                 'ar' => $request->working_hours_ar,
             ],
-            'distance' => $request->distance,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'image' => $imagePath,
         ]);
 
@@ -75,7 +77,8 @@ class ClinicController extends Controller
             'phone' => 'required|string|max:20',
             'working_hours_en' => 'required|string|max:255',
             'working_hours_ar' => 'required|string|max:255',
-            'distance' => 'nullable|numeric',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -101,7 +104,8 @@ class ClinicController extends Controller
                 'en' => $request->working_hours_en,
                 'ar' => $request->working_hours_ar,
             ],
-            'distance' => $request->distance,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'image' => $imagePath,
         ]);
 

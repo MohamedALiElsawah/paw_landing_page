@@ -278,6 +278,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.banners.*') ? 'active' : '' }}"
+                                href="{{ route('admin.banners.index') }}">
+                                <i class="fas fa-images me-2"></i>
+                                Banners
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('admin.contactsubmissions.*') ? 'active' : '' }}"
                                 href="{{ route('admin.contactsubmissions.index') }}">
                                 <i class="fas fa-envelope me-2"></i>

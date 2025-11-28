@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ContactSubmissionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SEOManagementController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\SitemapController;
 
 // Frontend Routes
@@ -59,6 +60,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Settings
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+
+    // Banners
+    Route::resource('banners', BannerController::class);
+    Route::put('banners/{banner}/toggle-status', [BannerController::class, 'toggleStatus'])->name('banners.toggle-status');
 
     // SEO Management
     Route::prefix('seo')->name('seo.')->group(function () {

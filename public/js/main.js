@@ -11,29 +11,25 @@ const elements = {
     sopBtn: document.getElementById("sop-btn"),
     sopModal: document.getElementById("sop-modal"),
     closeSop: document.getElementById("close-sop"),
-    bannerText: document.getElementById("banner-text"),
+    scrollableBanner: document.getElementById("scrollable-banner"),
     header: document.getElementById("header"),
     contactForm: document.getElementById("contact-form"),
     partnersTrack: document.querySelector(".partners-track"),
     langButtons: document.querySelectorAll(".lang-btn"),
     animateElements: document.querySelectorAll(".animate"),
+    clinicsMap: document.getElementById("clinics-map-container"),
 };
 
 // State
 let currentBannerIndex = 0;
-
-// Banner Content - Backend Note: This can be dynamically populated
-const banners = [
-    "New pet profiles feature now available",
-    "Welcome our new partner clinic: Happy Vet",
-    "25% OFF PawApp Store products this week",
-];
+let bannerInterval;
 
 // Initialize the application
 function init() {
     setupEventListeners();
     setupIntersectionObserver();
-    startBannerRotation();
+    initScrollableBanner();
+    initClinicsMap();
     duplicatePartnersForSeamlessLoop();
 }
 
@@ -215,17 +211,242 @@ function setupIntersectionObserver() {
     elements.animateElements.forEach((el) => observer.observe(el));
 }
 
-// Rotate banner text
-function startBannerRotation() {
-    setInterval(() => {
-        elements.bannerText.classList.remove("active");
+// Initialize scrollable banner
+function initScrollableBanner() {
+    if (!elements.scrollableBanner) return;
 
-        setTimeout(() => {
-            currentBannerIndex = (currentBannerIndex + 1) % banners.length;
-            elements.bannerText.textContent = banners[currentBannerIndex];
-            elements.bannerText.classList.add("active");
-        }, 300);
-    }, 5000);
+    const bannerSlides = document.querySelectorAll(".banner-slide");
+    const bannerIndicators = document.querySelectorAll(".banner-indicator");
+    const prevBtn = document.querySelector(".banner-prev");
+    const nextBtn = document.querySelector(".banner-next");
+
+    // If no banners or only one banner, don't initialize slider
+    if (bannerSlides.length <= 1) {
+        if (prevBtn) prevBtn.style.display = "none";
+        if (nextBtn) nextBtn.style.display = "none";
+        return;
+    }
+
+    // Set up event listeners
+    if (prevBtn) {
+        prevBtn.addEventListener("click", () =>
+            showBanner(currentBannerIndex - 1)
+        );
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener("click", () =>
+            showBanner(currentBannerIndex + 1)
+        );
+    }
+
+    // Set up indicator clicks
+    bannerIndicators.forEach((indicator, index) => {
+        indicator.addEventListener("click", () => showBanner(index));
+    });
+
+    // Start auto-rotation
+    startBannerAutoRotation();
+
+    // Pause auto-rotation on hover
+    elements.scrollableBanner.addEventListener(
+        "mouseenter",
+        pauseBannerRotation
+    );
+    elements.scrollableBanner.addEventListener(
+        "mouseleave",
+        resumeBannerRotation
+    );
+}
+
+// Show specific banner
+function showBanner(index) {
+    const bannerSlides = document.querySelectorAll(".banner-slide");
+    const bannerIndicators = document.querySelectorAll(".banner-indicator");
+
+    if (bannerSlides.length === 0) return;
+
+    // Handle index bounds
+    if (index >= bannerSlides.length) index = 0;
+    if (index < 0) index = bannerSlides.length - 1;
+
+    // Update current index
+    currentBannerIndex = index;
+
+    // Update slides
+    bannerSlides.forEach((slide, i) => {
+        slide.classList.remove("active", "prev");
+        if (i === index) {
+            slide.classList.add("active");
+        } else if (
+            i ===
+            (index - 1 + bannerSlides.length) % bannerSlides.length
+        ) {
+            slide.classList.add("prev");
+        }
+    });
+
+    // Update indicators
+    bannerIndicators.forEach((indicator, i) => {
+        indicator.classList.toggle("active", i === index);
+    });
+}
+
+// Start auto rotation of banners
+function startBannerAutoRotation() {
+    const bannerSlides = document.querySelectorAll(".banner-slide");
+    if (bannerSlides.length <= 1) return;
+
+    bannerInterval = setInterval(() => {
+        showBanner(currentBannerIndex + 1);
+    }, 5000); // Change banner every 5 seconds
+}
+
+// Pause banner rotation
+function pauseBannerRotation() {
+    if (bannerInterval) {
+        clearInterval(bannerInterval);
+        bannerInterval = null;
+    }
+}
+
+// Resume banner rotation
+function resumeBannerRotation() {
+    if (!bannerInterval) {
+        startBannerAutoRotation();
+    }
+}
+
+// Initialize clinics map with OpenStreetMap
+function initClinicsMap() {
+    if (!elements.clinicsMap) return;
+
+    // Default center for Kuwait
+    const kuwaitCenter = [29.3759, 47.9774];
+
+    // Create map
+    const map = L.map(elements.clinicsMap).setView(kuwaitCenter, 10);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+    }).addTo(map);
+
+    // Get clinic cards
+    const clinicCards = document.querySelectorAll(".clinic-card");
+    const markers = [];
+
+    clinicCards.forEach((card, index) => {
+        const clinicId = card.dataset.clinicId;
+        const lat = parseFloat(card.dataset.lat);
+        const lng = parseFloat(card.dataset.lng);
+        const clinicName = card.querySelector(".clinic-name").textContent;
+        const clinicLocation = card.querySelector(
+            ".clinic-info:nth-child(2)"
+        ).textContent;
+        const clinicPhone = card.querySelector(
+            ".clinic-info:nth-child(3)"
+        ).textContent;
+        const clinicHours = card.querySelector(
+            ".clinic-info:nth-child(4)"
+        ).textContent;
+
+        // Skip if no coordinates
+        if (!lat || !lng) return;
+
+        // Create custom icon
+        const clinicIcon = L.divIcon({
+            className: "clinic-marker",
+            html: `
+                <div class="clinic-marker-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#002D72" stroke="#FFD43B" stroke-width="2"/>
+                        <path d="M20 12L26 18V26H14V18L20 12Z" fill="#FFD43B"/>
+                        <path d="M18 18H22V22H18V18Z" fill="#002D72"/>
+                    </svg>
+                </div>
+            `,
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+        });
+
+        // Create marker
+        const marker = L.marker([lat, lng], { icon: clinicIcon }).addTo(map);
+
+        // Create popup content
+        const popupContent = `
+            <div class="clinic-popup">
+                <h4>${clinicName}</h4>
+                <p><i class="fas fa-map-marker-alt"></i> ${clinicLocation}</p>
+                <p><i class="fas fa-phone"></i> ${clinicPhone}</p>
+                <p><i class="fas fa-clock"></i> ${clinicHours}</p>
+                <a href="https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=15/${lat}/${lng}"
+                   target="_blank" class="browse-location-btn">
+                    <i class="fas fa-external-link-alt"></i> Browse Location
+                </a>
+            </div>
+        `;
+
+        // Bind popup to marker
+        marker.bindPopup(popupContent, {
+            className: "clinic-popup-container",
+            maxWidth: 300,
+        });
+
+        // Add hover events to card
+        card.addEventListener("mouseenter", () => {
+            // Highlight marker
+            marker.getElement().classList.add("highlighted");
+            // Open popup
+            marker.openPopup();
+        });
+
+        card.addEventListener("mouseleave", () => {
+            // Remove highlight
+            marker.getElement().classList.remove("highlighted");
+            // Close popup
+            marker.closePopup();
+        });
+
+        markers.push(marker);
+    });
+
+    // Fit map bounds to show all markers
+    if (markers.length > 0) {
+        const group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.1));
+
+        // Don't zoom too far out if there's only one marker
+        if (markers.length === 1) {
+            map.setZoom(13);
+        }
+    }
+}
+
+// Highlight clinic on hover
+function highlightClinic(clinicId) {
+    const card = document.querySelector(
+        `.clinic-card[data-clinic-id="${clinicId}"]`
+    );
+    if (card) {
+        card.style.transform = "translateY(-5px)";
+        card.style.boxShadow = "0 8px 25px rgba(0, 0, 0, 0.15)";
+        card.style.borderColor = "#002D72";
+    }
+}
+
+// Unhighlight clinic on mouse out
+function unhighlightClinic(clinicId) {
+    const card = document.querySelector(
+        `.clinic-card[data-clinic-id="${clinicId}"]`
+    );
+    if (card) {
+        card.style.transform = "translateY(0)";
+        card.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.08)";
+        card.style.borderColor = "#e0e0e0";
+    }
 }
 
 // Duplicate partners for seamless loop

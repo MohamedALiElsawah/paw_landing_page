@@ -16,6 +16,8 @@ class Clinic extends Model
         'phone',
         'working_hours',
         'distance',
+        'latitude',
+        'longitude',
         'image',
         'is_active'
     ];
@@ -25,7 +27,9 @@ class Clinic extends Model
         'location' => 'array',
         'working_hours' => 'array',
         'is_active' => 'boolean',
-        'distance' => 'decimal:2'
+        'distance' => 'decimal:2',
+        'latitude' => 'decimal:8',
+        'longitude' => 'decimal:8'
     ];
 
     /**

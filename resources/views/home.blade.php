@@ -1,12 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Dynamic Banner -->
-    <section class="dynamic-banner" id="dynamic-banner">
-        <div class="banner-content">
-            <div class="banner-text active" id="banner-text" data-banner-index="0">
-                {{ App\Models\Setting::getValue('banner_text', __('New pet profiles feature now available')) }}</div>
-            <img src="{{ asset('assets/images/catBanner.png') }}" alt="Cat" class="banner-cat">
+    <!-- Scrollable Banner -->
+    <section class="scrollable-banner" id="scrollable-banner">
+        <div class="banner-container">
+            @if ($banners->count() > 0)
+                <div class="banner-slider">
+                    @foreach ($banners as $index => $banner)
+                        <div class="banner-slide {{ $index === 0 ? 'active' : '' }}" data-banner-index="{{ $index }}">
+                            <div class="banner-content">
+                                <div class="banner-text">
+                                    <h3>{{ $banner->title }}</h3>
+                                    <p>{{ $banner->description }}</p>
+                                </div>
+                                <img src="{{ $banner->image_url ?: asset('assets/images/hero2.png') }}"
+                                    alt="{{ $banner->title }}" class="banner-image">
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                @if ($banners->count() > 1)
+                    <div class="banner-controls">
+                        <button class="banner-prev" aria-label="Previous banner">‹</button>
+                        <div class="banner-indicators">
+                            @foreach ($banners as $index => $banner)
+                                <button class="banner-indicator {{ $index === 0 ? 'active' : '' }}"
+                                    data-banner-index="{{ $index }}"
+                                    aria-label="Go to banner {{ $index + 1 }}"></button>
+                            @endforeach
+                        </div>
+                        <button class="banner-next" aria-label="Next banner">›</button>
+                    </div>
+                @endif
+            @else
+                <!-- Fallback to single banner if no banners exist -->
+                <div class="banner-slide active">
+                    <div class="banner-content">
+                        <div class="banner-text">
+                            <h3>{{ __('New pet profiles feature now available') }}</h3>
+                            <p>{{ __('Discover amazing features for your pets') }}</p>
+                        </div>
+                        <img src="{{ asset('assets/images/hero2.png') }}" alt="Default Banner" class="banner-image">
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 
@@ -17,7 +55,8 @@
         <div class="hero-bg-element hero-bg-3"></div>
         <div class="container hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">{{ App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
+                <h1 class="hero-title">
+                    {{ App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
                 </h1>
                 <p class="hero-text">
                     {{ App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
@@ -147,19 +186,29 @@
             </div>
             <div class="clinics-wrapper animate">
                 <div class="clinics-map">
-                    <img src="{{ asset('assets/images/map.png') }}" alt="Clinics Map">
+                    <div id="clinics-map" style="width: 100%; height: 500px;"></div>
                 </div>
                 <div class="clinics-content">
                     <div class="clinics-grid">
                         @foreach ($clinics as $clinic)
-                            <div class="clinic-card" data-clinic-id="{{ $clinic->id }}">
-                                <div class="clinic-name">{{ $clinic->name }} <span
-                                        class="distance-badge">{{ $clinic->distance }} km</span></div>
+                            <div class="clinic-card" data-clinic-id="{{ $clinic->id }}"
+                                data-lat="{{ $clinic->latitude }}" data-lng="{{ $clinic->longitude }}"
+                                onmouseover="highlightClinic({{ $clinic->id }})"
+                                onmouseout="unhighlightClinic({{ $clinic->id }})">
+                                <div class="clinic-name">{{ $clinic->name }}</div>
                                 <div class="clinic-info"><i class="fas fa-map-marker-alt"></i> {{ $clinic->location }}
                                 </div>
                                 <div class="clinic-info"><i class="fas fa-phone"></i> <a href="tel:{{ $clinic->phone }}"
                                         class="phone-link">{{ $clinic->phone }}</a></div>
                                 <div class="clinic-info"><i class="fas fa-clock"></i> {{ $clinic->working_hours }}</div>
+                                @if ($clinic->latitude && $clinic->longitude)
+                                    <div class="clinic-actions">
+                                        <a href="https://www.openstreetmap.org/?mlat={{ $clinic->latitude }}&mlon={{ $clinic->longitude }}#map=15/{{ $clinic->latitude }}/{{ $clinic->longitude }}"
+                                            target="_blank" class="browse-location-btn" data-action="browse-location">
+                                            <i class="fas fa-external-link-alt"></i> {{ __('Browse Location') }}
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                         @endforeach
                     </div>
