@@ -14,6 +14,7 @@ class Banner extends Model
         'description_ar',
         'image_url',
         'secondary_image_url',
+        'third_image_url',
         'is_active',
         'is_default',
         'order',
@@ -69,6 +70,14 @@ class Banner extends Model
     public function getSecondaryImageUrlAttribute($value)
     {
         return $this->resolveBannerImageUrl($value);
+    }
+
+    /**
+     * Get the third image URL or fallback to default hero2.png
+     */
+    public function getThirdImageUrlAttribute($value)
+    {
+        return $this->resolveBannerImageUrl($value) ?? asset('assets/images/hero2.png');
     }
 
     private function resolveBannerImageUrl(?string $value): ?string

@@ -151,6 +151,22 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <label for="third_image" class="form-label">Third Banner Image (Leo Mascot)</label>
+                            <input type="file" class="form-control @error('third_image') is-invalid @enderror"
+                                id="third_image" name="third_image" accept="image/*">
+                            @error('third_image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">
+                                Optional third image for leo-mascot position. Recommended size: 1200x400px
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
                             <label for="button_url" class="form-label">Button URL</label>
                             <input type="url" class="form-control @error('button_url') is-invalid @enderror"
                                 id="button_url" name="button_url" value="{{ old('button_url') }}"

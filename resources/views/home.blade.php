@@ -86,7 +86,7 @@
                                         alt="{{ $banner->title }}">
                                 </div>
                                 <div class="leo-mascot">
-                                    <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}">
+                                    <img src="{{ $banner->third_image_url }}" alt="{{ $banner->title }}">
                                 </div>
                             </div>
                         @endforeach
