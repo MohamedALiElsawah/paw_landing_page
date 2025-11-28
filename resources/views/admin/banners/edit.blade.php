@@ -128,9 +128,8 @@
                             <label for="image" class="form-label">Banner Image</label>
                             @if ($banner->image_url)
                                 <div class="mb-2">
-                                    <img src="{{ Storage::url($banner->image_url) ?: $banner->image_url }}"
-                                        alt="{{ $banner->title_en }}" style="max-width: 200px; height: auto;"
-                                        class="rounded border">
+                                    <img src="{{ $banner->image_url }}" alt="{{ $banner->title_en }}"
+                                        style="max-width: 200px; height: auto;" class="rounded border">
                                 </div>
                             @endif
                             <input type="file" class="form-control @error('image') is-invalid @enderror"
@@ -143,6 +142,28 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="secondary_image" class="form-label">Secondary Banner Image</label>
+                            @if ($banner->secondary_image_url)
+                                <div class="mb-2">
+                                    <img src="{{ $banner->secondary_image_url }}" alt="{{ $banner->title_en }}"
+                                        style="max-width: 200px; height: auto;" class="rounded border">
+                                </div>
+                            @endif
+                            <input type="file" class="form-control @error('secondary_image') is-invalid @enderror"
+                                id="secondary_image" name="secondary_image" accept="image/*">
+                            @error('secondary_image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">
+                                Optional second image (e.g., side graphic). Recommended size: 1200x400px
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="button_url" class="form-label">Button URL</label>

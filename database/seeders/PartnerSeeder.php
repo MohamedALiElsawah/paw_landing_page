@@ -3,11 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\Partner;
+use Database\Seeders\Concerns\HandlesSeedImages;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PartnerSeeder extends Seeder
 {
+    use HandlesSeedImages;
+
     /**
      * Run the database seeds.
      */
@@ -16,79 +19,81 @@ class PartnerSeeder extends Seeder
         $partners = [
             [
                 'name' => [
-                    'en' => 'Partner 1',
-                    'ar' => 'الشريك 1'
+                    'en' => 'Happy Vet Clinic',
+                    'ar' => 'عيادة هابي فيت'
                 ],
-                'logo' => 'assets/images/Partner logo-1.png',
+                'logo' => $this->seedImage('Partner logo-1.png', 'partners', 'logo', 'partner_logo_1.png'),
                 'order' => 1,
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'Partner 2',
-                    'ar' => 'الشريك 2'
+                    'en' => 'Pet Paradise Store',
+                    'ar' => 'متجر جنة الحيوانات الأليفة'
                 ],
-                'logo' => 'assets/images/Partner logo-2.png',
+                'logo' => $this->seedImage('Partner logo-2.png', 'partners', 'logo', 'partner_logo_2.png'),
                 'order' => 2,
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'Partner 3',
-                    'ar' => 'الشريك 3'
+                    'en' => 'Animal Kingdom',
+                    'ar' => 'مملكة الحيوانات'
                 ],
-                'logo' => 'assets/images/Partner logo-3.png',
+                'logo' => $this->seedImage('Partner logo-3.png', 'partners', 'logo', 'partner_logo_3.png'),
                 'order' => 3,
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'Partner 4',
-                    'ar' => 'الشريك 4'
+                    'en' => 'Pet Care Plus',
+                    'ar' => 'بيت كير بلس'
                 ],
-                'logo' => 'assets/images/Partner logo-4.png',
+                'logo' => $this->seedImage('Partner logo-4.png', 'partners', 'logo', 'partner_logo_4.png'),
                 'order' => 4,
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'Partner 5',
-                    'ar' => 'الشريك 5'
+                    'en' => 'Vet Express',
+                    'ar' => 'فيت إكسبريس'
                 ],
-                'logo' => 'assets/images/Partner logo-5.png',
+                'logo' => $this->seedImage('Partner logo-5.png', 'partners', 'logo', 'partner_logo_5.png'),
                 'order' => 5,
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'Partner 6',
-                    'ar' => 'الشريك 6'
+                    'en' => 'Pet Food Kuwait',
+                    'ar' => 'بيت فود الكويت'
                 ],
-                'logo' => 'assets/images/Partner logo-6.png',
+                'logo' => $this->seedImage('Partner logo-6.png', 'partners', 'logo', 'partner_logo_6.png'),
                 'order' => 6,
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'Partner 7',
-                    'ar' => 'الشريك 7'
+                    'en' => 'Animal Health Center',
+                    'ar' => 'مركز صحة الحيوان'
                 ],
-                'logo' => 'assets/images/Partner logo-7.png',
+                'logo' => $this->seedImage('Partner logo-7.png', 'partners', 'logo', 'partner_logo_7.png'),
                 'order' => 7,
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'Partner 8',
-                    'ar' => 'الشريك 8'
+                    'en' => 'Pet Grooming Experts',
+                    'ar' => 'خبراء العناية بالحيوانات الأليفة'
                 ],
-                'logo' => 'assets/images/Partner logo-8.png',
+                'logo' => $this->seedImage('Partner logo-8.png', 'partners', 'logo', 'partner_logo_8.png'),
                 'order' => 8,
                 'is_active' => true,
             ],
         ];
 
         foreach ($partners as $partner) {
+            // Encode multilingual fields to JSON
+            $partner['name'] = json_encode($partner['name']);
             Partner::create($partner);
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Banner extends Model
 {
@@ -12,6 +13,7 @@ class Banner extends Model
         'description_en',
         'description_ar',
         'image_url',
+        'secondary_image_url',
         'is_active',
         'order',
         'button_text_en',
@@ -56,7 +58,40 @@ class Banner extends Model
      */
     public function getImageUrlAttribute($value)
     {
-        return $value ?: asset('assets/images/hero2.png');
+        return $this->resolveBannerImageUrl($value) ?? asset('assets/images/hero2.png');
+    }
+
+    /**
+     * Get the secondary image URL or null
+     */
+    public function getSecondaryImageUrlAttribute($value)
+    {
+        return $this->resolveBannerImageUrl($value);
+    }
+
+    private function resolveBannerImageUrl(?string $value): ?string
+    {
+        if (!$value) {
+            return null;
+        }
+
+        if (filter_var($value, FILTER_VALIDATE_URL)) {
+            return $value;
+        }
+
+        if (str_contains($value, 'banners/')) {
+            if (Storage::disk('public')->exists($value)) {
+                return Storage::url($value);
+            }
+
+            return asset('assets/images/' . basename($value));
+        }
+
+        if (Storage::disk('public')->exists('banners/' . $value)) {
+            return Storage::url('banners/' . $value);
+        }
+
+        return asset('assets/images/' . $value);
     }
 
     /**

@@ -17,10 +17,10 @@ class HomeController extends Controller
     public function index()
     {
         $services = Service::where('is_active', true)->get();
-        $stores = Store::where('is_active', true)->take(3)->get();
-        $clinics = Clinic::where('is_active', true)->take(3)->get();
-        $petPosts = PetPost::where('is_published', true)->take(3)->get();
-        $reviews = Review::where('is_approved', true)->take(3)->get();
+        $stores = Store::where('is_active', true)->get();
+        $clinics = Clinic::where('is_active', true)->get();
+        $petPosts = PetPost::where('is_published', true)->get();
+        $reviews = Review::where('is_approved', true)->get();
         $partners = Partner::where('is_active', true)->orderBy('order')->get();
         $banners = Banner::active()->get();
 

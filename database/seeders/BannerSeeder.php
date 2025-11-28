@@ -3,11 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\Banner;
+use Database\Seeders\Concerns\HandlesSeedImages;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class BannerSeeder extends Seeder
 {
+    use HandlesSeedImages;
+
     /**
      * Run the database seeds.
      */
@@ -15,31 +18,56 @@ class BannerSeeder extends Seeder
     {
         $banners = [
             [
-                'title_en' => 'New Pet Profiles Feature Now Available',
+                'title_en' => 'New pet profiles feature now available',
                 'title_ar' => 'ميزة ملفات الحيوانات الأليفة الجديدة متاحة الآن',
-                'description_en' => 'Create detailed profiles for your pets with photos, medical history, and preferences',
-                'description_ar' => 'أنشئ ملفات تفصيلية لحيواناتك الأليفة مع الصور والتاريخ الطبي والتفضيلات',
-                'image_url' => null,
+                'description_en' => 'Discover amazing features for your pets',
+                'description_ar' => 'اكتشف الميزات الرائعة لحيواناتك الأليفة',
+                'image_url' => $this->seedImage('hero2.png', 'banners', 'image', 'hero2.png', 'banners'),
+                'secondary_image_url' => $this->seedImage('banner_c.png', 'banners', 'image', 'hero2_secondary.png', 'banners'),
                 'is_active' => true,
                 'order' => 1,
+                'button_text_en' => 'Learn More',
+                'button_text_ar' => 'تعرف أكثر',
+                'button_url' => '#'
             ],
             [
-                'title_en' => 'Welcome Our New Partner Clinic: Happy Vet',
-                'title_ar' => 'مرحباً بعيادتنا الشريكة الجديدة: هابي فيت',
-                'description_en' => 'Now serving pets with premium veterinary care and emergency services',
-                'description_ar' => 'تخدم الآن الحيوانات الأليفة برعاية بيطرية متميزة وخدمات الطوارئ',
-                'image_url' => null,
+                'title_en' => 'Find the best pet clinics near you',
+                'title_ar' => 'ابحث عن أفضل عيادات الحيوانات الأليفة بالقرب منك',
+                'description_en' => 'Connect with trusted veterinarians and pet care specialists',
+                'description_ar' => 'تواصل مع أطباء بيطريين موثوقين ومتخصصي رعاية الحيوانات الأليفة',
+                'image_url' => $this->seedImage('hero1.png', 'banners', 'image', 'hero1.png', 'banners'),
+                'secondary_image_url' => $this->seedImage('hero_cover.svg', 'banners', 'image', 'hero1_secondary.svg', 'banners'),
                 'is_active' => true,
                 'order' => 2,
+                'button_text_en' => 'Find Clinics',
+                'button_text_ar' => 'ابحث عن العيادات',
+                'button_url' => '#clinics'
             ],
             [
-                'title_en' => '25% OFF PawApp Store Products This Week',
-                'title_ar' => 'خصم 25% على منتجات متجر PawApp هذا الأسبوع',
-                'description_en' => 'Get amazing discounts on pet food, toys, and accessories. Limited time offer!',
-                'description_ar' => 'احصل على خصومات مذهلة على طعام الحيوانات الأليفة والألعاب والملحقات. عرض لفترة محدودة!',
-                'image_url' => null,
+                'title_en' => 'Shop premium pet products',
+                'title_ar' => 'تسوق منتجات الحيوانات الأليفة المميزة',
+                'description_en' => 'Get exclusive offers on food, toys, and accessories',
+                'description_ar' => 'احصل على عروض حصرية على الطعام والألعاب والملحقات',
+                'image_url' => $this->seedImage('hero3.png', 'banners', 'image', 'hero3.png', 'banners'),
+                'secondary_image_url' => $this->seedImage('Top Image Container.png', 'banners', 'image', 'hero3_secondary.png', 'banners'),
                 'is_active' => true,
                 'order' => 3,
+                'button_text_en' => 'Visit Store',
+                'button_text_ar' => 'زيارة المتجر',
+                'button_url' => '#store'
+            ],
+            [
+                'title_en' => 'Meet Dr. Bo - Your AI Pet Assistant',
+                'title_ar' => 'تعرف على دكتور بو - مساعدك الذكي للحيوانات الأليفة',
+                'description_en' => 'Get instant answers to all your pet care questions',
+                'description_ar' => 'احصل على إجابات فورية لجميع أسئلتك حول رعاية الحيوانات الأليفة',
+                'image_url' => $this->seedImage('catBanner.png', 'banners', 'image', 'catBanner.png', 'banners'),
+                'secondary_image_url' => $this->seedImage('Pawmic1 1.png', 'banners', 'image', 'catBanner_secondary.png', 'banners'),
+                'is_active' => true,
+                'order' => 4,
+                'button_text_en' => 'Talk to Dr. Bo',
+                'button_text_ar' => 'تحدث مع دكتور بو',
+                'button_url' => '#dr-bo'
             ],
         ];
 

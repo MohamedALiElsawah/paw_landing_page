@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -67,9 +68,21 @@ class ImageService
      */
     public static function moveStaticImageToStorage(string $staticPath, string $modelName, string $fieldName = 'image'): string
     {
-        $sourcePath = public_path($staticPath);
+        $relativePath = ltrim($staticPath, '/');
+        $possiblePaths = [
+            public_path($relativePath),
+            public_path('assets/' . $relativePath),
+        ];
 
-        if (!file_exists($sourcePath)) {
+        $sourcePath = null;
+        foreach ($possiblePaths as $path) {
+            if (File::exists($path)) {
+                $sourcePath = $path;
+                break;
+            }
+        }
+
+        if (!$sourcePath) {
             throw new \Exception("Static image not found: {$staticPath}");
         }
 
@@ -82,7 +95,7 @@ class ImageService
 
         // Copy file to storage
         $destinationPath = "{$storagePath}/{$filename}";
-        Storage::disk('public')->put($destinationPath, file_get_contents($sourcePath));
+        Storage::disk('public')->put($destinationPath, File::get($sourcePath));
 
         return $destinationPath;
     }

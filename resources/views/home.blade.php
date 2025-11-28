@@ -1,78 +1,73 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Scrollable Banner -->
-    <section class="scrollable-banner" id="scrollable-banner">
-        <div class="banner-container">
-            @if ($banners->count() > 0)
-                <div class="banner-slider">
-                    @foreach ($banners as $index => $banner)
-                        <div class="banner-slide {{ $index === 0 ? 'active' : '' }}" data-banner-index="{{ $index }}">
-                            <div class="banner-content">
-                                <div class="banner-text">
-                                    <h3>{{ $banner->title }}</h3>
-                                    <p>{{ $banner->description }}</p>
-                                </div>
-                                <img src="{{ $banner->image_url ?: asset('assets/images/hero2.png') }}"
-                                    alt="{{ $banner->title }}" class="banner-image">
+    <!-- Top Header Banner -->
+    <div class="top-header-banner">
+        <div class="container">
+            <div class="top-header-content">
+                <p>{{ App\Models\Setting::getValue('top_header_text', __('Download PawApp Now - Your Complete Pet Care Companion')) }}
+                </p>
+                <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
+                    class="top-header-btn">
+                    {{ __('Get App') }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Banner Section -->
+    <section class="hero-banner-professional" id="hero-banner">
+        <div class="container">
+            <div class="hero-content-wrapper">
+                <!-- Left Side: Content -->
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        {{ App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
+                    </h1>
+                    <p class="hero-description">
+                        {{ App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
+                            class="btn-primary hero-btn" data-action="download-app">
+                            <i class="fas fa-download"></i>
+                            {{ __('Download App') }}
+                        </a>
+                        <a href="#services" class="btn-outline hero-btn" data-action="scroll-to-services">
+                            <i class="fas fa-compass"></i>
+                            {{ __('Explore Services') }}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side: Animated Images -->
+                <div class="hero-images">
+                    <div class="image-container main-image">
+                        <img src="{{ asset('assets/images/hero2.png') }}" alt="PawApp Main Screen" class="hero-main-image">
+                        <div class="floating-elements">
+                            <div class="floating-element element-1">
+                                <img src="{{ asset('assets/images/hero1.png') }}" alt="Pet Care Feature">
+                            </div>
+                            <div class="floating-element element-2">
+                                <img src="{{ asset('assets/images/hero3.png') }}" alt="Vet Services">
+                            </div>
+                            <div class="floating-element element-3">
+                                <i class="fas fa-paw"></i>
+                            </div>
+                            <div class="floating-element element-4">
+                                <i class="fas fa-heart"></i>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-
-                @if ($banners->count() > 1)
-                    <div class="banner-controls">
-                        <button class="banner-prev" aria-label="Previous banner">‹</button>
-                        <div class="banner-indicators">
-                            @foreach ($banners as $index => $banner)
-                                <button class="banner-indicator {{ $index === 0 ? 'active' : '' }}"
-                                    data-banner-index="{{ $index }}"
-                                    aria-label="Go to banner {{ $index + 1 }}"></button>
-                            @endforeach
-                        </div>
-                        <button class="banner-next" aria-label="Next banner">›</button>
-                    </div>
-                @endif
-            @else
-                <!-- Fallback to single banner if no banners exist -->
-                <div class="banner-slide active">
-                    <div class="banner-content">
-                        <div class="banner-text">
-                            <h3>{{ __('New pet profiles feature now available') }}</h3>
-                            <p>{{ __('Discover amazing features for your pets') }}</p>
-                        </div>
-                        <img src="{{ asset('assets/images/hero2.png') }}" alt="Default Banner" class="banner-image">
                     </div>
                 </div>
-            @endif
+            </div>
         </div>
-    </section>
 
-    <!-- Hero -->
-    <section class="hero animate" id="home">
-        <div class="hero-bg-element hero-bg-1"></div>
-        <div class="hero-bg-element hero-bg-2"></div>
-        <div class="hero-bg-element hero-bg-3"></div>
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    {{ App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
-                </h1>
-                <p class="hero-text">
-                    {{ App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
-                </p>
-                <div class="hero-buttons">
-                    <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-                        class="btn-primary" data-action="download-app">{{ __('Download App') }}</a>
-                    <a href="#services" class="btn-outline"
-                        data-action="scroll-to-services">{{ __('Explore Services') }}</a>
-                </div>
-            </div>
-            <div class="image-stack">
-                <div class="phone-1"><img src="{{ asset('assets/images/hero1.png') }}" alt="Screen 1"></div>
-                <div class="phone-2"><img src="{{ asset('assets/images/hero3.png') }}" alt="Screen 2"></div>
-                <div class="leo-mascot"><img src="{{ asset('assets/images/hero2.png') }}" alt="Mascot"></div>
-            </div>
+        <!-- Background Elements -->
+        <div class="hero-background">
+            <div class="bg-circle circle-1"></div>
+            <div class="bg-circle circle-2"></div>
+            <div class="bg-circle circle-3"></div>
         </div>
     </section>
 
@@ -103,17 +98,33 @@
         <div class="container">
             <div class="store-banner-left">
                 <div class="discount-badge">{{ App\Models\Setting::getValue('store_discount', '25% OFF') }}</div>
-                <img src="{{ asset('assets/images/store_banner3.png') }}" alt="Pet Product Left">
+                @if (App\Models\Setting::getValue('store_banner_left_image'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('store_banner_left_image')) }}"
+                        alt="Pet Product Left">
+                @else
+                    <img src="{{ asset('assets/images/store_banner3.png') }}" alt="Pet Product Left">
+                @endif
             </div>
             <div class="store-banner-center">
                 <h3>{{ App\Models\Setting::getValue('store_banner_text', __('Visit the PawApp Store for exclusive offers!')) }}
                 </h3>
-                <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank" class="visit-btn"
-                    data-action="visit-store">{{ __('Visit Store') }}</a>
+                <a href="{{ App\Models\Setting::getValue('store_button_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                    target="_blank" class="visit-btn"
+                    data-action="visit-store">{{ App\Models\Setting::getValue('store_button_text', __('Visit Store')) }}</a>
             </div>
             <div class="store-banner-right">
-                <img src="{{ asset('assets/images/store_banner1.png') }}" alt="Pet Product Right 1">
-                <img src="{{ asset('assets/images/store_banner2.png') }}" alt="Pet Product Right 2">
+                @if (App\Models\Setting::getValue('store_banner_right_image_1'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('store_banner_right_image_1')) }}"
+                        alt="Pet Product Right 1">
+                @else
+                    <img src="{{ asset('assets/images/store_banner1.png') }}" alt="Pet Product Right 1">
+                @endif
+                @if (App\Models\Setting::getValue('store_banner_right_image_2'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('store_banner_right_image_2')) }}"
+                        alt="Pet Product Right 2">
+                @else
+                    <img src="{{ asset('assets/images/store_banner2.png') }}" alt="Pet Product Right 2">
+                @endif
             </div>
         </div>
     </section>
@@ -136,7 +147,8 @@
                     <div class="icon"><i class="fas fa-phone"></i></div>
                     <h4>{{ __('Contact') }}</h4>
                     <p><a href="tel:{{ App\Models\Setting::getValue('phone_number', '+96541117003') }}"
-                            class="phone-link">{{ App\Models\Setting::getValue('phone_number', '+965 4111 7003') }}</a></p>
+                            class="phone-link">{{ App\Models\Setting::getValue('phone_number', '+965 4111 7003') }}</a>
+                    </p>
                 </div>
                 <div class="info-box" data-info-type="delivery">
                     <div class="icon"><i class="fas fa-truck"></i></div>
@@ -153,27 +165,34 @@
             <div class="section-title animate">
                 <h2>{{ __('Recommended Stores') }}</h2>
             </div>
-            <div class="stores-grid">
-                @foreach ($stores as $store)
-                    <div class="store-card animate" data-store-id="{{ $store->id }}">
-                        <div class="store-img">
-                            <img src="{{ $store->image_url ?: asset('assets/images/store1.png') }}"
-                                alt="{{ $store->name }}">
-                            @if ($store->logo_url)
-                                <div class="store-logo"><img src="{{ $store->logo_url }}" alt="Logo">
+            <div class="scrollable-section">
+                <div class="stores-scroll-container">
+                    <div class="stores-scroll-wrapper">
+                        @foreach ($stores as $store)
+                            <div class="store-card" data-store-id="{{ $store->id }}">
+                                <div class="store-img">
+                                    <img src="{{ $store->image_url ?: asset('assets/images/store1.png') }}"
+                                        alt="{{ $store->name }}">
+                                    @if ($store->logo_url)
+                                        <div class="store-logo"><img src="{{ $store->logo_url }}" alt="Logo">
+                                        </div>
+                                    @endif
                                 </div>
-                            @endif
-                        </div>
-                        <div class="store-info">
-                            <div class="store-name">{{ $store->name }} <span class="rating">★★★★★
-                                    {{ $store->rating }}</span></div>
-                            <div class="store-detail"><i class="fas fa-map-marker-alt"></i> {{ $store->location }}</div>
-                            <div class="store-detail"><i class="fas fa-phone"></i> <a href="tel:{{ $store->phone }}"
-                                    class="phone-link">{{ $store->phone }}</a></div>
-                            <div class="store-detail"><i class="fas fa-clock"></i> {{ $store->working_hours }}</div>
-                        </div>
+                                <div class="store-info">
+                                    <div class="store-name">{{ $store->name }} <span class="rating">★★★★★
+                                            {{ $store->rating }}</span></div>
+                                    <div class="store-detail"><i class="fas fa-map-marker-alt"></i>
+                                        {{ $store->location }}</div>
+                                    <div class="store-detail"><i class="fas fa-phone"></i> <a
+                                            href="tel:{{ $store->phone }}" class="phone-link">{{ $store->phone }}</a>
+                                    </div>
+                                    <div class="store-detail"><i class="fas fa-clock"></i> {{ $store->working_hours }}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
     </section>
@@ -184,36 +203,47 @@
             <div class="section-title animate">
                 <h2>{{ __('Recommended Clinics') }}</h2>
             </div>
-            <div class="clinics-wrapper animate">
-                <div class="clinics-map">
-                    <div id="clinics-map" style="width: 100%; height: 500px;"></div>
+            <div class="clinics-map-section animate">
+                <div class="clinics-map-full">
+                    <div id="clinics-map" style="width: 100%; height: 162px;"></div>
                 </div>
-                <div class="clinics-content">
-                    <div class="clinics-grid">
-                        @foreach ($clinics as $clinic)
-                            <div class="clinic-card" data-clinic-id="{{ $clinic->id }}"
-                                data-lat="{{ $clinic->latitude }}" data-lng="{{ $clinic->longitude }}"
-                                onmouseover="highlightClinic({{ $clinic->id }})"
-                                onmouseout="unhighlightClinic({{ $clinic->id }})">
-                                <div class="clinic-name">{{ $clinic->name }}</div>
-                                <div class="clinic-info"><i class="fas fa-map-marker-alt"></i> {{ $clinic->location }}
-                                </div>
-                                <div class="clinic-info"><i class="fas fa-phone"></i> <a href="tel:{{ $clinic->phone }}"
-                                        class="phone-link">{{ $clinic->phone }}</a></div>
-                                <div class="clinic-info"><i class="fas fa-clock"></i> {{ $clinic->working_hours }}</div>
-                                @if ($clinic->latitude && $clinic->longitude)
-                                    <div class="clinic-actions">
-                                        <a href="https://www.openstreetmap.org/?mlat={{ $clinic->latitude }}&mlon={{ $clinic->longitude }}#map=15/{{ $clinic->latitude }}/{{ $clinic->longitude }}"
-                                            target="_blank" class="browse-location-btn" data-action="browse-location">
-                                            <i class="fas fa-external-link-alt"></i> {{ __('Browse Location') }}
-                                        </a>
+            </div>
+            <div class="clinics-cards-section animate">
+                <div class="scrollable-section">
+                    <div class="clinics-scroll-container">
+                        <div class="clinics-scroll-wrapper">
+                            @foreach ($clinics as $clinic)
+                                <div class="clinic-card" data-clinic-id="{{ $clinic->id }}"
+                                    data-lat="{{ $clinic->latitude }}" data-lng="{{ $clinic->longitude }}"
+                                    onmouseover="highlightClinic({{ $clinic->id }})"
+                                    onmouseout="unhighlightClinic({{ $clinic->id }})">
+                                    <div class="clinic-name">{{ $clinic->name }}</div>
+                                    <div class="clinic-info"><i class="fas fa-map-marker-alt"></i>
+                                        {{ $clinic->location }}
                                     </div>
-                                @endif
-                            </div>
-                        @endforeach
+                                    <div class="clinic-info"><i class="fas fa-phone"></i> <a
+                                            href="tel:{{ $clinic->phone }}" class="phone-link">{{ $clinic->phone }}</a>
+                                    </div>
+                                    <div class="clinic-info"><i class="fas fa-clock"></i> {{ $clinic->working_hours }}
+                                    </div>
+                                    @if ($clinic->latitude && $clinic->longitude)
+                                        <div class="clinic-actions">
+                                            <a href="https://www.openstreetmap.org/?mlat={{ $clinic->latitude }}&mlon={{ $clinic->longitude }}#map=15/{{ $clinic->latitude }}/{{ $clinic->longitude }}"
+                                                target="_blank" class="browse-location-btn"
+                                                data-action="browse-location">
+                                                <i class="fas fa-external-link-alt"></i> {{ __('Browse Location') }}
+                                            </a>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-                        class="find-btn" data-action="find-clinic">{{ __('Find Nearest Clinic') }}</a>
+                    <div class="find-clinic-btn-container">
+                        <a href="{{ App\Models\Setting::getValue('clinics_button_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                            target="_blank" class="find-btn"
+                            data-action="find-clinic">{{ App\Models\Setting::getValue('clinics_button_text', __('Find Nearest Clinic')) }}</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,7 +253,11 @@
     <section class="dr-bo" id="dr-bo">
         <div class="container dr-bo-container animate">
             <div class="dr-bo-img">
-                <img src="{{ asset('assets/images/Pawmic1 1.png') }}" alt="Dr. Bo">
+                @if (App\Models\Setting::getValue('dr_bo_image'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('dr_bo_image')) }}" alt="Dr. Bo">
+                @else
+                    <img src="{{ asset('assets/images/Pawmic1 1.png') }}" alt="Dr. Bo">
+                @endif
             </div>
             <div class="dr-bo-content">
                 <h2>{{ App\Models\Setting::getValue('dr_bo_title', __('Meet Dr. Bo')) }}</h2>
@@ -231,14 +265,23 @@
                 <div class="typing-text">
                     {{ App\Models\Setting::getValue('dr_bo_description', __('Ask me anything about pet health, nutrition, behavior...')) }}
                 </div>
-                <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank" class="talk-btn"
-                    data-action="talk-to-drbo">{{ __('Talk to Dr. Bo Now') }}</a>
+                <a href="{{ App\Models\Setting::getValue('dr_bo_button_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                    target="_blank" class="talk-btn"
+                    data-action="talk-to-drbo">{{ App\Models\Setting::getValue('dr_bo_button_text', __('Talk to Dr. Bo Now')) }}</a>
             </div>
             <div class="chat-interface">
                 <div class="chat-header">
-                    <div class="chat-avatar">DB</div>
+                    @if (App\Models\Setting::getValue('dr_bo_avatar'))
+                        <div class="chat-avatar">
+                            <img src="{{ Storage::url(App\Models\Setting::getValue('dr_bo_avatar')) }}"
+                                alt="Dr. Bo Avatar">
+                        </div>
+                    @else
+                        <div class="chat-avatar">DB</div>
+                    @endif
                     <div>
-                        <h4 style="margin:0;color:white;">Dr. Bo</h4>
+                        <h4 style="margin:0;color:white;">{{ App\Models\Setting::getValue('dr_bo_name', __('Dr. Bo')) }}
+                        </h4>
                         <p style="margin:0;font-size:14px;opacity:0.9;">
                             {{ App\Models\Setting::getValue('dr_bo_status', __('Always here to help')) }}</p>
                     </div>
@@ -250,7 +293,7 @@
                     {{ App\Models\Setting::getValue('dr_bo_example_answer', __('Don\'t worry! It\'s normal for dogs to have occasional appetite changes. Monitor for 24 hours. If symptoms persist or worsen, consult a vet.')) }}
                 </div>
                 <div class="typing-indicator">
-                    <span>{{ __('Ask Dr. Bo anything...') }}</span>
+                    <span>{{ App\Models\Setting::getValue('dr_bo_typing_text', __('Ask Dr. Bo anything...')) }}</span>
                     <div class="typing-dots">
                         <div class="typing-dot"></div>
                         <div class="typing-dot"></div>
@@ -269,16 +312,21 @@
                 <p>{{ App\Models\Setting::getValue('pet_posts_description', __('Browse stories, tips, and pet care content.')) }}
                 </p>
             </div>
-            <div class="pet-posts-grid">
-                @foreach ($petPosts as $post)
-                    <div class="pet-post-card animate" data-post-id="{{ $post->id }}">
-                        <img src="{{ $post->image_url ?: asset('assets/images/post1.png') }}" alt="{{ $post->title }}">
-                        <div class="post-info">
-                            <h4>{{ $post->title }}</h4>
-                            <p>{{ $post->content }}</p>
-                        </div>
+            <div class="scrollable-section">
+                <div class="pet-posts-scroll-container">
+                    <div class="pet-posts-scroll-wrapper">
+                        @foreach ($petPosts as $post)
+                            <div class="pet-post-card" data-post-id="{{ $post->id }}">
+                                <img src="{{ $post->image_url ?: asset('assets/images/post1.png') }}"
+                                    alt="{{ $post->title }}">
+                                <div class="post-info">
+                                    <h4>{{ $post->title }}</h4>
+                                    <p>{{ $post->content }}</p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
     </section>
@@ -289,22 +337,26 @@
             <div class="section-title animate">
                 <h2>{{ __('What Pet Parents Say') }}</h2>
             </div>
-            <div class="reviews-grid">
-                @foreach ($reviews as $review)
-                    <div class="review-card animate" data-review-id="{{ $review->id }}">
-                        <div class="quote">"</div>
-                        <div class="stars">★★★★★</div>
-                        <p>"{{ $review->content }}"</p>
-                        <div class="reviewer">
-                            <img src="{{ $review->reviewer_image_url ?: asset('assets/images/Image (Sarah Mohammed).png') }}"
-                                alt="{{ $review->reviewer_name }}">
-                            <div class="reviewer-info">
-                                <h4>{{ $review->reviewer_name }}</h4>
-                                <span>{{ $review->date }}</span>
+            <div class="scrollable-section">
+                <div class="reviews-scroll-container">
+                    <div class="reviews-scroll-wrapper">
+                        @foreach ($reviews as $review)
+                            <div class="review-card" data-review-id="{{ $review->id }}">
+                                <div class="quote">"</div>
+                                <div class="stars">★★★★★</div>
+                                <p>"{{ $review->content }}"</p>
+                                <div class="reviewer">
+                                    <img src="{{ $review->reviewer_image_url ?: asset('assets/images/Image (Sarah Mohammed).png') }}"
+                                        alt="{{ $review->reviewer_name }}">
+                                    <div class="reviewer-info">
+                                        <h4>{{ $review->reviewer_name }}</h4>
+                                        <span>{{ $review->date }}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
     </section>
@@ -336,7 +388,13 @@
     <!-- About Us -->
     <section class="about-us" id="about">
         <div class="container about-container animate">
-            <div class="about-img"><img src="{{ asset('assets/images/team.png') }}" alt="PawApp Team"></div>
+            <div class="about-img">
+                @if (App\Models\Setting::getValue('about_us_image'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('about_us_image')) }}" alt="PawApp Team">
+                @else
+                    <img src="{{ asset('assets/images/team.png') }}" alt="PawApp Team">
+                @endif
+            </div>
             <div class="about-content">
                 <h2>{{ __('About Us') }}</h2>
                 <p>{{ App\Models\Setting::getValue('about_intro', __('PawApp — where every pet finds care, love, and connection.')) }}
@@ -351,7 +409,12 @@
 
     <!-- New Banner -->
     <section class="banner-section">
-        <img src="{{ asset('assets/images/Top Image Container.png') }}" alt="Welcome to PawApp Banner">
+        @if (App\Models\Setting::getValue('footer_banner_image'))
+            <img src="{{ Storage::url(App\Models\Setting::getValue('footer_banner_image')) }}"
+                alt="Welcome to PawApp Banner">
+        @else
+            <img src="{{ asset('assets/images/Top Image Container.png') }}" alt="Welcome to PawApp Banner">
+        @endif
     </section>
 
     <!-- Contact -->

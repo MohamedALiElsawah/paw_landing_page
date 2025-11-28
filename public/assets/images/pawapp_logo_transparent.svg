@@ -1,0 +1,17 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="#002D72" opacity="0.1"/>
+
+  <!-- Paw print design -->
+  <circle cx="100" cy="70" r="25" fill="#002D72" opacity="0.3"/>
+
+  <!-- Paw pads -->
+  <circle cx="80" cy="90" r="15" fill="#002D72" opacity="0.3"/>
+  <circle cx="120" cy="90" r="15" fill="#002D72" opacity="0.3"/>
+  <circle cx="70" cy="120" r="15" fill="#002D72" opacity="0.3"/>
+  <circle cx="100" cy="120" r="15" fill="#002D72" opacity="0.3"/>
+  <circle cx="130" cy="120" r="15" fill="#002D72" opacity="0.3"/>
+
+  <!-- Text -->
+  <text x="100" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#002D72" opacity="0.5">PawApp</text>
+</svg>

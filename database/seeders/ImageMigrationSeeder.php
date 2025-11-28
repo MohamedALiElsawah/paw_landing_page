@@ -10,6 +10,7 @@ use App\Models\Partner;
 use App\Services\ImageService;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ImageMigrationSeeder extends Seeder
 {
@@ -47,7 +48,7 @@ class ImageMigrationSeeder extends Seeder
         $migrated = 0;
 
         foreach ($clinics as $clinic) {
-            if ($clinic->image && !str_contains($clinic->image, 'storage/')) {
+            if ($clinic->image && !str_contains($clinic->image, 'storage/') && !Storage::disk('public')->exists($clinic->image)) {
                 try {
                     $newImagePath = ImageService::moveStaticImageToStorage($clinic->image, 'clinics', 'image');
                     $clinic->update(['image' => $newImagePath]);
@@ -69,7 +70,7 @@ class ImageMigrationSeeder extends Seeder
 
         foreach ($stores as $store) {
             // Migrate main image
-            if ($store->image && !str_contains($store->image, 'storage/')) {
+            if ($store->image && !str_contains($store->image, 'storage/') && !Storage::disk('public')->exists($store->image)) {
                 try {
                     $newImagePath = ImageService::moveStaticImageToStorage($store->image, 'stores', 'image');
                     $store->update(['image' => $newImagePath]);
@@ -80,7 +81,7 @@ class ImageMigrationSeeder extends Seeder
             }
 
             // Migrate logo
-            if ($store->logo && !str_contains($store->logo, 'storage/')) {
+            if ($store->logo && !str_contains($store->logo, 'storage/') && !Storage::disk('public')->exists($store->logo)) {
                 try {
                     $newLogoPath = ImageService::moveStaticImageToStorage($store->logo, 'stores', 'logo');
                     $store->update(['logo' => $newLogoPath]);
@@ -100,7 +101,7 @@ class ImageMigrationSeeder extends Seeder
         $migrated = 0;
 
         foreach ($petPosts as $post) {
-            if ($post->image && !str_contains($post->image, 'storage/')) {
+            if ($post->image && !str_contains($post->image, 'storage/') && !Storage::disk('public')->exists($post->image)) {
                 try {
                     $newImagePath = ImageService::moveStaticImageToStorage($post->image, 'pet_posts', 'image');
                     $post->update(['image' => $newImagePath]);
@@ -120,7 +121,7 @@ class ImageMigrationSeeder extends Seeder
         $migrated = 0;
 
         foreach ($reviews as $review) {
-            if ($review->reviewer_image && !str_contains($review->reviewer_image, 'storage/')) {
+            if ($review->reviewer_image && !str_contains($review->reviewer_image, 'storage/') && !Storage::disk('public')->exists($review->reviewer_image)) {
                 try {
                     $newImagePath = ImageService::moveStaticImageToStorage($review->reviewer_image, 'reviews', 'reviewer_image');
                     $review->update(['reviewer_image' => $newImagePath]);
@@ -140,7 +141,7 @@ class ImageMigrationSeeder extends Seeder
         $migrated = 0;
 
         foreach ($partners as $partner) {
-            if ($partner->logo && !str_contains($partner->logo, 'storage/')) {
+            if ($partner->logo && !str_contains($partner->logo, 'storage/') && !Storage::disk('public')->exists($partner->logo)) {
                 try {
                     $newLogoPath = ImageService::moveStaticImageToStorage($partner->logo, 'partners', 'logo');
                     $partner->update(['logo' => $newLogoPath]);

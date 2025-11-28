@@ -188,6 +188,225 @@ class SettingController extends Controller
                 'group' => 'seo',
                 'description' => 'Default meta keywords'
             ],
+            // Hero Section Settings
+            [
+                'key' => 'hero_title',
+                'value' => 'All Your Pet Needs in One App',
+                'type' => 'text',
+                'group' => 'hero',
+                'description' => 'Main hero section title',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'hero_description',
+                'value' => 'Complete pet care in your hands. Easily and quickly find everything using a single app.',
+                'type' => 'textarea',
+                'group' => 'hero',
+                'description' => 'Hero section description',
+                'is_multilingual' => true
+            ],
+
+            // Services Settings
+            [
+                'key' => 'services_description',
+                'value' => 'Everything you need for complete pet care in one app',
+                'type' => 'textarea',
+                'group' => 'services',
+                'description' => 'Services section description',
+                'is_multilingual' => true
+            ],
+
+            // Store Settings
+            [
+                'key' => 'store_discount',
+                'value' => '25% OFF',
+                'type' => 'text',
+                'group' => 'store',
+                'description' => 'Store banner discount text',
+                'is_multilingual' => false
+            ],
+            [
+                'key' => 'store_banner_text',
+                'value' => 'Visit the PawApp Store for exclusive offers!',
+                'type' => 'text',
+                'group' => 'store',
+                'description' => 'Store banner main text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'delivery_info',
+                'value' => 'Free delivery over $50',
+                'type' => 'text',
+                'group' => 'store',
+                'description' => 'Delivery information',
+                'is_multilingual' => true
+            ],
+
+            // Dr. Bo Settings
+            [
+                'key' => 'dr_bo_title',
+                'value' => 'Meet Dr. Bo',
+                'type' => 'text',
+                'group' => 'dr_bo',
+                'description' => 'Dr. Bo section title',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'dr_bo_subtitle',
+                'value' => 'Your smart AI assistant',
+                'type' => 'text',
+                'group' => 'dr_bo',
+                'description' => 'Dr. Bo subtitle',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'dr_bo_description',
+                'value' => 'Ask me anything about pet health, nutrition, behavior...',
+                'type' => 'textarea',
+                'group' => 'dr_bo',
+                'description' => 'Dr. Bo typing text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'dr_bo_status',
+                'value' => 'Always here to help',
+                'type' => 'text',
+                'group' => 'dr_bo',
+                'description' => 'Dr. Bo status text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'dr_bo_example_question',
+                'value' => 'My dog isn\'t eating well today. Should I be worried?',
+                'type' => 'textarea',
+                'group' => 'dr_bo',
+                'description' => 'Example question for Dr. Bo',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'dr_bo_example_answer',
+                'value' => 'Don\'t worry! It\'s normal for dogs to have occasional appetite changes. Monitor for 24 hours. If symptoms persist or worsen, consult a vet.',
+                'type' => 'textarea',
+                'group' => 'dr_bo',
+                'description' => 'Example answer from Dr. Bo',
+                'is_multilingual' => true
+            ],
+
+            // Pet Posts Settings
+            [
+                'key' => 'pet_posts_description',
+                'value' => 'Browse stories, tips, and pet care content.',
+                'type' => 'textarea',
+                'group' => 'pet_posts',
+                'description' => 'Pet posts section description',
+                'is_multilingual' => true
+            ],
+
+            // Stats Settings
+            [
+                'key' => 'stats_rating',
+                'value' => '4.9/5',
+                'type' => 'text',
+                'group' => 'stats',
+                'description' => 'Average rating statistic',
+                'is_multilingual' => false
+            ],
+            [
+                'key' => 'stats_users',
+                'value' => '10K+',
+                'type' => 'text',
+                'group' => 'stats',
+                'description' => 'Happy users statistic',
+                'is_multilingual' => false
+            ],
+            [
+                'key' => 'stats_clinics',
+                'value' => '500+',
+                'type' => 'text',
+                'group' => 'stats',
+                'description' => 'Partner clinics statistic',
+                'is_multilingual' => false
+            ],
+            [
+                'key' => 'stats_support',
+                'value' => '24/7',
+                'type' => 'text',
+                'group' => 'stats',
+                'description' => 'Support availability statistic',
+                'is_multilingual' => false
+            ],
+
+            // About Settings
+            [
+                'key' => 'about_intro',
+                'value' => 'PawApp — where every pet finds care, love, and connection.',
+                'type' => 'textarea',
+                'group' => 'about',
+                'description' => 'About us introduction',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'about_description',
+                'value' => 'We make pet care simple and smart — from finding trusted vets to shopping for essentials and chatting with our AI friend Dr. Bo.',
+                'type' => 'textarea',
+                'group' => 'about',
+                'description' => 'About us description',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'about_mission',
+                'value' => 'Our goal is to create a better world for pets and their humans — because your pet deserves the best.',
+                'type' => 'textarea',
+                'group' => 'about',
+                'description' => 'About us mission statement',
+                'is_multilingual' => true
+            ],
+
+            // Footer Settings
+            [
+                'key' => 'footer_description',
+                'value' => 'Your complete pet care companion. Everything your pet needs in one place.',
+                'type' => 'textarea',
+                'group' => 'footer',
+                'description' => 'Footer description text',
+                'is_multilingual' => true
+            ],
+
+            // Banner Settings
+            [
+                'key' => 'banner_title',
+                'value' => 'Welcome to PawApp',
+                'type' => 'text',
+                'group' => 'banner',
+                'description' => 'Banner title text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'banner_description',
+                'value' => 'Discover amazing features for your pets',
+                'type' => 'textarea',
+                'group' => 'banner',
+                'description' => 'Banner description text',
+                'is_multilingual' => true
+            ],
+
+            // Contact Settings (additional)
+            [
+                'key' => 'contact_subtitle',
+                'value' => 'Let\'s talk with us',
+                'type' => 'text',
+                'group' => 'contact',
+                'description' => 'Contact section subtitle',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'contact_description',
+                'value' => 'Questions, comments, or suggestions? Simply fill in the form and we\'ll be in touch shortly.',
+                'type' => 'textarea',
+                'group' => 'contact',
+                'description' => 'Contact section description',
+                'is_multilingual' => true
+            ],
         ];
 
         foreach ($defaultSettings as $settingData) {

@@ -3,11 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\Store;
+use Database\Seeders\Concerns\HandlesSeedImages;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class StoreSeeder extends Seeder
 {
+    use HandlesSeedImages;
+
     /**
      * Run the database seeds.
      */
@@ -16,12 +19,12 @@ class StoreSeeder extends Seeder
         $stores = [
             [
                 'name' => [
-                    'en' => 'PetFood',
-                    'ar' => 'بيت فود'
+                    'en' => 'PetFood Salmiya',
+                    'ar' => 'بيت فود السالمية'
                 ],
                 'location' => [
-                    'en' => 'Salmiya',
-                    'ar' => 'السالمية'
+                    'en' => 'Salmiya, Block 10',
+                    'ar' => 'السالمية، بلوك 10'
                 ],
                 'phone' => '+965 2222 3333',
                 'working_hours' => [
@@ -29,18 +32,18 @@ class StoreSeeder extends Seeder
                     'ar' => 'مفتوح 24/7'
                 ],
                 'rating' => 4.8,
-                'image' => null,
-                'logo' => null,
+                'image' => $this->seedImage('store1.png', 'stores', 'image', 'store1.png'),
+                'logo' => $this->seedImage('logo1.png', 'stores', 'logo', 'logo1.png'),
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'PetFood',
-                    'ar' => 'بيت فود'
+                    'en' => 'PetFood Jahraa',
+                    'ar' => 'بيت فود الجهراء'
                 ],
                 'location' => [
-                    'en' => 'Jahraa',
-                    'ar' => 'الجهراء'
+                    'en' => 'Jahraa, Main Road',
+                    'ar' => 'الجهراء، الطريق الرئيسي'
                 ],
                 'phone' => '+965 2222 2334',
                 'working_hours' => [
@@ -48,18 +51,18 @@ class StoreSeeder extends Seeder
                     'ar' => 'مفتوح 24/7'
                 ],
                 'rating' => 4.9,
-                'image' => null,
-                'logo' => null,
+                'image' => $this->seedImage('store2.png', 'stores', 'image', 'store2.png'),
+                'logo' => $this->seedImage('logo2.png', 'stores', 'logo', 'logo2.png'),
                 'is_active' => true,
             ],
             [
                 'name' => [
-                    'en' => 'PetFood',
-                    'ar' => 'بيت فود'
+                    'en' => 'PetFood Hawalli',
+                    'ar' => 'بيت فود حولي'
                 ],
                 'location' => [
-                    'en' => 'Hawalli',
-                    'ar' => 'حولي'
+                    'en' => 'Hawalli, Gulf Road',
+                    'ar' => 'حولي، طريق الخليج'
                 ],
                 'phone' => '+965 2222 9202',
                 'working_hours' => [
@@ -67,13 +70,74 @@ class StoreSeeder extends Seeder
                     'ar' => 'مفتوح 24/7'
                 ],
                 'rating' => 4.7,
-                'image' => null,
-                'logo' => null,
+                'image' => $this->seedImage('store3.png', 'stores', 'image', 'store3.png'),
+                'logo' => $this->seedImage('logo3.png', 'stores', 'logo', 'logo3.png'),
+                'is_active' => true,
+            ],
+            [
+                'name' => [
+                    'en' => 'Pet Paradise',
+                    'ar' => 'جنة الحيوانات الأليفة'
+                ],
+                'location' => [
+                    'en' => 'Kuwait City, Downtown',
+                    'ar' => 'مدينة الكويت، وسط المدينة'
+                ],
+                'phone' => '+965 2222 4444',
+                'working_hours' => [
+                    'en' => '9AM - 10PM',
+                    'ar' => '9 صباحاً - 10 مساءً'
+                ],
+                'rating' => 4.9,
+                'image' => $this->seedImage('store_banner1.png', 'stores', 'image', 'store_banner1.png'),
+                'logo' => $this->seedImage('Partner logo-1.png', 'stores', 'logo', 'partner_logo_1.png'),
+                'is_active' => true,
+            ],
+            [
+                'name' => [
+                    'en' => 'Animal Kingdom',
+                    'ar' => 'مملكة الحيوانات'
+                ],
+                'location' => [
+                    'en' => 'Farwaniya, Shopping Mall',
+                    'ar' => 'الفروانية، المركز التجاري'
+                ],
+                'phone' => '+965 2222 5555',
+                'working_hours' => [
+                    'en' => '8AM - 11PM',
+                    'ar' => '8 صباحاً - 11 مساءً'
+                ],
+                'rating' => 4.8,
+                'image' => $this->seedImage('store_banner2.png', 'stores', 'image', 'store_banner2.png'),
+                'logo' => $this->seedImage('Partner logo-2.png', 'stores', 'logo', 'partner_logo_2.png'),
+                'is_active' => true,
+            ],
+            [
+                'name' => [
+                    'en' => 'Pet Care Plus',
+                    'ar' => 'بيت كير بلس'
+                ],
+                'location' => [
+                    'en' => 'Mubarak Al-Kabeer, Medical Center',
+                    'ar' => 'مبارك الكبير، المركز الطبي'
+                ],
+                'phone' => '+965 2222 6666',
+                'working_hours' => [
+                    'en' => '24/7 Emergency',
+                    'ar' => 'طوارئ 24/7'
+                ],
+                'rating' => 5.0,
+                'image' => $this->seedImage('store_banner3.png', 'stores', 'image', 'store_banner3.png'),
+                'logo' => $this->seedImage('Partner logo-3.png', 'stores', 'logo', 'partner_logo_3.png'),
                 'is_active' => true,
             ],
         ];
 
         foreach ($stores as $store) {
+            // Encode multilingual fields to JSON
+            $store['name'] = json_encode($store['name']);
+            $store['location'] = json_encode($store['location']);
+            $store['working_hours'] = json_encode($store['working_hours']);
             Store::create($store);
         }
     }

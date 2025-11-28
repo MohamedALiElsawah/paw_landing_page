@@ -36,7 +36,8 @@ class BannerController extends Controller
             'title_ar' => 'required|string|max:255',
             'description_en' => 'required|string',
             'description_ar' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'secondary_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'button_text_en' => 'nullable|string|max:255',
             'button_text_ar' => 'nullable|string|max:255',
             'button_url' => 'nullable|url',
@@ -58,8 +59,11 @@ class BannerController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('banners', 'public');
-            $bannerData['image_url'] = $path;
+            $bannerData['image_url'] = $request->file('image')->store('banners', 'public');
+        }
+
+        if ($request->hasFile('secondary_image')) {
+            $bannerData['secondary_image_url'] = $request->file('secondary_image')->store('banners', 'public');
         }
 
         Banner::create($bannerData);
@@ -97,7 +101,8 @@ class BannerController extends Controller
             'title_ar' => 'required|string|max:255',
             'description_en' => 'required|string',
             'description_ar' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'secondary_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'button_text_en' => 'nullable|string|max:255',
             'button_text_ar' => 'nullable|string|max:255',
             'button_url' => 'nullable|url',
@@ -120,12 +125,19 @@ class BannerController extends Controller
         // Handle image upload
         if ($request->hasFile('image')) {
             // Delete old image if exists
-            if ($banner->image_url && Storage::exists($banner->image_url)) {
-                Storage::delete($banner->image_url);
+            if ($banner->image_url && Storage::disk('public')->exists($banner->image_url)) {
+                Storage::disk('public')->delete($banner->image_url);
             }
 
-            $path = $request->file('image')->store('banners', 'public');
-            $bannerData['image_url'] = $path;
+            $bannerData['image_url'] = $request->file('image')->store('banners', 'public');
+        }
+
+        if ($request->hasFile('secondary_image')) {
+            if ($banner->secondary_image_url && Storage::disk('public')->exists($banner->secondary_image_url)) {
+                Storage::disk('public')->delete($banner->secondary_image_url);
+            }
+
+            $bannerData['secondary_image_url'] = $request->file('secondary_image')->store('banners', 'public');
         }
 
         $banner->update($bannerData);
@@ -142,8 +154,12 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         // Delete image if exists
-        if ($banner->image_url && Storage::exists($banner->image_url)) {
-            Storage::delete($banner->image_url);
+        if ($banner->image_url && Storage::disk('public')->exists($banner->image_url)) {
+            Storage::disk('public')->delete($banner->image_url);
+        }
+
+        if ($banner->secondary_image_url && Storage::disk('public')->exists($banner->secondary_image_url)) {
+            Storage::disk('public')->delete($banner->secondary_image_url);
         }
 
         $banner->delete();

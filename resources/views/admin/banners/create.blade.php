@@ -135,6 +135,22 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
+                            <label for="secondary_image" class="form-label">Secondary Banner Image</label>
+                            <input type="file" class="form-control @error('secondary_image') is-invalid @enderror"
+                                id="secondary_image" name="secondary_image" accept="image/*">
+                            @error('secondary_image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="form-text">
+                                Optional second image (e.g., side graphic). Recommended size: 1200x400px
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
                             <label for="button_url" class="form-label">Button URL</label>
                             <input type="url" class="form-control @error('button_url') is-invalid @enderror"
                                 id="button_url" name="button_url" value="{{ old('button_url') }}"

@@ -37,7 +37,7 @@
                         <thead>
                             <tr>
                                 <th>Order</th>
-                                <th>Image</th>
+                                <th>Images</th>
                                 <th>Title (EN)</th>
                                 <th>Title (AR)</th>
                                 <th>Status</th>
@@ -48,10 +48,13 @@
                             @foreach ($banners as $banner)
                                 <tr>
                                     <td>{{ $banner->order }}</td>
-                                    <td>
-                                        <img src="{{ Storage::url($banner->image_url) ?: $banner->image_url }}"
-                                            alt="{{ $banner->title_en }}"
+                                    <td class="d-flex gap-2 align-items-center">
+                                        <img src="{{ $banner->image_url }}" alt="{{ $banner->title_en }}"
                                             style="width: 80px; height: 60px; object-fit: cover;" class="rounded border">
+                                        @if ($banner->secondary_image_url)
+                                            <img src="{{ $banner->secondary_image_url }}" alt="{{ $banner->title_en }}"
+                                                style="width: 80px; height: 60px; object-fit: cover;" class="rounded border">
+                                        @endif
                                     </td>
                                     <td>{{ $banner->title_en }}</td>
                                     <td>{{ $banner->title_ar }}</td>
