@@ -64,6 +64,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Banners
     Route::resource('banners', BannerController::class);
     Route::put('banners/{banner}/toggle-status', [BannerController::class, 'toggleStatus'])->name('banners.toggle-status');
+    Route::put('banners/{banner}/set-default', [BannerController::class, 'setDefault'])->name('banners.set-default');
 
     // SEO Management
     Route::prefix('seo')->name('seo.')->group(function () {

@@ -22,7 +22,7 @@ class HomeController extends Controller
         $petPosts = PetPost::where('is_published', true)->get();
         $reviews = Review::where('is_approved', true)->get();
         $partners = Partner::where('is_active', true)->orderBy('order')->get();
-        $banners = Banner::active()->get();
+        $banners = Banner::active()->orderByRaw('is_default DESC, `order` ASC')->get();
 
         return view('home', compact(
             'services',

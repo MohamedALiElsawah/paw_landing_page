@@ -15,6 +15,7 @@ class Banner extends Model
         'image_url',
         'secondary_image_url',
         'is_active',
+        'is_default',
         'order',
         'button_text_en',
         'button_text_ar',
@@ -23,6 +24,7 @@ class Banner extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'is_default' => 'boolean',
         'order' => 'integer'
     ];
 
@@ -100,5 +102,13 @@ class Banner extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true)->orderBy('order');
+    }
+
+    /**
+     * Scope to get default banner
+     */
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', true)->where('is_active', true);
     }
 }

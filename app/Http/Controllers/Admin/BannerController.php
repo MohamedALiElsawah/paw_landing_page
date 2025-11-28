@@ -42,7 +42,8 @@ class BannerController extends Controller
             'button_text_ar' => 'nullable|string|max:255',
             'button_url' => 'nullable|url',
             'order' => 'nullable|integer',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'is_default' => 'boolean'
         ]);
 
         $bannerData = [
@@ -54,7 +55,8 @@ class BannerController extends Controller
             'button_text_ar' => $validated['button_text_ar'],
             'button_url' => $validated['button_url'],
             'order' => $validated['order'] ?? 0,
-            'is_active' => $validated['is_active'] ?? true
+            'is_active' => $validated['is_active'] ?? true,
+            'is_default' => $validated['is_default'] ?? false
         ];
 
         // Handle image upload
@@ -107,7 +109,8 @@ class BannerController extends Controller
             'button_text_ar' => 'nullable|string|max:255',
             'button_url' => 'nullable|url',
             'order' => 'nullable|integer',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'is_default' => 'boolean'
         ]);
 
         $bannerData = [
@@ -119,7 +122,8 @@ class BannerController extends Controller
             'button_text_ar' => $validated['button_text_ar'],
             'button_url' => $validated['button_url'],
             'order' => $validated['order'] ?? $banner->order,
-            'is_active' => $validated['is_active'] ?? $banner->is_active
+            'is_active' => $validated['is_active'] ?? $banner->is_active,
+            'is_default' => $validated['is_default'] ?? $banner->is_default
         ];
 
         // Handle image upload
@@ -177,5 +181,21 @@ class BannerController extends Controller
         $banner->update(['is_active' => !$banner->is_active]);
 
         return back()->with('success', 'Banner status updated successfully!');
+    }
+
+    /**
+     * Set banner as default
+     */
+    public function setDefault($id)
+    {
+        $banner = Banner::findOrFail($id);
+
+        // Remove default status from all other banners
+        Banner::where('id', '!=', $id)->update(['is_default' => false]);
+
+        // Set this banner as default
+        $banner->update(['is_default' => true]);
+
+        return back()->with('success', 'Banner set as default successfully!');
     }
 }

@@ -747,6 +747,61 @@ h4 {
     max-width: 520px;
 }
 
+/* === BANNER CAROUSEL === */
+.banner-carousel {
+    position: relative;
+    height: auto;
+    overflow: hidden;
+}
+
+.banner-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all var(--transition-normal);
+    pointer-events: none;
+}
+
+.banner-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+    position: relative;
+}
+
+.banner-slide.prev {
+    transform: translateX(-100%);
+}
+
+.banner-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.banner-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 45, 114, 0.3);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.banner-dot.active {
+    background: var(--blue);
+    transform: scale(1.2);
+}
+
+.banner-dot:hover {
+    background: var(--blue);
+}
+
 .hero-title {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;

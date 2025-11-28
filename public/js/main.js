@@ -31,6 +31,7 @@ function init() {
     setupIntersectionObserver();
     initScrollableBanner();
     initHeroBanner();
+    initBannerCarousel();
     initClinicsMap();
     duplicatePartnersForSeamlessLoop();
 }
@@ -557,6 +558,79 @@ function unhighlightClinic(clinicId) {
         card.style.transform = "translateY(0)";
         card.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.08)";
         card.style.borderColor = "#e0e0e0";
+    }
+}
+
+// Initialize banner carousel
+function initBannerCarousel() {
+    const bannerCarousel = document.querySelector(".banner-carousel");
+    if (!bannerCarousel) return;
+
+    const bannerSlides = document.querySelectorAll(".banner-slide");
+    const bannerDots = document.querySelectorAll(".banner-dot");
+
+    // If no banners or only one banner, don't initialize carousel
+    if (bannerSlides.length <= 1) return;
+
+    let currentSlide = 0;
+    let bannerInterval;
+
+    // Set up dot clicks
+    bannerDots.forEach((dot, index) => {
+        dot.addEventListener("click", () => showBannerSlide(index));
+    });
+
+    // Start auto-rotation
+    startBannerAutoRotation();
+
+    // Pause auto-rotation on hover
+    bannerCarousel.addEventListener("mouseenter", pauseBannerAutoRotation);
+    bannerCarousel.addEventListener("mouseleave", resumeBannerAutoRotation);
+
+    function showBannerSlide(index) {
+        // Handle index bounds
+        if (index >= bannerSlides.length) index = 0;
+        if (index < 0) index = bannerSlides.length - 1;
+
+        // Update current slide
+        currentSlide = index;
+
+        // Update slides
+        bannerSlides.forEach((slide, i) => {
+            slide.classList.toggle("active", i === index);
+        });
+
+        // Update dots
+        bannerDots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === index);
+        });
+
+        // Reset auto-rotation timer
+        resetBannerAutoRotation();
+    }
+
+    function startBannerAutoRotation() {
+        bannerInterval = setInterval(() => {
+            showBannerSlide(currentSlide + 1);
+        }, 5000); // Change slide every 5 seconds
+    }
+
+    function pauseBannerAutoRotation() {
+        if (bannerInterval) {
+            clearInterval(bannerInterval);
+            bannerInterval = null;
+        }
+    }
+
+    function resumeBannerAutoRotation() {
+        if (!bannerInterval) {
+            startBannerAutoRotation();
+        }
+    }
+
+    function resetBannerAutoRotation() {
+        pauseBannerAutoRotation();
+        startBannerAutoRotation();
     }
 }
 

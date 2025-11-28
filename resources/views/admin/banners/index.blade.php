@@ -37,6 +37,7 @@
                         <thead>
                             <tr>
                                 <th>Order</th>
+                                <th>Default</th>
                                 <th>Images</th>
                                 <th>Title (EN)</th>
                                 <th>Title (AR)</th>
@@ -48,12 +49,28 @@
                             @foreach ($banners as $banner)
                                 <tr>
                                     <td>{{ $banner->order }}</td>
+                                    <td>
+                                        @if ($banner->is_default)
+                                            <span class="badge bg-success">Default</span>
+                                        @else
+                                            <form action="{{ route('admin.banners.set-default', $banner->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary"
+                                                    title="Set as Default">
+                                                    <i class="fas fa-star"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </td>
                                     <td class="d-flex gap-2 align-items-center">
                                         <img src="{{ $banner->image_url }}" alt="{{ $banner->title_en }}"
                                             style="width: 80px; height: 60px; object-fit: cover;" class="rounded border">
                                         @if ($banner->secondary_image_url)
                                             <img src="{{ $banner->secondary_image_url }}" alt="{{ $banner->title_en }}"
-                                                style="width: 80px; height: 60px; object-fit: cover;" class="rounded border">
+                                                style="width: 80px; height: 60px; object-fit: cover;"
+                                                class="rounded border">
                                         @endif
                                     </td>
                                     <td>{{ $banner->title_en }}</td>

@@ -25,6 +25,7 @@ class BannerSeeder extends Seeder
                 'image_url' => $this->seedImage('hero2.png', 'banners', 'image', 'hero2.png', 'banners'),
                 'secondary_image_url' => $this->seedImage('banner_c.png', 'banners', 'image', 'hero2_secondary.png', 'banners'),
                 'is_active' => true,
+                'is_default' => true,
                 'order' => 1,
                 'button_text_en' => 'Learn More',
                 'button_text_ar' => 'تعرف أكثر',

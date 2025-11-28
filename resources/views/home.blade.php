@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Banner Carousel -->
     <section class="hero animate" id="home">
         <div class="hero-bg-element hero-bg-1"></div>
         <div class="hero-bg-element hero-bg-2"></div>
@@ -23,21 +23,35 @@
         <div class="container hero-container">
             <div class="hero-content">
                 @if ($banners->count() > 0)
-                    @php $mainBanner = $banners->first(); @endphp
-                    <h1 class="hero-title">
-                        {{ $mainBanner->title ?: App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
-                    </h1>
-                    <p class="hero-text">
-                        {{ $mainBanner->description ?: App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="{{ $mainBanner->button_url ?: 'https://play.google.com/store/apps/details?id=com.paw.customer' }}"
-                            target="_blank" class="btn-primary" data-action="download-app">
-                            {{ $mainBanner->button_text ?: __('Download App') }}
-                        </a>
-                        <a href="#services" class="btn-outline" data-action="scroll-to-services">
-                            {{ __('Explore Services') }}
-                        </a>
+                    <div class="banner-carousel">
+                        @foreach ($banners as $index => $banner)
+                            <div class="banner-slide {{ $index === 0 ? 'active' : '' }}"
+                                data-banner-id="{{ $banner->id }}">
+                                <h1 class="hero-title">
+                                    {{ $banner->title ?: App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
+                                </h1>
+                                <p class="hero-text">
+                                    {{ $banner->description ?: App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
+                                </p>
+                                <div class="hero-buttons">
+                                    <a href="{{ $banner->button_url ?: 'https://play.google.com/store/apps/details?id=com.paw.customer' }}"
+                                        target="_blank" class="btn-primary" data-action="download-app">
+                                        {{ $banner->button_text ?: __('Download App') }}
+                                    </a>
+                                    <a href="#services" class="btn-outline" data-action="scroll-to-services">
+                                        {{ __('Explore Services') }}
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Banner Navigation Dots -->
+                    <div class="banner-dots">
+                        @foreach ($banners as $index => $banner)
+                            <button class="banner-dot {{ $index === 0 ? 'active' : '' }}"
+                                data-slide="{{ $index }}"></button>
+                        @endforeach
                     </div>
                 @else
                     <h1 class="hero-title">
@@ -59,19 +73,35 @@
             </div>
             <div class="image-stack">
                 @if ($banners->count() >= 3)
-                    <!-- Use first three banners as phone images -->
+                    <!-- Use default banner for leo-mascot and next two banners for phones -->
                     @php
-                        $bannerImages = $banners->take(3);
+                        $defaultBanner = $banners->where('is_default', true)->first();
+                        $otherBanners = $banners->where('is_default', false)->take(2);
                     @endphp
-                    <div class="phone-1">
-                        <img src="{{ $bannerImages[2]->image_url }}" alt="{{ $bannerImages[0]->title }}">
-                    </div>
-                    <div class="phone-2">
-                        <img src="{{ $bannerImages[1]->image_url }}" alt="{{ $bannerImages[2]->title }}">
-                    </div>
-                    <div class="leo-mascot">
-                        <img src="{{ $bannerImages[0]->image_url }}" alt="{{ $bannerImages[1]->title }}">
-                    </div>
+
+                    @if ($defaultBanner)
+                        <div class="leo-mascot">
+                            <img src="{{ $defaultBanner->image_url }}" alt="{{ $defaultBanner->title }}">
+                        </div>
+                    @endif
+
+                    @if ($otherBanners->count() >= 2)
+                        <div class="phone-1">
+                            <img src="{{ $otherBanners->first()->image_url }}" alt="{{ $otherBanners->first()->title }}">
+                        </div>
+                        <div class="phone-2">
+                            <img src="{{ $otherBanners->skip(1)->first()->image_url }}"
+                                alt="{{ $otherBanners->skip(1)->first()->title }}">
+                        </div>
+                    @else
+                        <!-- Fallback if not enough banners -->
+                        <div class="phone-1">
+                            <img src="{{ asset('assets/images/hero1.png') }}" alt="Screen 1">
+                        </div>
+                        <div class="phone-2">
+                            <img src="{{ asset('assets/images/hero3.png') }}" alt="Screen 2">
+                        </div>
+                    @endif
                 @else
                     <!-- Fallback to static phone images -->
                     <div class="phone-1">
