@@ -15,59 +15,76 @@
         </div>
     </div>
 
-    <!-- Hero Banner Section -->
-    <section class="hero-banner-professional" id="hero-banner">
-        <div class="container">
-            <div class="hero-content-wrapper">
-                <!-- Left Side: Content -->
-                <div class="hero-content">
+    <!-- Hero Section -->
+    <section class="hero animate" id="home">
+        <div class="hero-bg-element hero-bg-1"></div>
+        <div class="hero-bg-element hero-bg-2"></div>
+        <div class="hero-bg-element hero-bg-3"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                @if ($banners->count() > 0)
+                    @php $mainBanner = $banners->first(); @endphp
+                    <h1 class="hero-title">
+                        {{ $mainBanner->title ?: App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
+                    </h1>
+                    <p class="hero-text">
+                        {{ $mainBanner->description ?: App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{{ $mainBanner->button_url ?: 'https://play.google.com/store/apps/details?id=com.paw.customer' }}"
+                            target="_blank" class="btn-primary" data-action="download-app">
+                            {{ $mainBanner->button_text ?: __('Download App') }}
+                        </a>
+                        <a href="#services" class="btn-outline" data-action="scroll-to-services">
+                            {{ __('Explore Services') }}
+                        </a>
+                    </div>
+                @else
                     <h1 class="hero-title">
                         {{ App\Models\Setting::getValue('hero_title', __('All Your Pet Needs in One App')) }}
                     </h1>
-                    <p class="hero-description">
+                    <p class="hero-text">
                         {{ App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
                     </p>
                     <div class="hero-buttons">
                         <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-                            class="btn-primary hero-btn" data-action="download-app">
-                            <i class="fas fa-download"></i>
+                            class="btn-primary" data-action="download-app">
                             {{ __('Download App') }}
                         </a>
-                        <a href="#services" class="btn-outline hero-btn" data-action="scroll-to-services">
-                            <i class="fas fa-compass"></i>
+                        <a href="#services" class="btn-outline" data-action="scroll-to-services">
                             {{ __('Explore Services') }}
                         </a>
                     </div>
-                </div>
-
-                <!-- Right Side: Animated Images -->
-                <div class="hero-images">
-                    <div class="image-container main-image">
-                        <img src="{{ asset('assets/images/hero2.png') }}" alt="PawApp Main Screen" class="hero-main-image">
-                        <div class="floating-elements">
-                            <div class="floating-element element-1">
-                                <img src="{{ asset('assets/images/hero1.png') }}" alt="Pet Care Feature">
-                            </div>
-                            <div class="floating-element element-2">
-                                <img src="{{ asset('assets/images/hero3.png') }}" alt="Vet Services">
-                            </div>
-                            <div class="floating-element element-3">
-                                <i class="fas fa-paw"></i>
-                            </div>
-                            <div class="floating-element element-4">
-                                <i class="fas fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
-        </div>
-
-        <!-- Background Elements -->
-        <div class="hero-background">
-            <div class="bg-circle circle-1"></div>
-            <div class="bg-circle circle-2"></div>
-            <div class="bg-circle circle-3"></div>
+            <div class="image-stack">
+                @if ($banners->count() >= 3)
+                    <!-- Use first three banners as phone images -->
+                    @php
+                        $bannerImages = $banners->take(3);
+                    @endphp
+                    <div class="phone-1">
+                        <img src="{{ $bannerImages[2]->image_url }}" alt="{{ $bannerImages[0]->title }}">
+                    </div>
+                    <div class="phone-2">
+                        <img src="{{ $bannerImages[1]->image_url }}" alt="{{ $bannerImages[2]->title }}">
+                    </div>
+                    <div class="leo-mascot">
+                        <img src="{{ $bannerImages[0]->image_url }}" alt="{{ $bannerImages[1]->title }}">
+                    </div>
+                @else
+                    <!-- Fallback to static phone images -->
+                    <div class="phone-1">
+                        <img src="{{ asset('assets/images/hero1.png') }}" alt="Screen 1">
+                    </div>
+                    <div class="phone-2">
+                        <img src="{{ asset('assets/images/hero3.png') }}" alt="Screen 2">
+                    </div>
+                    <div class="leo-mascot">
+                        <img src="{{ asset('assets/images/hero2.png') }}" alt="Mascot">
+                    </div>
+                @endif
+            </div>
         </div>
     </section>
 
