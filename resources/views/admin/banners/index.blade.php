@@ -39,8 +39,8 @@
                                 <th>Order</th>
                                 <th>Default</th>
                                 <th>Images</th>
-                                <th>Title (EN)</th>
-                                <th>Title (AR)</th>
+                                <th>Title</th>
+                                <th>Description</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -73,8 +73,8 @@
                                                 class="rounded border">
                                         @endif
                                     </td>
-                                    <td>{{ $banner->title_en }}</td>
-                                    <td>{{ $banner->title_ar }}</td>
+                                    <td>{{ $banner->title }}</td>
+                                    <td>{{ Str::limit($banner->description, 30) }}</td>
                                     <td>
                                         <form action="{{ route('admin.banners.toggle-status', $banner->id) }}"
                                             method="POST" class="d-inline">

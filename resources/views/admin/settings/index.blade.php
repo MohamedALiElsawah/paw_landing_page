@@ -161,22 +161,83 @@
                         @foreach ($settings['contact'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text' || $setting->type === 'phone' || $setting->type === 'email')
-                                        <input type="{{ $setting->type === 'email' ? 'email' : 'text' }}"
-                                            name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text' || $setting->type === 'phone' || $setting->type === 'email')
+                                            <input type="{{ $setting->type === 'email' ? 'email' : 'text' }}"
+                                                name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -295,21 +356,78 @@
                         @foreach ($settings['hero'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text')
+                                                    <input type="text"
+                                                        name="multilingual_settings[{{ $setting->key }}][en]"
+                                                        value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                        class="form-control"
+                                                        placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                @elseif($setting->type === 'textarea')
+                                                    <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                        placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text')
+                                                    <input type="text"
+                                                        name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                        value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                        class="form-control" dir="rtl"
+                                                        placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                @elseif($setting->type === 'textarea')
+                                                    <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                        placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -329,21 +447,78 @@
                         @foreach ($settings['services'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text')
+                                                    <input type="text"
+                                                        name="multilingual_settings[{{ $setting->key }}][en]"
+                                                        value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                        class="form-control"
+                                                        placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                @elseif($setting->type === 'textarea')
+                                                    <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                        placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text')
+                                                    <input type="text"
+                                                        name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                        value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                        class="form-control" dir="rtl"
+                                                        placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                @elseif($setting->type === 'textarea')
+                                                    <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                        placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -363,21 +538,82 @@
                         @foreach ($settings['store'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -397,21 +633,82 @@
                         @foreach ($settings['dr_bo'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -431,21 +728,82 @@
                         @foreach ($settings['pet_posts'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -465,21 +823,82 @@
                         @foreach ($settings['stats'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -499,21 +918,94 @@
                         @foreach ($settings['about'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @elseif($setting->type === 'image')
+                                            <div class="d-flex align-items-center">
+                                                @if ($setting->value)
+                                                    <div class="me-3">
+                                                        <img src="{{ Storage::url($setting->value) }}"
+                                                            alt="{{ $setting->key }}" class="img-thumbnail"
+                                                            style="max-height: 80px;">
+                                                    </div>
+                                                @endif
+                                                <input type="file" name="settings[{{ $setting->key }}]"
+                                                    class="form-control">
+                                            </div>
+                                        @endif
                                     @endif
                                 </div>
                             </div>
@@ -533,21 +1025,82 @@
                         @foreach ($settings['footer'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($setting->type === 'text')
-                                        <input type="text" name="settings[{{ $setting->key }}]"
-                                            value="{{ old("settings.{$setting->key}", $setting->value) }}"
-                                            class="form-control"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
-                                    @elseif($setting->type === 'textarea')
-                                        <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
-                                            placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
                                     @endif
                                 </div>
                             </div>

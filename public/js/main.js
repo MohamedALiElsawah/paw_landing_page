@@ -34,6 +34,7 @@ function init() {
     initBannerCarousel();
     initClinicsMap();
     duplicatePartnersForSeamlessLoop();
+    initStoreStatuses();
 }
 
 // Set up all event listeners
@@ -664,6 +665,90 @@ function resetPartnerSlider() {
             ? "scroll-rtl 25s linear infinite"
             : "scroll 25s linear infinite";
     }
+}
+
+// Store status functionality
+function initStoreStatuses() {
+    updateStoreStatuses();
+
+    // Update status every minute
+    setInterval(updateStoreStatuses, 60000);
+}
+
+function calculateStoreStatus(workingHours) {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const currentTime = currentHour * 60 + currentMinute;
+
+    console.log("Parsing working hours:", workingHours); // Debug log
+
+    // Parse working hours
+    if (workingHours.includes("24/7") || workingHours.includes("مفتوح 24/7")) {
+        return { status: "open", text: "Open 24/7" };
+    }
+
+    // Parse time ranges like "9AM - 9PM" or "8AM - 11PM" or Arabic equivalents
+    const timeMatch = workingHours.match(
+        /(\d+)(AM|PM|صباحاً|مساءً)\s*-\s*(\d+)(AM|PM|صباحاً|مساءً)/i
+    );
+    if (timeMatch) {
+        let openHour = parseInt(timeMatch[1]);
+        const openPeriod = timeMatch[2].toUpperCase();
+        let closeHour = parseInt(timeMatch[3]);
+        const closePeriod = timeMatch[4].toUpperCase();
+
+        console.log(
+            "Time match found:",
+            openHour,
+            openPeriod,
+            closeHour,
+            closePeriod
+        ); // Debug log
+
+        // Convert to 24-hour format
+        if (openPeriod === "PM" || openPeriod === "مساءً") {
+            if (openHour !== 12) openHour += 12;
+        } else if (openPeriod === "AM" || openPeriod === "صباحاً") {
+            if (openHour === 12) openHour = 0;
+        }
+
+        if (closePeriod === "PM" || closePeriod === "مساءً") {
+            if (closeHour !== 12) closeHour += 12;
+        } else if (closePeriod === "AM" || closePeriod === "صباحاً") {
+            if (closeHour === 12) closeHour = 0;
+        }
+
+        const openTime = openHour * 60;
+        const closeTime = closeHour * 60;
+
+        console.log("Converted times:", openTime, closeTime, currentTime); // Debug log
+
+        if (currentTime >= openTime && currentTime <= closeTime) {
+            return { status: "open", text: "Open Now" };
+        } else {
+            return { status: "closed", text: "Closed" };
+        }
+    }
+
+    // Emergency hours
+    if (workingHours.includes("Emergency") || workingHours.includes("طوارئ")) {
+        return { status: "open", text: "Emergency" };
+    }
+
+    // If we can't parse, just show the working hours as-is
+    return { status: "unknown", text: workingHours };
+}
+
+function updateStoreStatuses() {
+    document.querySelectorAll(".store-status").forEach((statusElement) => {
+        const workingHours = statusElement.getAttribute("data-working-hours");
+        const status = calculateStoreStatus(workingHours);
+
+        // Only show status text, not the working hours (they're already displayed)
+        statusElement.textContent = ` • ${status.text}`;
+        statusElement.className = `store-status status-${status.status}`;
+    });
 }
 
 // Initialize the app when DOM is loaded

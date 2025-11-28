@@ -34,16 +34,54 @@
 
                 <div class="row">
                     <div class="col-md-6">
+                        <h5 class="mb-3">English Information</h5>
+
                         <div class="mb-3">
-                            <label for="reviewer_name" class="form-label">Reviewer Name</label>
-                            <input type="text" class="form-control @error('reviewer_name') is-invalid @enderror"
-                                id="reviewer_name" name="reviewer_name"
-                                value="{{ old('reviewer_name', $review->reviewer_name) }}" required>
-                            @error('reviewer_name')
+                            <label for="reviewer_name_en" class="form-label">Reviewer Name (English)</label>
+                            <input type="text" class="form-control @error('reviewer_name_en') is-invalid @enderror"
+                                id="reviewer_name_en" name="reviewer_name_en"
+                                value="{{ old('reviewer_name_en', $review->getTranslation('reviewer_name', 'en')) }}"
+                                required>
+                            @error('reviewer_name_en')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="content_en" class="form-label">Review Content (English)</label>
+                            <textarea class="form-control @error('content_en') is-invalid @enderror" id="content_en" name="content_en"
+                                rows="4" required>{{ old('content_en', $review->getTranslation('content', 'en')) }}</textarea>
+                            @error('content_en')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Arabic Information</h5>
+
+                        <div class="mb-3">
+                            <label for="reviewer_name_ar" class="form-label">Reviewer Name (Arabic)</label>
+                            <input type="text" class="form-control @error('reviewer_name_ar') is-invalid @enderror"
+                                id="reviewer_name_ar" name="reviewer_name_ar"
+                                value="{{ old('reviewer_name_ar', $review->getTranslation('reviewer_name', 'ar')) }}"
+                                required dir="rtl">
+                            @error('reviewer_name_ar')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="content_ar" class="form-label">Review Content (Arabic)</label>
+                            <textarea class="form-control @error('content_ar') is-invalid @enderror" id="content_ar" name="content_ar"
+                                rows="4" required dir="rtl">{{ old('content_ar', $review->getTranslation('content', 'ar')) }}</textarea>
+                            @error('content_ar')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="date" class="form-label">Review Date</label>
@@ -54,15 +92,6 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="content" class="form-label">Review Content</label>
-                    <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="4"
-                        required>{{ old('content', $review->content) }}</textarea>
-                    @error('content')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
                 </div>
 
                 <div class="row">

@@ -217,12 +217,13 @@
                                 <div class="store-info">
                                     <div class="store-name">{{ $store->name }} <span class="rating">★★★★★
                                             {{ $store->rating }}</span></div>
-                                    <div class="store-detail"><i class="fas fa-map-marker-alt"></i>
-                                        {{ $store->location }}</div>
                                     <div class="store-detail"><i class="fas fa-phone"></i> <a
                                             href="tel:{{ $store->phone }}" class="phone-link">{{ $store->phone }}</a>
                                     </div>
-                                    <div class="store-detail"><i class="fas fa-clock"></i> {{ $store->working_hours }}
+                                    <div class="store-detail"><i class="fas fa-clock"></i>
+                                        {{ $store->working_hours }}
+                                        <span class="store-status"
+                                            data-working-hours="{{ $store->working_hours }}"></span>
                                     </div>
                                 </div>
                             </div>

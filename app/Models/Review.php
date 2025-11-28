@@ -22,8 +22,6 @@ class Review extends Model
     ];
 
     protected $casts = [
-        'reviewer_name' => 'array',
-        'content' => 'array',
         'is_approved' => 'boolean',
         'date' => 'datetime'
     ];
@@ -33,6 +31,10 @@ class Review extends Model
      */
     public function getReviewerNameAttribute($value)
     {
+        if (is_array($value)) {
+            return $value[app()->getLocale()] ?? $value['en'] ?? '';
+        }
+
         $name = json_decode($value, true);
         return $name[app()->getLocale()] ?? $name['en'] ?? '';
     }
@@ -42,6 +44,10 @@ class Review extends Model
      */
     public function getContentAttribute($value)
     {
+        if (is_array($value)) {
+            return $value[app()->getLocale()] ?? $value['en'] ?? '';
+        }
+
         $content = json_decode($value, true);
         return $content[app()->getLocale()] ?? $content['en'] ?? '';
     }

@@ -20,8 +20,6 @@ class PetPost extends Model
     ];
 
     protected $casts = [
-        'title' => 'array',
-        'content' => 'array',
         'is_published' => 'boolean',
         'published_at' => 'datetime'
     ];
@@ -31,6 +29,10 @@ class PetPost extends Model
      */
     public function getTitleAttribute($value)
     {
+        if (is_array($value)) {
+            return $value[app()->getLocale()] ?? $value['en'] ?? '';
+        }
+
         $title = json_decode($value, true);
         return $title[app()->getLocale()] ?? $title['en'] ?? '';
     }
@@ -40,6 +42,10 @@ class PetPost extends Model
      */
     public function getContentAttribute($value)
     {
+        if (is_array($value)) {
+            return $value[app()->getLocale()] ?? $value['en'] ?? '';
+        }
+
         $content = json_decode($value, true);
         return $content[app()->getLocale()] ?? $content['en'] ?? '';
     }

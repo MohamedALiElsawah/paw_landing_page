@@ -23,8 +23,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'بيت فود السالمية'
                 ],
                 'location' => [
-                    'en' => 'Salmiya, Block 10',
-                    'ar' => 'السالمية، بلوك 10'
+                    'en' => 'Salmiya, Block 10, Kuwait',
+                    'ar' => 'السالمية، بلوك 10، الكويت'
                 ],
                 'phone' => '+965 2222 3333',
                 'working_hours' => [
@@ -42,8 +42,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'بيت فود الجهراء'
                 ],
                 'location' => [
-                    'en' => 'Jahraa, Main Road',
-                    'ar' => 'الجهراء، الطريق الرئيسي'
+                    'en' => 'Jahraa, Main Road, Kuwait',
+                    'ar' => 'الجهراء، الطريق الرئيسي، الكويت'
                 ],
                 'phone' => '+965 2222 2334',
                 'working_hours' => [
@@ -61,8 +61,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'بيت فود حولي'
                 ],
                 'location' => [
-                    'en' => 'Hawalli, Gulf Road',
-                    'ar' => 'حولي، طريق الخليج'
+                    'en' => 'Hawalli, Gulf Road, Kuwait',
+                    'ar' => 'حولي، طريق الخليج، الكويت'
                 ],
                 'phone' => '+965 2222 9202',
                 'working_hours' => [
@@ -80,8 +80,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'جنة الحيوانات الأليفة'
                 ],
                 'location' => [
-                    'en' => 'Kuwait City, Downtown',
-                    'ar' => 'مدينة الكويت، وسط المدينة'
+                    'en' => 'Kuwait City, Downtown, Kuwait',
+                    'ar' => 'مدينة الكويت، وسط المدينة، الكويت'
                 ],
                 'phone' => '+965 2222 4444',
                 'working_hours' => [
@@ -99,8 +99,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'مملكة الحيوانات'
                 ],
                 'location' => [
-                    'en' => 'Farwaniya, Shopping Mall',
-                    'ar' => 'الفروانية، المركز التجاري'
+                    'en' => 'Farwaniya, Shopping Mall, Kuwait',
+                    'ar' => 'الفروانية، المركز التجاري، الكويت'
                 ],
                 'phone' => '+965 2222 5555',
                 'working_hours' => [
@@ -118,8 +118,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'بيت كير بلس'
                 ],
                 'location' => [
-                    'en' => 'Mubarak Al-Kabeer, Medical Center',
-                    'ar' => 'مبارك الكبير، المركز الطبي'
+                    'en' => 'Mubarak Al-Kabeer, Medical Center, Kuwait',
+                    'ar' => 'مبارك الكبير، المركز الطبي، الكويت'
                 ],
                 'phone' => '+965 2222 6666',
                 'working_hours' => [

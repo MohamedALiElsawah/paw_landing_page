@@ -361,6 +361,14 @@ class SettingController extends Controller
                 'description' => 'About us mission statement',
                 'is_multilingual' => true
             ],
+            [
+                'key' => 'about_us_image',
+                'value' => null,
+                'type' => 'image',
+                'group' => 'about',
+                'description' => 'About us section image',
+                'is_multilingual' => false
+            ],
 
             // Footer Settings
             [
