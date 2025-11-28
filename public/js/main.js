@@ -567,6 +567,7 @@ function initBannerCarousel() {
     if (!bannerCarousel) return;
 
     const bannerSlides = document.querySelectorAll(".banner-slide");
+    const bannerImageSlides = document.querySelectorAll(".banner-image-slide");
     const bannerDots = document.querySelectorAll(".banner-dot");
 
     // If no banners or only one banner, don't initialize carousel
@@ -595,8 +596,13 @@ function initBannerCarousel() {
         // Update current slide
         currentSlide = index;
 
-        // Update slides
+        // Update content slides
         bannerSlides.forEach((slide, i) => {
+            slide.classList.toggle("active", i === index);
+        });
+
+        // Update image slides
+        bannerImageSlides.forEach((slide, i) => {
             slide.classList.toggle("active", i === index);
         });
 

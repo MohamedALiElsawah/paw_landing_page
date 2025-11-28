@@ -72,36 +72,25 @@
                 @endif
             </div>
             <div class="image-stack">
-                @if ($banners->count() >= 3)
-                    <!-- Use default banner for leo-mascot and next two banners for phones -->
-                    @php
-                        $defaultBanner = $banners->where('is_default', true)->first();
-                        $otherBanners = $banners->where('is_default', false)->take(2);
-                    @endphp
-
-                    @if ($defaultBanner)
-                        <div class="leo-mascot">
-                            <img src="{{ $defaultBanner->image_url }}" alt="{{ $defaultBanner->title }}">
-                        </div>
-                    @endif
-
-                    @if ($otherBanners->count() >= 2)
-                        <div class="phone-1">
-                            <img src="{{ $otherBanners->first()->image_url }}" alt="{{ $otherBanners->first()->title }}">
-                        </div>
-                        <div class="phone-2">
-                            <img src="{{ $otherBanners->skip(1)->first()->image_url }}"
-                                alt="{{ $otherBanners->skip(1)->first()->title }}">
-                        </div>
-                    @else
-                        <!-- Fallback if not enough banners -->
-                        <div class="phone-1">
-                            <img src="{{ asset('assets/images/hero1.png') }}" alt="Screen 1">
-                        </div>
-                        <div class="phone-2">
-                            <img src="{{ asset('assets/images/hero3.png') }}" alt="Screen 2">
-                        </div>
-                    @endif
+                @if ($banners->count() > 0)
+                    <!-- Banner image carousel that syncs with content carousel -->
+                    <div class="banner-image-carousel">
+                        @foreach ($banners as $index => $banner)
+                            <div class="banner-image-slide {{ $index === 0 ? 'active' : '' }}"
+                                data-banner-id="{{ $banner->id }}">
+                                <div class="phone-1">
+                                    <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}">
+                                </div>
+                                <div class="phone-2">
+                                    <img src="{{ $banner->secondary_image_url ?: $banner->image_url }}"
+                                        alt="{{ $banner->title }}">
+                                </div>
+                                <div class="leo-mascot">
+                                    <img src="{{ $banner->image_url }}" alt="{{ $banner->title }}">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 @else
                     <!-- Fallback to static phone images -->
                     <div class="phone-1">
