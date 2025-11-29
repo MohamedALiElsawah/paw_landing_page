@@ -36,10 +36,10 @@ class PartnerController extends Controller
         }
 
         Partner::create([
-            'name' => [
+            'name' => json_encode([
                 'en' => $request->name_en,
                 'ar' => $request->name_ar,
-            ],
+            ]),
             'logo' => $logoPath,
             'order' => $request->order ?? 0,
             'is_active' => $request->is_active ?? true,
@@ -72,10 +72,10 @@ class PartnerController extends Controller
         }
 
         $partner->update([
-            'name' => [
+            'name' => json_encode([
                 'en' => $request->name_en,
                 'ar' => $request->name_ar,
-            ],
+            ]),
             'logo' => $logoPath,
             'order' => $request->order ?? 0,
             'is_active' => $request->is_active ?? true,

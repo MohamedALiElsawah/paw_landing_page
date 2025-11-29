@@ -55,14 +55,14 @@ class ReviewController extends Controller
         };
 
         Review::create([
-            'reviewer_name' => [
+            'reviewer_name' => json_encode([
                 'en' => $request->reviewer_name_en,
                 'ar' => $request->reviewer_name_ar,
-            ],
-            'content' => [
+            ]),
+            'content' => json_encode([
                 'en' => $request->content_en,
                 'ar' => $request->content_ar,
-            ],
+            ]),
             'rating' => $request->rating,
             'reviewer_image' => $reviewerImagePath,
             'date' => $request->date,
@@ -114,14 +114,14 @@ class ReviewController extends Controller
         };
 
         $review->update([
-            'reviewer_name' => [
+            'reviewer_name' => json_encode([
                 'en' => $request->reviewer_name_en,
                 'ar' => $request->reviewer_name_ar,
-            ],
-            'content' => [
+            ]),
+            'content' => json_encode([
                 'en' => $request->content_en,
                 'ar' => $request->content_ar,
-            ],
+            ]),
             'rating' => $request->rating,
             'reviewer_image' => $reviewerImagePath,
             'date' => $request->date,

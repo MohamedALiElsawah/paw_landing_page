@@ -39,14 +39,14 @@ class PetPostController extends Controller
         }
 
         PetPost::create([
-            'title' => [
+            'title' => json_encode([
                 'en' => $request->title_en,
                 'ar' => $request->title_ar,
-            ],
-            'content' => [
+            ]),
+            'content' => json_encode([
                 'en' => $request->content_en,
                 'ar' => $request->content_ar,
-            ],
+            ]),
             'image' => $imagePath,
             'slug' => Str::slug($request->title_en),
             'is_published' => $request->is_published ?? false,
@@ -82,14 +82,14 @@ class PetPostController extends Controller
         }
 
         $petpost->update([
-            'title' => [
+            'title' => json_encode([
                 'en' => $request->title_en,
                 'ar' => $request->title_ar,
-            ],
-            'content' => [
+            ]),
+            'content' => json_encode([
                 'en' => $request->content_en,
                 'ar' => $request->content_ar,
-            ],
+            ]),
             'image' => $imagePath,
             'slug' => Str::slug($request->title_en),
             'is_published' => $request->is_published ?? false,
