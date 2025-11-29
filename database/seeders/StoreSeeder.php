@@ -32,8 +32,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'مفتوح 24/7'
                 ],
                 'rating' => 4.8,
-                'image' => $this->seedImage('store1.png', 'stores', 'image', 'store1.png'),
-                'logo' => $this->seedImage('logo1.png', 'stores', 'logo', 'logo1.png'),
+                'image' => 'images/stores/image/store1.png',
+                'logo' => 'images/general/logo1.png',
                 'is_active' => true,
             ],
             [
@@ -51,8 +51,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'مفتوح 24/7'
                 ],
                 'rating' => 4.9,
-                'image' => $this->seedImage('store2.png', 'stores', 'image', 'store2.png'),
-                'logo' => $this->seedImage('logo2.png', 'stores', 'logo', 'logo2.png'),
+                'image' => 'images/stores/image/store2.png',
+                'logo' => 'images/general/logo2.png',
                 'is_active' => true,
             ],
             [
@@ -70,8 +70,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'مفتوح 24/7'
                 ],
                 'rating' => 4.7,
-                'image' => $this->seedImage('store3.png', 'stores', 'image', 'store3.png'),
-                'logo' => $this->seedImage('logo3.png', 'stores', 'logo', 'logo3.png'),
+                'image' => 'images/stores/image/store3.png',
+                'logo' => 'images/general/logo3.png',
                 'is_active' => true,
             ],
             [
@@ -89,8 +89,8 @@ class StoreSeeder extends Seeder
                     'ar' => '9 صباحاً - 10 مساءً'
                 ],
                 'rating' => 4.9,
-                'image' => $this->seedImage('store_banner1.png', 'stores', 'image', 'store_banner1.png'),
-                'logo' => $this->seedImage('Partner logo-1.png', 'stores', 'logo', 'partner_logo_1.png'),
+                'image' => 'images/banners/image/store_banner1.png',
+                'logo' => 'images/partners/image/Partner logo-1.png',
                 'is_active' => true,
             ],
             [
@@ -108,8 +108,8 @@ class StoreSeeder extends Seeder
                     'ar' => '8 صباحاً - 11 مساءً'
                 ],
                 'rating' => 4.8,
-                'image' => $this->seedImage('store_banner2.png', 'stores', 'image', 'store_banner2.png'),
-                'logo' => $this->seedImage('Partner logo-2.png', 'stores', 'logo', 'partner_logo_2.png'),
+                'image' => 'images/banners/image/store_banner2.png',
+                'logo' => 'images/partners/image/Partner logo-2.png',
                 'is_active' => true,
             ],
             [
@@ -127,8 +127,8 @@ class StoreSeeder extends Seeder
                     'ar' => 'طوارئ 24/7'
                 ],
                 'rating' => 5.0,
-                'image' => $this->seedImage('store_banner3.png', 'stores', 'image', 'store_banner3.png'),
-                'logo' => $this->seedImage('Partner logo-3.png', 'stores', 'logo', 'partner_logo_3.png'),
+                'image' => 'images/banners/image/store_banner3.png',
+                'logo' => 'images/partners/image/Partner logo-3.png',
                 'is_active' => true,
             ],
         ];

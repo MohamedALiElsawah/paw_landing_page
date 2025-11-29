@@ -22,7 +22,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Happy Vet Clinic',
                     'ar' => 'عيادة هابي فيت'
                 ],
-                'logo' => $this->seedImage('Partner logo-1.png', 'partners', 'logo', 'partner_logo_1.png'),
+                'logo' => 'images/partners/image/Partner logo-1.png',
                 'order' => 1,
                 'is_active' => true,
             ],
@@ -31,7 +31,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Pet Paradise Store',
                     'ar' => 'متجر جنة الحيوانات الأليفة'
                 ],
-                'logo' => $this->seedImage('Partner logo-2.png', 'partners', 'logo', 'partner_logo_2.png'),
+                'logo' => 'images/partners/image/Partner logo-2.png',
                 'order' => 2,
                 'is_active' => true,
             ],
@@ -40,7 +40,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Animal Kingdom',
                     'ar' => 'مملكة الحيوانات'
                 ],
-                'logo' => $this->seedImage('Partner logo-3.png', 'partners', 'logo', 'partner_logo_3.png'),
+                'logo' => 'images/partners/image/Partner logo-3.png',
                 'order' => 3,
                 'is_active' => true,
             ],
@@ -49,7 +49,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Pet Care Plus',
                     'ar' => 'بيت كير بلس'
                 ],
-                'logo' => $this->seedImage('Partner logo-4.png', 'partners', 'logo', 'partner_logo_4.png'),
+                'logo' => 'images/partners/image/Partner logo-4.png',
                 'order' => 4,
                 'is_active' => true,
             ],
@@ -58,7 +58,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Vet Express',
                     'ar' => 'فيت إكسبريس'
                 ],
-                'logo' => $this->seedImage('Partner logo-5.png', 'partners', 'logo', 'partner_logo_5.png'),
+                'logo' => 'images/partners/image/Partner logo-5.png',
                 'order' => 5,
                 'is_active' => true,
             ],
@@ -67,7 +67,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Pet Food Kuwait',
                     'ar' => 'بيت فود الكويت'
                 ],
-                'logo' => $this->seedImage('Partner logo-6.png', 'partners', 'logo', 'partner_logo_6.png'),
+                'logo' => 'images/partners/image/Partner logo-6.png',
                 'order' => 6,
                 'is_active' => true,
             ],
@@ -76,7 +76,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Animal Health Center',
                     'ar' => 'مركز صحة الحيوان'
                 ],
-                'logo' => $this->seedImage('Partner logo-7.png', 'partners', 'logo', 'partner_logo_7.png'),
+                'logo' => 'images/partners/image/Partner logo-7.png',
                 'order' => 7,
                 'is_active' => true,
             ],
@@ -85,7 +85,7 @@ class PartnerSeeder extends Seeder
                     'en' => 'Pet Grooming Experts',
                     'ar' => 'خبراء العناية بالحيوانات الأليفة'
                 ],
-                'logo' => $this->seedImage('Partner logo-8.png', 'partners', 'logo', 'partner_logo_8.png'),
+                'logo' => 'images/partners/image/Partner logo-8.png',
                 'order' => 8,
                 'is_active' => true,
             ],
