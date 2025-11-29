@@ -186,7 +186,7 @@
                             <span class="status-text">{{ __('Open Now') }}</span>
                         </div>
                     </div>
-                    <div class="detailed-hours">
+                    {{-- <div class="detailed-hours">
                         <div class="hours-row">
                             <span class="day">{{ __('Monday - Friday') }}</span>
                             <span class="time">9:00 AM - 9:00 PM</span>
@@ -195,7 +195,7 @@
                             <span class="day">{{ __('Saturday - Sunday') }}</span>
                             <span class="time">10:00 AM - 8:00 PM</span>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="info-box" data-info-type="contact">
                     <div class="icon"><i class="fas fa-phone"></i></div>
