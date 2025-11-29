@@ -591,7 +591,7 @@
                     <h4>{{ __('Quick Links') }}</h4>
                     <a href="#">{{ __('Home') }}</a>
                     <a href="#">{{ __('Store') }}</a>
-                    <a href="#">{{ __('Clinic') }}</a>
+                    <a href="#">{{ __('Clinics') }}</a>
                 </div>
                 <div class="footer-col">
                     <h4>{{ __('Services') }}</h4>
