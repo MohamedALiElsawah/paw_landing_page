@@ -23,14 +23,26 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
-        $validated = $request->validate([
+        // Build validation rules dynamically
+        $validationRules = [
             'settings' => 'required|array',
-            'settings.*' => 'nullable|string',
             'multilingual_settings' => 'sometimes|array',
             'multilingual_settings.*' => 'sometimes|array',
             'multilingual_settings.*.en' => 'nullable|string',
             'multilingual_settings.*.ar' => 'nullable|string'
-        ]);
+        ];
+
+        // Add file validation for image type settings
+        foreach ($request->all()['settings'] ?? [] as $key => $value) {
+            $setting = Setting::where('key', $key)->first();
+            if ($setting && $setting->type === 'image' && $request->hasFile("settings.{$key}")) {
+                $validationRules["settings.{$key}"] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp,bmp,ico|max:2048';
+            } else {
+                $validationRules["settings.{$key}"] = 'nullable|string';
+            }
+        }
+
+        $validated = $request->validate($validationRules);
 
         // Update regular settings
         foreach ($validated['settings'] as $key => $value) {
