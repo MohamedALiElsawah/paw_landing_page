@@ -391,6 +391,14 @@ class SettingController extends Controller
                 'description' => 'Footer description text',
                 'is_multilingual' => true
             ],
+            [
+                'key' => 'footer_banner_image',
+                'value' => null,
+                'type' => 'image',
+                'group' => 'footer',
+                'description' => 'Footer banner image',
+                'is_multilingual' => false
+            ],
 
             // Banner Settings
             [

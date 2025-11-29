@@ -1477,6 +1477,10 @@
                                                     'en' => 'Footer Description',
                                                     'ar' => 'وصف الفوتر',
                                                 ],
+                                                'footer_banner_image' => [
+                                                    'en' => 'Footer Banner Image',
+                                                    'ar' => 'صورة بانر الفوتر',
+                                                ],
                                             ][$setting->key] ?? [
                                                 'en' => ucfirst(str_replace('_', ' ', $setting->key)),
                                                 'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
@@ -1558,6 +1562,18 @@
                                         @elseif($setting->type === 'textarea')
                                             <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
                                                 placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @elseif($setting->type === 'image')
+                                            <div class="d-flex align-items-center">
+                                                @if ($setting->value)
+                                                    <div class="me-3">
+                                                        <img src="{{ Storage::url($setting->value) }}"
+                                                            alt="{{ $setting->key }}" class="img-thumbnail"
+                                                            style="max-height: 80px;">
+                                                    </div>
+                                                @endif
+                                                <input type="file" name="settings[{{ $setting->key }}]"
+                                                    class="form-control">
+                                            </div>
                                         @endif
                                     @endif
                                 </div>
