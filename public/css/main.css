@@ -1468,6 +1468,39 @@ section {
     background: var(--yellow);
 }
 
+.detailed-hours {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--light-bg);
+    border-radius: var(--border-radius-md);
+    border: 1px solid #e0e0e0;
+    width: 100%;
+}
+
+.hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.hours-row:last-child {
+    border-bottom: none;
+}
+
+.hours-row .day {
+    font-weight: 600;
+    color: var(--blue);
+    font-size: 14px;
+}
+
+.hours-row .time {
+    font-weight: 500;
+    color: #555;
+    font-size: 14px;
+}
+
 .store-status {
     display: flex;
     align-items: center;
@@ -1537,6 +1570,16 @@ section {
         font-size: 16px;
         padding: 10px 12px;
         max-width: 240px;
+    }
+
+    .detailed-hours {
+        padding: 8px;
+    }
+
+    .hours-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
     }
 
     .store-status {
@@ -1833,7 +1876,7 @@ section {
     background: var(--white);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
-    width: 280px;
+    width: 320px;
     flex-shrink: 0;
     transition: all var(--transition-fast);
     text-align: start;
@@ -1880,36 +1923,159 @@ section {
     object-fit: cover;
 }
 
+.store-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+}
+
+.rating-badge {
+    background: var(--yellow);
+    color: var(--blue);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .store-card .store-info {
     padding: 30px 16px 20px;
 }
 
-.store-card .store-name {
-    font-weight: 700;
-    margin-bottom: 8px;
+.store-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
+    align-items: flex-start;
+    margin-bottom: 12px;
 }
 
-.store-card .rating {
-    color: #ffc107;
-    font-size: 13px;
+.store-name {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--blue);
+    margin: 0;
+    flex: 1;
 }
 
-.store-card .store-detail {
+.store-rating {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: #555;
-    margin: 4px 0;
+    gap: 6px;
 }
 
-.store-card .store-detail i {
+.store-rating .stars {
+    color: #ffc107;
+    font-size: 14px;
+}
+
+.rating-text {
+    font-size: 12px;
+    color: #666;
+    font-weight: 600;
+}
+
+.store-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.store-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.store-detail i {
     width: 14px;
     color: var(--blue);
+    margin-top: 2px;
+}
+
+.working-hours-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hours-text {
+    font-weight: 500;
+}
+
+.store-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4CAF50;
+    animation: pulse 2s infinite;
+}
+
+.status-dot.open {
+    background: #4CAF50;
+}
+
+.status-dot.closed {
+    background: #f44336;
+}
+
+.location-text {
+    font-weight: 500;
+}
+
+.store-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.store-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: var(--border-radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.call-btn {
+    background: var(--blue);
+    color: var(--white);
+}
+
+.call-btn:hover {
+    background: var(--blue-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 45, 114, 0.3);
+}
+
+.directions-btn {
+    background: var(--light-bg);
+    color: var(--blue);
+    border: 1px solid #e0e0e0;
+}
+
+.directions-btn:hover {
+    background: var(--blue);
+    color: var(--white);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 45, 114, 0.3);
 }
 
 /* Store Status Styles */
@@ -1934,6 +2100,26 @@ section {
 .status-unknown {
     background: #ff9800;
     color: white;
+}
+
+/* Responsive adjustments for stores */
+@media (max-width: 768px) {
+    .store-card {
+        width: 280px;
+    }
+
+    .store-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .store-actions {
+        flex-direction: column;
+    }
+
+    .store-btn {
+        padding: 10px 12px;
+    }
 }
 
 /* === DOCTOR BO === */

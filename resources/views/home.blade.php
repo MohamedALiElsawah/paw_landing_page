@@ -186,6 +186,16 @@
                             <span class="status-text">{{ __('Open Now') }}</span>
                         </div>
                     </div>
+                    <div class="detailed-hours">
+                        <div class="hours-row">
+                            <span class="day">{{ __('Monday - Friday') }}</span>
+                            <span class="time">9:00 AM - 9:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span class="day">{{ __('Saturday - Sunday') }}</span>
+                            <span class="time">10:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="info-box" data-info-type="contact">
                     <div class="icon"><i class="fas fa-phone"></i></div>
@@ -208,6 +218,8 @@
         <div class="container">
             <div class="section-title animate">
                 <h2>{{ __('Recommended Stores') }}</h2>
+                <p>{{ App\Models\Setting::getValue('store_description', __('Discover the best pet stores with exclusive offers and quality products')) }}
+                </p>
             </div>
             <div class="scrollable-section">
                 <div class="stores-scroll-container">
@@ -221,17 +233,50 @@
                                         <div class="store-logo"><img src="{{ $store->logo_url }}" alt="Logo">
                                         </div>
                                     @endif
+                                    <div class="store-badge">
+                                        <span class="rating-badge">★ {{ $store->rating }}</span>
+                                    </div>
                                 </div>
                                 <div class="store-info">
-                                    <div class="store-name">{{ $store->name }} <span class="rating">★★★★★
-                                            {{ $store->rating }}</span></div>
-                                    <div class="store-detail"><i class="fas fa-phone"></i> <a
-                                            href="tel:{{ $store->phone }}" class="phone-link">{{ $store->phone }}</a>
+                                    <div class="store-header">
+                                        <h3 class="store-name">{{ $store->name }}</h3>
+                                        <div class="store-rating">
+                                            <div class="stars">★★★★★</div>
+                                            <span class="rating-text">{{ $store->rating }}/5</span>
+                                        </div>
                                     </div>
-                                    <div class="store-detail"><i class="fas fa-clock"></i>
-                                        {{ $store->working_hours }}
-                                        <span class="store-status"
-                                            data-working-hours="{{ $store->working_hours }}"></span>
+                                    <div class="store-details">
+                                        <div class="store-detail">
+                                            <i class="fas fa-phone"></i>
+                                            <a href="tel:{{ $store->phone }}" class="phone-link">{{ $store->phone }}</a>
+                                        </div>
+                                        <div class="store-detail">
+                                            <i class="fas fa-clock"></i>
+                                            <div class="working-hours-info">
+                                                <span
+                                                    class="hours-text">{{ $store->working_hours ?: __('Mon-Sun: 9AM - 9PM') }}</span>
+                                                <div class="store-status-indicator">
+                                                    <span class="status-dot open"></span>
+                                                    <span class="status-text">{{ __('Open Now') }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($store->location)
+                                            <div class="store-detail">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <span class="location-text">{{ $store->location }}</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="store-actions">
+                                        <a href="tel:{{ $store->phone }}" class="store-btn call-btn">
+                                            <i class="fas fa-phone"></i>
+                                            {{ __('Call') }}
+                                        </a>
+                                        <a href="#" class="store-btn directions-btn">
+                                            <i class="fas fa-directions"></i>
+                                            {{ __('Directions') }}
+                                        </a>
                                     </div>
                                 </div>
                             </div>

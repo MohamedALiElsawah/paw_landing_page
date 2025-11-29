@@ -456,6 +456,14 @@ class SettingController extends Controller
                 'description' => 'Store section button text',
                 'is_multilingual' => true
             ],
+            [
+                'key' => 'store_description',
+                'value' => 'Discover the best pet stores with exclusive offers and quality products',
+                'type' => 'textarea',
+                'group' => 'store',
+                'description' => 'Recommended stores section description',
+                'is_multilingual' => true
+            ],
         ];
 
         foreach ($defaultSettings as $settingData) {
