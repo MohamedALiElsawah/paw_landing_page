@@ -35,6 +35,7 @@ function init() {
     initClinicsMap();
     duplicatePartnersForSeamlessLoop();
     initStoreStatuses();
+    initWorkingHoursStatus();
 }
 
 // Set up all event listeners
@@ -781,6 +782,147 @@ function updateStoreStatuses() {
         statusElement.textContent = ` • ${status.text}`;
         statusElement.className = `store-status status-${status.status}`;
     });
+}
+
+// Working Hours Status Functionality
+function initWorkingHoursStatus() {
+    updateWorkingHoursStatus();
+
+    // Update status every minute
+    setInterval(updateWorkingHoursStatus, 60000);
+}
+
+function updateWorkingHoursStatus() {
+    const workingHoursElements = document.querySelectorAll(
+        ".working-hours-display"
+    );
+
+    workingHoursElements.forEach((element) => {
+        const workingHoursText = element.querySelector(
+            ".working-hours-text"
+        ).textContent;
+        const statusElement = element.querySelector(".store-status");
+        const statusIndicator = element.querySelector(".status-indicator");
+        const statusText = element.querySelector(".status-text");
+
+        const status = calculateWorkingHoursStatus(workingHoursText);
+
+        // Update status indicator
+        statusIndicator.className = `status-indicator ${status.status}`;
+
+        // Update status text
+        statusText.textContent = status.text;
+
+        // Update status container styling
+        statusElement.style.background = status.background;
+        statusElement.style.color = status.color;
+    });
+}
+
+function calculateWorkingHoursStatus(workingHours) {
+    const now = new Date();
+    const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const currentTime = currentHour * 60 + currentMinute;
+
+    // Check for 24/7 operation
+    if (workingHours.includes("24/7") || workingHours.includes("مفتوح 24/7")) {
+        return {
+            status: "open",
+            text: "Open 24/7",
+            background: "#4CAF50",
+            color: "white",
+        };
+    }
+
+    // Parse complex working hours like "Mon-Fri: 9AM-6PM, Sat: 10AM-4PM"
+    const daySchedules = workingHours.split(",");
+
+    for (const schedule of daySchedules) {
+        const trimmedSchedule = schedule.trim();
+
+        // Parse day range like "Mon-Fri" or single day like "Sat"
+        const dayMatch = trimmedSchedule.match(
+            /(Mon|Tue|Wed|Thu|Fri|Sat|Sun)(?:-(Mon|Tue|Wed|Thu|Fri|Sat|Sun))?/i
+        );
+        if (!dayMatch) continue;
+
+        const startDay = dayMatch[1].toLowerCase();
+        const endDay = dayMatch[2] ? dayMatch[2].toLowerCase() : startDay;
+
+        // Check if current day is within the range
+        const dayMap = {
+            sun: 0,
+            mon: 1,
+            tue: 2,
+            wed: 3,
+            thu: 4,
+            fri: 5,
+            sat: 6,
+        };
+        const currentDayNum = currentDay;
+        const startDayNum = dayMap[startDay];
+        const endDayNum = dayMap[endDay];
+
+        let isCurrentDayInRange = false;
+        if (startDayNum <= endDayNum) {
+            isCurrentDayInRange =
+                currentDayNum >= startDayNum && currentDayNum <= endDayNum;
+        } else {
+            // Handle ranges that wrap around Sunday (e.g., Sat-Mon)
+            isCurrentDayInRange =
+                currentDayNum >= startDayNum || currentDayNum <= endDayNum;
+        }
+
+        if (!isCurrentDayInRange) continue;
+
+        // Parse time range like "9AM-6PM"
+        const timeMatch = trimmedSchedule.match(
+            /(\d+)(AM|PM)\s*-\s*(\d+)(AM|PM)/i
+        );
+        if (timeMatch) {
+            let openHour = parseInt(timeMatch[1]);
+            const openPeriod = timeMatch[2].toUpperCase();
+            let closeHour = parseInt(timeMatch[3]);
+            const closePeriod = timeMatch[4].toUpperCase();
+
+            // Convert to 24-hour format
+            if (openPeriod === "PM" && openHour !== 12) openHour += 12;
+            if (openPeriod === "AM" && openHour === 12) openHour = 0;
+
+            if (closePeriod === "PM" && closeHour !== 12) closeHour += 12;
+            if (closePeriod === "AM" && closeHour === 12) closeHour = 0;
+
+            const openTime = openHour * 60;
+            const closeTime = closeHour * 60;
+
+            // Check if current time is within working hours
+            if (currentTime >= openTime && currentTime <= closeTime) {
+                return {
+                    status: "open",
+                    text: "Open Now",
+                    background: "#4CAF50",
+                    color: "white",
+                };
+            } else {
+                return {
+                    status: "closed",
+                    text: "Closed",
+                    background: "#f44336",
+                    color: "white",
+                };
+            }
+        }
+    }
+
+    // If no matching schedule found, assume closed
+    return {
+        status: "closed",
+        text: "Closed",
+        background: "#f44336",
+        color: "white",
+    };
 }
 
 // Initialize the app when DOM is loaded

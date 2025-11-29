@@ -177,7 +177,15 @@
                 <div class="info-box" data-info-type="hours">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <h4>{{ __('Opening Hours') }}</h4>
-                    <p>{{ App\Models\Setting::getValue('working_hours', __('Mon-Sun: 9AM - 9PM')) }}</p>
+                    <div class="working-hours-display">
+                        <div class="working-hours-text">
+                            {{ App\Models\Setting::getValue('working_hours', __('Mon-Sun: 9AM - 9PM')) }}
+                        </div>
+                        <div class="store-status">
+                            <span class="status-indicator open"></span>
+                            <span class="status-text">{{ __('Open Now') }}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="info-box" data-info-type="contact">
                     <div class="icon"><i class="fas fa-phone"></i></div>
