@@ -415,6 +415,47 @@ class SettingController extends Controller
                 'description' => 'Contact section description',
                 'is_multilingual' => true
             ],
+            // Additional missing settings
+            [
+                'key' => 'top_header_text',
+                'value' => 'Download PawApp Now - Your Complete Pet Care Companion',
+                'type' => 'text',
+                'group' => 'banner',
+                'description' => 'Top header banner text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'clinics_button_text',
+                'value' => 'Find Nearest Clinic',
+                'type' => 'text',
+                'group' => 'clinics',
+                'description' => 'Clinics section button text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'dr_bo_button_text',
+                'value' => 'Talk to Dr. Bo Now',
+                'type' => 'text',
+                'group' => 'dr_bo',
+                'description' => 'Dr. Bo section button text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'dr_bo_typing_text',
+                'value' => 'Ask Dr. Bo anything...',
+                'type' => 'text',
+                'group' => 'dr_bo',
+                'description' => 'Dr. Bo typing indicator text',
+                'is_multilingual' => true
+            ],
+            [
+                'key' => 'store_button_text',
+                'value' => 'Visit Store',
+                'type' => 'text',
+                'group' => 'store',
+                'description' => 'Store section button text',
+                'is_multilingual' => true
+            ],
         ];
 
         foreach ($defaultSettings as $settingData) {

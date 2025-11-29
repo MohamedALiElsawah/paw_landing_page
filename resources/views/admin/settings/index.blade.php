@@ -3,6 +3,18 @@
 @section('title', 'Settings')
 
 @section('content')
+    <!-- Dynamic Banner -->
+    <div class="dynamic-banner-container mb-4">
+        <section class="dynamic-banner" id="dynamic-banner">
+            <div class="banner-content">
+                <div class="banner-text active" id="banner-text" data-banner-index="0">
+                    {{ App\Models\Setting::getValue('top_header_text', __('Download PawApp Now - Your Complete Pet Care Companion')) }}
+                </div>
+                <img src="{{ asset('assets/images/catBanner.png') }}" alt="Cat" class="banner-cat">
+            </div>
+        </section>
+    </div>
+
     <!-- Page Header -->
     <div class="page-header mb-4">
         <div class="row align-items-center">
@@ -58,7 +70,31 @@
                         @foreach ($settings['general'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'site_name' => ['en' => 'Site Name', 'ar' => 'اسم الموقع'],
+                                                'site_description' => [
+                                                    'en' => 'Site Description',
+                                                    'ar' => 'وصف الموقع',
+                                                ],
+                                                'site_logo' => ['en' => 'Site Logo', 'ar' => 'شعار الموقع'],
+                                                'site_favicon' => ['en' => 'Site Favicon', 'ar' => 'أيقونة الموقع'],
+                                                'default_language' => [
+                                                    'en' => 'Default Language',
+                                                    'ar' => 'اللغة الافتراضية',
+                                                ],
+                                                'timezone' => ['en' => 'Timezone', 'ar' => 'المنطقة الزمنية'],
+                                                'currency' => ['en' => 'Currency', 'ar' => 'العملة'],
+                                                'date_format' => ['en' => 'Date Format', 'ar' => 'تنسيق التاريخ'],
+                                                'time_format' => ['en' => 'Time Format', 'ar' => 'تنسيق الوقت'],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
                                         @if ($setting->is_multilingual)
                                             <span class="badge bg-primary ms-2">Multilingual</span>
                                         @endif
@@ -161,7 +197,33 @@
                         @foreach ($settings['contact'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'contact_email' => [
+                                                    'en' => 'Contact Email',
+                                                    'ar' => 'البريد الإلكتروني للتواصل',
+                                                ],
+                                                'contact_phone' => [
+                                                    'en' => 'Contact Phone',
+                                                    'ar' => 'رقم الهاتف للتواصل',
+                                                ],
+                                                'contact_address' => [
+                                                    'en' => 'Contact Address',
+                                                    'ar' => 'عنوان التواصل',
+                                                ],
+                                                'business_hours' => ['en' => 'Business Hours', 'ar' => 'ساعات العمل'],
+                                                'emergency_contact' => [
+                                                    'en' => 'Emergency Contact',
+                                                    'ar' => 'الاتصال في حالات الطوارئ',
+                                                ],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
                                         @if ($setting->is_multilingual)
                                             <span class="badge bg-primary ms-2">Multilingual</span>
                                         @endif
@@ -258,8 +320,26 @@
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'facebook_url' => ['en' => 'Facebook URL', 'ar' => 'رابط الفيسبوك'],
+                                                'twitter_url' => ['en' => 'Twitter URL', 'ar' => 'رابط تويتر'],
+                                                'instagram_url' => ['en' => 'Instagram URL', 'ar' => 'رابط إنستغرام'],
+                                                'linkedin_url' => ['en' => 'LinkedIn URL', 'ar' => 'رابط لينكد إن'],
+                                                'youtube_url' => ['en' => 'YouTube URL', 'ar' => 'رابط يوتيوب'],
+                                                'whatsapp_url' => ['en' => 'WhatsApp URL', 'ar' => 'رابط واتساب'],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(
+                                                    str_replace('_url', '', str_replace('_', ' ', $setting->key)),
+                                                ),
+                                                'ar' => ucfirst(
+                                                    str_replace('_url', '', str_replace('_', ' ', $setting->key)),
+                                                ),
+                                            ];
+                                        @endphp
                                         <i class="fab fa-{{ str_replace('_url', '', $setting->key) }} me-2"></i>
-                                        {{ ucfirst(str_replace('_url', '', str_replace('_', ' ', $setting->key))) }}
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
                                     </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
@@ -288,8 +368,34 @@
                         @foreach ($settings['seo'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'meta_title' => ['en' => 'Meta Title', 'ar' => 'عنوان الميتا'],
+                                                'meta_description' => [
+                                                    'en' => 'Meta Description',
+                                                    'ar' => 'وصف الميتا',
+                                                ],
+                                                'meta_keywords' => [
+                                                    'en' => 'Meta Keywords',
+                                                    'ar' => 'كلمات مفتاحية للميتا',
+                                                ],
+                                                'google_analytics' => [
+                                                    'en' => 'Google Analytics',
+                                                    'ar' => 'جوجل أناليتكس',
+                                                ],
+                                                'google_site_verification' => [
+                                                    'en' => 'Google Site Verification',
+                                                    'ar' => 'تحقق موقع جوجل',
+                                                ],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
@@ -322,8 +428,26 @@
                         @foreach ($settings['banner'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label
-                                        class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}</label>
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'top_header_text' => [
+                                                    'en' => 'Top Header Text',
+                                                    'ar' => 'نص الهيدر العلوي',
+                                                ],
+                                                'banner_enabled' => ['en' => 'Banner Enabled', 'ar' => 'تفعيل البانر'],
+                                                'banner_rotation_speed' => [
+                                                    'en' => 'Banner Rotation Speed',
+                                                    'ar' => 'سرعة دوران البانر',
+                                                ],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
+                                    </label>
                                     @if ($setting->description)
                                         <small class="form-text text-muted d-block">{{ $setting->description }}</small>
                                     @endif
@@ -356,7 +480,30 @@
                         @foreach ($settings['hero'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'hero_title' => ['en' => 'Hero Title', 'ar' => 'عنوان القسم الرئيسي'],
+                                                'hero_subtitle' => [
+                                                    'en' => 'Hero Subtitle',
+                                                    'ar' => 'العنوان الفرعي للقسم الرئيسي',
+                                                ],
+                                                'hero_description' => [
+                                                    'en' => 'Hero Description',
+                                                    'ar' => 'وصف القسم الرئيسي',
+                                                ],
+                                                'hero_button_text' => [
+                                                    'en' => 'Hero Button Text',
+                                                    'ar' => 'نص زر القسم الرئيسي',
+                                                ],
+                                                'hero_image' => ['en' => 'Hero Image', 'ar' => 'صورة القسم الرئيسي'],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
                                         @if ($setting->is_multilingual)
                                             <span class="badge bg-primary ms-2">Multilingual</span>
                                         @endif
@@ -447,7 +594,25 @@
                         @foreach ($settings['services'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'services_title' => ['en' => 'Services Title', 'ar' => 'عنوان الخدمات'],
+                                                'services_description' => [
+                                                    'en' => 'Services Description',
+                                                    'ar' => 'وصف الخدمات',
+                                                ],
+                                                'services_button_text' => [
+                                                    'en' => 'Services Button Text',
+                                                    'ar' => 'نص زر الخدمات',
+                                                ],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
                                         @if ($setting->is_multilingual)
                                             <span class="badge bg-primary ms-2">Multilingual</span>
                                         @endif
@@ -538,7 +703,133 @@
                         @foreach ($settings['store'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'store_title' => ['en' => 'Store Title', 'ar' => 'عنوان المتاجر'],
+                                                'store_description' => [
+                                                    'en' => 'Store Description',
+                                                    'ar' => 'وصف المتاجر',
+                                                ],
+                                                'store_button_text' => [
+                                                    'en' => 'Store Button Text',
+                                                    'ar' => 'نص زر المتاجر',
+                                                ],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
+                                        @if ($setting->is_multilingual)
+                                            <span class="badge bg-primary ms-2">Multilingual</span>
+                                        @endif
+                                    </label>
+                                    @if ($setting->description)
+                                        <small class="form-text text-muted d-block">{{ $setting->description }}</small>
+                                    @endif
+                                </div>
+                                <div class="col-md-8">
+                                    @if ($setting->is_multilingual)
+                                        <!-- Multilingual Input -->
+                                        <div class="nav nav-tabs mb-3" role="tablist">
+                                            <button class="nav-link active" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-en" type="button" role="tab">
+                                                English
+                                            </button>
+                                            <button class="nav-link" data-bs-toggle="tab"
+                                                data-bs-target="#{{ $setting->key }}-ar" type="button" role="tab">
+                                                العربية
+                                            </button>
+                                        </div>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="{{ $setting->key }}-en"
+                                                role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['en'] ?? ''
+                                                            : $setting->value;
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][en]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}"
+                                                            class="form-control"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][en]" class="form-control" rows="3"
+                                                            placeholder="English {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.en", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                            <div class="tab-pane fade" id="{{ $setting->key }}-ar" role="tabpanel">
+                                                @php
+                                                    $currentValue =
+                                                        $setting->is_multilingual && $setting->value
+                                                            ? json_decode($setting->value, true)['ar'] ?? ''
+                                                            : '';
+                                                @endphp
+                                                @if ($setting->type === 'text' || $setting->type === 'textarea')
+                                                    @if ($setting->type === 'text')
+                                                        <input type="text"
+                                                            name="multilingual_settings[{{ $setting->key }}][ar]"
+                                                            value="{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}"
+                                                            class="form-control" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">
+                                                    @else
+                                                        <textarea name="multilingual_settings[{{ $setting->key }}][ar]" class="form-control" rows="3" dir="rtl"
+                                                            placeholder="العربية {{ str_replace('_', ' ', $setting->key) }}">{{ old("multilingual_settings.{$setting->key}.ar", $currentValue) }}</textarea>
+                                                    @endif
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @else
+                                        <!-- Single Language Input -->
+                                        @if ($setting->type === 'text')
+                                            <input type="text" name="settings[{{ $setting->key }}]"
+                                                value="{{ old("settings.{$setting->key}", $setting->value) }}"
+                                                class="form-control"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">
+                                        @elseif($setting->type === 'textarea')
+                                            <textarea name="settings[{{ $setting->key }}]" class="form-control" rows="3"
+                                                placeholder="Enter {{ str_replace('_', ' ', $setting->key) }}">{{ old("settings.{$setting->key}", $setting->value) }}</textarea>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Clinics Settings -->
+                <div class="card card-custom mb-4">
+                    <div class="card-header bg-blue text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-clinic-medical me-2"></i>
+                            Clinics Settings
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach ($settings['clinics'] ?? [] as $setting)
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'clinics_button_text' => [
+                                                    'en' => 'Clinics Button Text',
+                                                    'ar' => 'نص زر العيادات',
+                                                ],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
                                         @if ($setting->is_multilingual)
                                             <span class="badge bg-primary ms-2">Multilingual</span>
                                         @endif
@@ -633,7 +924,24 @@
                         @foreach ($settings['dr_bo'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label class="form-label fw-bold">{{ ucfirst(str_replace('_', ' ', $setting->key)) }}
+                                    <label class="form-label fw-bold">
+                                        @php
+                                            $label = [
+                                                'dr_bo_button_text' => [
+                                                    'en' => 'Dr. Bo Button Text',
+                                                    'ar' => 'نص زر دكتور بو',
+                                                ],
+                                                'dr_bo_typing_text' => [
+                                                    'en' => 'Dr. Bo Typing Text',
+                                                    'ar' => 'نص الكتابة لدكتور بو',
+                                                ],
+                                            ][$setting->key] ?? [
+                                                'en' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                                'ar' => ucfirst(str_replace('_', ' ', $setting->key)),
+                                            ];
+                                        @endphp
+                                        <span class="d-block">{{ $label['en'] }}</span>
+                                        <small class="text-muted d-block">{{ $label['ar'] }}</small>
                                         @if ($setting->is_multilingual)
                                             <span class="badge bg-primary ms-2">Multilingual</span>
                                         @endif
@@ -1112,7 +1420,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-paw btn-lg">
+                            <button type="submit" class="btn btn-paw">
                                 <i class="fas fa-save me-2"></i>
                                 Save Settings
                             </button>
@@ -1124,6 +1432,66 @@
     </div>
 
     <style>
+        .dynamic-banner-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .dynamic-banner {
+            margin-top: 0;
+            position: relative;
+            background: #FFD700;
+            padding: 16px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #333;
+            overflow: hidden;
+            height: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            height: 100%;
+        }
+
+        .banner-text {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all .6s ease;
+        }
+
+        .banner-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .banner-cat {
+            position: absolute;
+            right: 15%;
+            top: 100%;
+            transform: translateY(100%);
+            width: 100px;
+            animation: floatCatBanner 6s ease-in-out infinite;
+        }
+
+        @keyframes floatCatBanner {
+
+            0%,
+            100% {
+                transform: translateY(-90%);
+            }
+
+            50% {
+                transform: translateY(0);
+            }
+        }
+
         .page-header {
             background: linear-gradient(135deg, var(--paw-dark), #2C3E50);
             color: white;
@@ -1203,6 +1571,10 @@
 
         .bg-gray {
             background-color: #6c757d !important;
+        }
+
+        .bg-blue {
+            background-color: #0d6efd !important;
         }
     </style>
 @endsection

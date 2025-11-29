@@ -40,23 +40,37 @@ function init() {
 // Set up all event listeners
 function setupEventListeners() {
     // Language Switch
-    elements.langButtons.forEach((button) => {
-        button.addEventListener("click", handleLanguageSwitch);
-    });
+    if (elements.langButtons.length > 0) {
+        elements.langButtons.forEach((button) => {
+            button.addEventListener("click", handleLanguageSwitch);
+        });
+    }
 
-    // Hamburger Menu
-    elements.hamburger.addEventListener("click", toggleSidebar);
-    elements.overlay.addEventListener("click", closeSidebar);
+    // Hamburger Menu - Only if elements exist
+    if (elements.hamburger) {
+        elements.hamburger.addEventListener("click", toggleSidebar);
+    }
+    if (elements.overlay) {
+        elements.overlay.addEventListener("click", closeSidebar);
+    }
 
-    // SOP Modal
-    elements.sopBtn.addEventListener("click", openSopModal);
-    elements.closeSop.addEventListener("click", closeSopModal);
-    elements.sopModal.addEventListener("click", (e) => {
-        if (e.target === elements.sopModal) closeSopModal();
-    });
+    // SOP Modal - Only if elements exist
+    if (elements.sopBtn) {
+        elements.sopBtn.addEventListener("click", openSopModal);
+    }
+    if (elements.closeSop) {
+        elements.closeSop.addEventListener("click", closeSopModal);
+    }
+    if (elements.sopModal) {
+        elements.sopModal.addEventListener("click", (e) => {
+            if (e.target === elements.sopModal) closeSopModal();
+        });
+    }
 
     // Header Scroll Effect
-    window.addEventListener("scroll", handleHeaderScroll);
+    if (elements.header) {
+        window.addEventListener("scroll", handleHeaderScroll);
+    }
 
     // Form Submission
     if (elements.contactForm) {
@@ -88,31 +102,49 @@ function handleLanguageSwitch(e) {
 
 // Toggle sidebar menu
 function toggleSidebar() {
-    elements.sidebar.classList.toggle("active");
-    elements.overlay.classList.toggle("active");
-    elements.hamburger.classList.toggle("active");
+    if (elements.sidebar) {
+        elements.sidebar.classList.toggle("active");
+    }
+    if (elements.overlay) {
+        elements.overlay.classList.toggle("active");
+    }
+    if (elements.hamburger) {
+        elements.hamburger.classList.toggle("active");
+    }
 }
 
 // Close sidebar menu
 function closeSidebar() {
-    elements.sidebar.classList.remove("active");
-    elements.overlay.classList.remove("active");
-    elements.hamburger.classList.remove("active");
+    if (elements.sidebar) {
+        elements.sidebar.classList.remove("active");
+    }
+    if (elements.overlay) {
+        elements.overlay.classList.remove("active");
+    }
+    if (elements.hamburger) {
+        elements.hamburger.classList.remove("active");
+    }
 }
 
 // Open SOP modal
 function openSopModal() {
-    elements.sopModal.style.display = "flex";
+    if (elements.sopModal) {
+        elements.sopModal.style.display = "flex";
+    }
 }
 
 // Close SOP modal
 function closeSopModal() {
-    elements.sopModal.style.display = "none";
+    if (elements.sopModal) {
+        elements.sopModal.style.display = "none";
+    }
 }
 
 // Handle header scroll effect
 function handleHeaderScroll() {
-    elements.header.classList.toggle("scrolled", window.scrollY > 50);
+    if (elements.header) {
+        elements.header.classList.toggle("scrolled", window.scrollY > 50);
+    }
 }
 
 // Handle form submission
