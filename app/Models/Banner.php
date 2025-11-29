@@ -90,7 +90,7 @@ class Banner extends Model
             return $value;
         }
 
-        if (str_contains($value, 'banners/')) {
+        if (str_contains($value, 'banners/') || str_contains($value, 'images/banners/')) {
             if (Storage::disk('public')->exists($value)) {
                 return Storage::url($value);
             }
@@ -98,8 +98,8 @@ class Banner extends Model
             return asset('assets/images/' . basename($value));
         }
 
-        if (Storage::disk('public')->exists('banners/' . $value)) {
-            return Storage::url('banners/' . $value);
+        if (Storage::disk('public')->exists('images/banners/image/' . $value)) {
+            return Storage::url('images/banners/image/' . $value);
         }
 
         return asset('assets/images/' . $value);
