@@ -16,14 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user directly
+        // Create admin user if not exists
         User::create([
             'name' => 'Admin User',
             'email' => 'admin@pawapp.net',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);
-
         // Call other seeders
         $this->call([
             ServiceSeeder::class,
@@ -37,6 +36,7 @@ class DatabaseSeeder extends Seeder
             BannerSeeder::class,
             ArabicTranslationSeeder::class,
             ImageMigrationSeeder::class,
+            BannerImageMigrationSeeder::class,
         ]);
     }
 }
