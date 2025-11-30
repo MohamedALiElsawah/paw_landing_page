@@ -22,6 +22,13 @@
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
     --spacing-xxl: 5rem;
+    --spacing-xxxl: 7rem;
+
+    /* Section spacing hierarchy */
+    --section-spacing-hero: var(--spacing-xxxl);
+    --section-spacing-primary: var(--spacing-xl);
+    --section-spacing-secondary: var(--spacing-lg);
+    --section-spacing-compact: var(--spacing-md);
 
     /* Border Radius */
     --border-radius-sm: 8px;
@@ -1125,12 +1132,141 @@ h4 {
 
 /* === SECTION COMMON === */
 section {
-    padding: var(--spacing-xxl) 0;
+    padding: var(--section-spacing-primary) 0;
 }
 
+/* Enhanced section spacing system with visual hierarchy */
+.hero {
+    padding: var(--section-spacing-hero) 0 var(--section-spacing-primary);
+}
+
+.services {
+    background: var(--light-bg);
+    padding: var(--section-spacing-primary) 0;
+}
+
+.store-banner {
+    background: var(--yellow);
+    position: relative;
+    overflow: visible;
+    width: 100vw;
+    min-height: 200px;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.store-info-section {
+    background: var(--white);
+    padding: var(--section-spacing-secondary) 0;
+    align-items: start;
+}
+
+.rec-stores {
+    background: var(--light-bg);
+    padding: var(--section-spacing-primary) 0;
+}
+
+.clinics {
+    background: var(--light-bg);
+    padding: var(--section-spacing-primary) 0;
+}
+
+.dr-bo {
+    background: var(--blue);
+    color: var(--white);
+    padding: var(--section-spacing-primary) 0;
+}
+
+.pet-posts {
+    background: var(--white);
+    padding: var(--section-spacing-primary) 0;
+}
+
+.reviews {
+    background: var(--white);
+    padding: var(--section-spacing-primary) 0 var(--section-spacing-secondary) 0;
+}
+
+.stats {
+    padding: var(--section-spacing-secondary) 0;
+}
+
+.about-us {
+    background: var(--light-bg);
+    position: relative;
+    padding: var(--section-spacing-primary) 0;
+}
+
+.banner-section {
+    width: 100%;
+    color: var(--white);
+    text-align: center;
+    padding: 0;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0;
+    border-radius: 0;
+}
+
+.contact {
+    background: var(--white);
+    padding: var(--section-spacing-primary) 0;
+}
+
+.partners-auto {
+    background: var(--white);
+    padding: var(--section-spacing-secondary) 0;
+    overflow: hidden;
+}
+
+/* Improved section title spacing */
 .section-title {
     text-align: center;
     margin-bottom: var(--spacing-xl);
+    padding: 0 var(--spacing-md);
+}
+
+.section-title h2 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--blue);
+}
+
+.section-title p {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Enhanced content spacing within sections */
+.services-grid,
+.stats-grid,
+.store-info-grid {
+    margin-bottom: var(--spacing-lg);
+}
+
+.scrollable-section {
+    margin-top: var(--spacing-md);
+}
+
+/* Improved container spacing */
+.container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* Better spacing for cards and interactive elements */
+.service-card,
+.store-card,
+.clinic-card,
+.review-card,
+.pet-post-card {
+    margin-bottom: var(--spacing-md);
 }
 
 .fade-in {
@@ -3105,4 +3241,234 @@ footer::before {
 .clinic-info-window,
 .browse-btn-map {
     display: none;
+}
+
+/* === ENHANCED RESPONSIVE SPACING === */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+}
+
+@media (max-width: 992px) {
+
+    /* Tablet spacing adjustments */
+    :root {
+        --section-spacing-hero: var(--spacing-xxl);
+        --section-spacing-primary: var(--spacing-lg);
+        --section-spacing-secondary: var(--spacing-md);
+    }
+
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+
+    .hero-container,
+    .dr-bo-container,
+    .about-container,
+    .contact-container,
+    .clinics-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-lg);
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .store-banner .container {
+        gap: var(--spacing-sm);
+    }
+
+    .store-banner-left img,
+    .store-banner-right img {
+        width: 120px;
+    }
+
+    .discount-badge {
+        font-size: 16px;
+    }
+
+    .store-banner-center h3 {
+        font-size: 20px;
+    }
+
+    .section-title {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .section-title h2 {
+        margin-bottom: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile spacing adjustments */
+    :root {
+        --section-spacing-hero: var(--spacing-xl);
+        --section-spacing-primary: var(--spacing-md);
+        --section-spacing-secondary: var(--spacing-sm);
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .lang-switch,
+    .download-btn {
+        display: none;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .hero-title {
+        font-size: clamp(1.5rem, 4vw, 2.25rem);
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .pet-posts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .store-banner {
+        height: auto;
+        padding: var(--spacing-md) 0;
+    }
+
+    .store-banner .container {
+        gap: var(--spacing-sm);
+    }
+
+    .store-banner-center h3 {
+        font-size: 18px;
+    }
+
+    .store-banner-left img,
+    .store-banner-right img,
+    .right-column img {
+        max-width: 100px;
+    }
+
+    .section-title {
+        margin-bottom: var(--spacing-md);
+        padding: 0 var(--spacing-sm);
+    }
+
+    .section-title h2 {
+        font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .section-title p {
+        font-size: clamp(0.9rem, 2.2vw, 1rem);
+        line-height: 1.5;
+    }
+
+    /* Improved mobile card spacing */
+    .service-card,
+    .store-card,
+    .clinic-card,
+    .review-card,
+    .pet-post-card {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .services-grid,
+    .stats-grid,
+    .store-info-grid {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .scrollable-section {
+        margin-top: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 576px) {
+
+    /* Small mobile spacing adjustments */
+    :root {
+        --section-spacing-hero: var(--spacing-lg);
+        --section-spacing-primary: var(--spacing-sm);
+        --section-spacing-secondary: var(--spacing-xs);
+    }
+
+    .container {
+        padding: 0 var(--spacing-xs);
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .store-banner-center h3 {
+        font-size: 16px;
+    }
+
+    .discount-badge {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .store-banner-left img,
+    .store-banner-right img,
+    .right-column img {
+        max-width: 80px;
+    }
+
+    .section-title {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .section-title h2 {
+        font-size: clamp(1.1rem, 3vw, 1.5rem);
+    }
+
+    .section-title p {
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+
+    /* Compact spacing for very small screens */
+    .hero-buttons {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .store-actions {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .store-btn {
+        padding: 10px 12px;
+    }
 }
