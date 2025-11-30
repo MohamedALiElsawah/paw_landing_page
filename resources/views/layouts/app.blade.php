@@ -53,6 +53,18 @@
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+
+    <!-- Dynamic Favicon -->
+    @if (App\Models\Setting::getValue('site_logo'))
+        <link rel="icon" type="image/x-icon" href="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}">
+        <link rel="shortcut icon" type="image/x-icon"
+            href="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}">
+        <link rel="apple-touch-icon" href="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}">
+    @else
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/icons/logo.svg') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/icons/logo.svg') }}">
+        <link rel="apple-touch-icon" href="{{ asset('assets/icons/logo.svg') }}">
+    @endif
     <style>
         :root {
             --font-family: {{ app()->getLocale() == 'ar' ? 'Tajawal, Cairo, sans-serif' : 'Cairo, sans-serif' }};

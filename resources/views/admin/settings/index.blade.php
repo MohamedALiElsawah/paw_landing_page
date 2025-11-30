@@ -78,7 +78,10 @@
                                                     'en' => 'Site Description',
                                                     'ar' => 'وصف الموقع',
                                                 ],
-                                                'site_logo' => ['en' => 'Site Logo', 'ar' => 'شعار الموقع'],
+                                                'site_logo' => [
+                                                    'en' => 'Site Logo (Favicon)',
+                                                    'ar' => 'شعار الموقع (أيقونة)',
+                                                ],
                                                 'site_favicon' => ['en' => 'Site Favicon', 'ar' => 'أيقونة الموقع'],
                                                 'default_language' => [
                                                     'en' => 'Default Language',
@@ -1467,6 +1470,7 @@
                         </h5>
                     </div>
                     <div class="card-body">
+                        <!-- DEBUG: Footer settings count: {{ count($settings['footer'] ?? []) }} -->
                         @foreach ($settings['footer'] ?? [] as $setting)
                             <div class="row mb-3">
                                 <div class="col-md-4">

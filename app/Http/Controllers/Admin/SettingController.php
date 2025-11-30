@@ -110,7 +110,7 @@ class SettingController extends Controller
                 'value' => null,
                 'type' => 'image',
                 'group' => 'general',
-                'description' => 'Website logo',
+                'description' => 'Website logo (also used as favicon)',
                 'is_multilingual' => false
             ],
 
