@@ -273,10 +273,6 @@
                                             <i class="fas fa-phone"></i>
                                             {{ __('Call') }}
                                         </a>
-                                        <a href="#" class="store-btn directions-btn">
-                                            <i class="fas fa-directions"></i>
-                                            {{ __('Directions') }}
-                                        </a>
                                     </div>
                                 </div>
                             </div>
