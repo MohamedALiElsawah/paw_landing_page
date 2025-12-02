@@ -6,6 +6,7 @@
     "About Us": "من نحن",
     "Contact Us": "اتصل بنا",
     "Download App": "تحميل التطبيق",
+    "Get App": "احصل على التطبيق",
     "All Your Pet Needs in One App": "كل احتياجات حيوانك الأليف في تطبيق واحد",
     "Complete pet care in your hands. Easily and quickly find everything using a single app.": "رعاية الحيوانات الأليفة الكاملة بين يديك. ابحث بسهولة وسرعة عن كل شيء باستخدام تطبيق واحد.",
     "Explore Services": "استكشف الخدمات",
@@ -55,5 +56,14 @@
     "Store Location": "موقع المتجر",
     "Opening Hours": "ساعات العمل",
     "Delivery": "التوصيل",
-    "Free delivery over $50": "توصيل مجاني للطلبات فوق 50 دولار"
+    "Free delivery over $50": "توصيل مجاني للطلبات فوق 50 دولار",
+    "Call": "اتصل",
+    "Browse Location": "تصفح الموقع",
+    "Open Now": "مفتوح الآن",
+    "Mon-Sun": "الإثنين - الأحد",
+    "Mon-Sun: 9AM - 9PM": "الإثنين - الأحد: 9 صباحاً - 9 مساءً",
+    "Average Rating": "التقييم العام",
+    "Happy Users": "مستخدمين سعداء",
+    "Partner Clinics": "عيادات شريكة",
+    "Support": "دعم"
 }
