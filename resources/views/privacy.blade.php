@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container privacy-container" style="padding: 40px 20px; max-width: 900px; margin: 0 auto;">
+    <div class="container privacy-container" style="padding: 40px 20px; max-width: 900px; margin: 80px auto 0 auto;">
         <h1 style="text-align: center; margin-bottom: 40px;">Privacy Policy</h1>
 
         <!-- Privacy Policy -->
@@ -94,4 +94,71 @@
             <p>If you have any questions about this privacy policy, please contact us at info@pawapp.net.</p>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container footer-content">
+            <div class="footer-top">
+                @if (App\Models\Setting::getValue('site_logo'))
+                    <img src="{{ Storage::url(App\Models\Setting::getValue('site_logo')) }}"
+                        alt="{{ App\Models\Setting::getValue('site_name', 'PawApp') }} Logo" class="footer-logo">
+                @else
+                    <img src="{{ asset('assets/icons/logo.svg') }}" alt="PawApp Logo" class="footer-logo">
+                @endif
+                <span
+                    class="footer-text">{{ App\Models\Setting::getValue('footer_description', __('Your complete pet care companion. Everything your pet needs in one place.')) }}</span>
+            </div>
+            <hr class="footer-line">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>{{ __('Reach Us') }}</h4>
+                    <a href="tel:{{ App\Models\Setting::getValue('phone_number', '+10123456789') }}"><i
+                            class="fas fa-phone"></i>
+                        {{ App\Models\Setting::getValue('phone_number', '+1012 3456 789') }}</a>
+                    <a href="mailto:{{ App\Models\Setting::getValue('email', 'demo@gmail.com') }}"><i
+                            class="fas fa-envelope"></i>
+                        {{ App\Models\Setting::getValue('email', 'demo@gmail.com') }}</a>
+                    <a href="#"><i class="fas fa-map-marker-alt"></i>
+                        {{ App\Models\Setting::getValue('address', 'Pet City, PC 12345') }}</a>
+                </div>
+                <div class="footer-col">
+                    <h4>{{ __('Quick Links') }}</h4>
+                    <a href="#">{{ __('Home') }}</a>
+                    <a href="#">{{ __('Store') }}</a>
+                    <a href="#">{{ __('Clinics') }}</a>
+                </div>
+                <div class="footer-col">
+                    <h4>{{ __('Services') }}</h4>
+                    <a href="#clinics">{{ __('Clinics') }}</a>
+                    <a href="#petposts">{{ __('Pet Posts') }}</a>
+                    <a href="#store">{{ __('Store') }}</a>
+                    <a href="#dr-bo">{{ __('Dr. Bo') }}</a>
+                </div>
+                <div class="footer-col">
+                    <h4>{{ __('Follow Us') }}</h4>
+                    <div class="social-links">
+                        @if (App\Models\Setting::getValue('facebook_url'))
+                            <a href="{{ App\Models\Setting::getValue('facebook_url') }}" target="_blank"><i
+                                    class="fab fa-facebook-f"></i></a>
+                        @endif
+                        @if (App\Models\Setting::getValue('instagram_url'))
+                            <a href="{{ App\Models\Setting::getValue('instagram_url') }}" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                        @endif
+                        @if (App\Models\Setting::getValue('twitter_url'))
+                            <a href="{{ App\Models\Setting::getValue('twitter_url') }}" target="_blank"><i
+                                    class="fab fa-twitter"></i></a>
+                        @endif
+                        @if (App\Models\Setting::getValue('linkedin_url'))
+                            <a href="{{ App\Models\Setting::getValue('linkedin_url') }}" target="_blank"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>{{ __('© 2025 PawApp – All rights reserved.') }}</p>
+            </div>
+        </div>
+    </footer>
 @endsection
