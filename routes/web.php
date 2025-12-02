@@ -20,6 +20,7 @@ use App\Http\Controllers\SitemapController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/contact', [HomeController::class, 'contact'])->name('contact.submit');
 Route::get('/locale/{locale}', [HomeController::class, 'changeLocale'])->name('locale.change');
+Route::get('/privacy', [HomeController::class, 'privacy'])->name('privacy');
 
 // SEO Routes
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
