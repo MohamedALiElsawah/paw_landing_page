@@ -619,7 +619,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 PawApp – All rights reserved.</p>
+                <p>{{ __('© 2025 PawApp – All rights reserved.') }}</p>
             </div>
         </div>
     </footer>
