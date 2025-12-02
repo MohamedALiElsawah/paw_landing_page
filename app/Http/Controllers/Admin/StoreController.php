@@ -11,7 +11,7 @@ class StoreController extends Controller
 {
     public function index()
     {
-        $stores = Store::all();
+        $stores = Store::orderBy('order')->get();
         return view('admin.stores.index', compact('stores'));
     }
 
@@ -46,6 +46,9 @@ class StoreController extends Controller
             $logoPath = $request->file('logo')->store('stores/logos', 'public');
         }
 
+        // Get the max order value to place new store at the end
+        $maxOrder = Store::max('order') ?? 0;
+
         Store::create([
             'name' => [
                 'en' => $request->name_en,
@@ -64,6 +67,7 @@ class StoreController extends Controller
             'image' => $imagePath,
             'logo' => $logoPath,
             'is_active' => $request->is_active ?? true,
+            'order' => $maxOrder + 1,
         ]);
 
         return redirect()->route('admin.stores.index')->with('success', 'Store created successfully.');
@@ -140,5 +144,23 @@ class StoreController extends Controller
         $store->delete();
 
         return redirect()->route('admin.stores.index')->with('success', 'Store deleted successfully.');
+    }
+
+    /**
+     * Handle drag and drop reordering of stores
+     */
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'order' => 'required|array',
+            'order.*.id' => 'required|exists:stores,id',
+            'order.*.position' => 'required|integer',
+        ]);
+
+        foreach ($request->order as $item) {
+            Store::where('id', $item['id'])->update(['order' => $item['position']]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Stores reordered successfully.']);
     }
 }

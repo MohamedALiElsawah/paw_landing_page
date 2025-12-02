@@ -36,12 +36,14 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Clinics
     Route::resource('clinics', ClinicController::class);
+    Route::post('clinics/reorder', [ClinicController::class, 'reorder'])->name('clinics.reorder');
 
     // Services
     Route::resource('services', ServiceController::class);
 
     // Stores
     Route::resource('stores', StoreController::class);
+    Route::post('stores/reorder', [StoreController::class, 'reorder'])->name('stores.reorder');
 
     // Pet Posts
     Route::resource('petposts', PetPostController::class);

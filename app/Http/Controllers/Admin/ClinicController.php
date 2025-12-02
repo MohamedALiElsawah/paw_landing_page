@@ -11,7 +11,7 @@ class ClinicController extends Controller
 {
     public function index()
     {
-        $clinics = Clinic::all();
+        $clinics = Clinic::orderBy('order')->get();
         return view('admin.clinics.index', compact('clinics'));
     }
 
@@ -40,6 +40,9 @@ class ClinicController extends Controller
             $imagePath = $request->file('image')->store('clinics', 'public');
         }
 
+        // Get the max order value to place new clinic at the end
+        $maxOrder = Clinic::max('order') ?? 0;
+
         Clinic::create([
             'name' => [
                 'en' => $request->name_en,
@@ -57,6 +60,7 @@ class ClinicController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'image' => $imagePath,
+            'order' => $maxOrder + 1,
         ]);
 
         return redirect()->route('admin.clinics.index')->with('success', 'Clinic created successfully.');
@@ -120,5 +124,23 @@ class ClinicController extends Controller
         $clinic->delete();
 
         return redirect()->route('admin.clinics.index')->with('success', 'Clinic deleted successfully.');
+    }
+
+    /**
+     * Handle drag and drop reordering of clinics
+     */
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'order' => 'required|array',
+            'order.*.id' => 'required|exists:clinics,id',
+            'order.*.position' => 'required|integer',
+        ]);
+
+        foreach ($request->order as $item) {
+            Clinic::where('id', $item['id'])->update(['order' => $item['position']]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Clinics reordered successfully.']);
     }
 }

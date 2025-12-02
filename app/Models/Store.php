@@ -18,7 +18,8 @@ class Store extends Model
         'rating',
         'image',
         'logo',
-        'is_active'
+        'is_active',
+        'order'
     ];
 
     protected $casts = [
@@ -26,7 +27,8 @@ class Store extends Model
         'location' => 'array',
         'working_hours' => 'array',
         'is_active' => 'boolean',
-        'rating' => 'decimal:1'
+        'rating' => 'decimal:1',
+        'order' => 'integer'
     ];
 
     /**

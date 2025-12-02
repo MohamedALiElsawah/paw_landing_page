@@ -19,7 +19,8 @@ class Clinic extends Model
         'latitude',
         'longitude',
         'image',
-        'is_active'
+        'is_active',
+        'order'
     ];
 
     protected $casts = [
@@ -29,7 +30,8 @@ class Clinic extends Model
         'is_active' => 'boolean',
         'distance' => 'decimal:2',
         'latitude' => 'decimal:8',
-        'longitude' => 'decimal:8'
+        'longitude' => 'decimal:8',
+        'order' => 'integer'
     ];
 
     /**
