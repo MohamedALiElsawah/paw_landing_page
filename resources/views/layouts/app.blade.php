@@ -113,7 +113,7 @@
             </div>
             <a href="#" class="download-btn" data-action="download-app"
                 data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ __('Download App') }}</a>
+                data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">{{ __('Download App') }}</a>
         </div>
     </header>
 
@@ -134,7 +134,7 @@
         </div>
         <a href="#" class="sidebar-download-btn" data-action="download-app"
             data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ __('Download App') }}</a>
+            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">{{ __('Download App') }}</a>
     </div>
 
     <!-- Overlay -->
@@ -159,7 +159,7 @@
             </div>
             <a href="#" class="access-btn" data-action="download-app"
                 data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">Access Emergency Services</a>
+                data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">Access Emergency Services</a>
             <div class="important-box"><strong>Important:</strong><br>For life-threatening emergencies, please call
                 your nearest veterinary hospital immediately or dial emergency services.</div>
             <div class="hotline">

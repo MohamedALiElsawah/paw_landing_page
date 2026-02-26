@@ -9,7 +9,7 @@
                 </p>
                 <a href="#" class="top-header-btn" data-action="download-app"
                     data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">
+                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">
                     {{ __('Get App') }}
                 </a>
             </div>
@@ -37,7 +37,7 @@
                                 <div class="hero-buttons">
                                     <a href="#" class="btn-primary" data-action="download-app"
                                         data-android-url="{{ $banner->button_url ?: App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                                        data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">
+                                        data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">
                                         {{ $banner->button_text ?: __('Download App') }}
                                     </a>
                                     <a href="#services" class="btn-outline" data-action="scroll-to-services">
@@ -65,7 +65,7 @@
                     <div class="hero-buttons">
                         <a href="#" class="btn-primary" data-action="download-app"
                             data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">
+                            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">
                             {{ __('Download App') }}
                         </a>
                         <a href="#services" class="btn-outline" data-action="scroll-to-services">
@@ -163,7 +163,7 @@
                 </h3>
                 <a href="#" class="visit-btn" data-action="download-app"
                     data-android-url="{{ App\Models\Setting::getValue('store_button_url', App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer')) }}"
-                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ App\Models\Setting::getValue('store_button_text', __('Visit Store')) }}</a>
+                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">{{ App\Models\Setting::getValue('store_button_text', __('Visit Store')) }}</a>
             </div>
             <div class="store-banner-right">
                 @if (App\Models\Setting::getValue('store_banner_right_image_1'))
@@ -349,7 +349,7 @@
                     <div class="find-clinic-btn-container">
                         <a href="#" class="find-btn" data-action="download-app"
                             data-android-url="{{ App\Models\Setting::getValue('clinics_button_url', App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer')) }}"
-                            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ App\Models\Setting::getValue('clinics_button_text', __('Find Nearest Clinic')) }}</a>
+                            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">{{ App\Models\Setting::getValue('clinics_button_text', __('Find Nearest Clinic')) }}</a>
                     </div>
                 </div>
             </div>
@@ -374,7 +374,7 @@
                 </div>
                 <a href="#" class="talk-btn" data-action="download-app"
                     data-android-url="{{ App\Models\Setting::getValue('dr_bo_button_url', App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer')) }}"
-                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ App\Models\Setting::getValue('dr_bo_button_text', __('Talk to Dr Paw Now')) }}</a>
+                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/us/app/paw-app/id6474899820') }}">{{ App\Models\Setting::getValue('dr_bo_button_text', __('Talk to Dr Paw Now')) }}</a>
             </div>
             <div class="chat-interface">
                 <div class="chat-header">
