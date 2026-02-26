@@ -1857,6 +1857,9 @@ section {
     margin-top: var(--spacing-md);
     padding-top: var(--spacing-sm);
     border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .browse-location-btn {
@@ -2202,14 +2205,22 @@ section {
 }
 
 .directions-btn {
-    background: var(--light-bg);
-    color: var(--blue);
-    border: 1px solid #e0e0e0;
+    background: var(--blue);
+    color: var(--white);
+    padding: 6px 12px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all var(--transition-fast);
+    border: none;
+    cursor: pointer;
 }
 
 .directions-btn:hover {
-    background: var(--blue);
-    color: var(--white);
+    background: var(--yellow);
+    color: var(--blue);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 45, 114, 0.3);
 }

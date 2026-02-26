@@ -7,8 +7,9 @@
             <div class="top-header-content">
                 <p>{{ App\Models\Setting::getValue('top_header_text', __('Download PawApp Now - Your Complete Pet Care Companion')) }}
                 </p>
-                <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-                    class="top-header-btn">
+                <a href="#" class="top-header-btn" data-action="download-app"
+                    data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">
                     {{ __('Get App') }}
                 </a>
             </div>
@@ -34,8 +35,9 @@
                                     {{ $banner->description ?: App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
                                 </p>
                                 <div class="hero-buttons">
-                                    <a href="{{ $banner->button_url ?: 'https://play.google.com/store/apps/details?id=com.paw.customer' }}"
-                                        target="_blank" class="btn-primary" data-action="download-app">
+                                    <a href="#" class="btn-primary" data-action="download-app"
+                                        data-android-url="{{ $banner->button_url ?: App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                                        data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">
                                         {{ $banner->button_text ?: __('Download App') }}
                                     </a>
                                     <a href="#services" class="btn-outline" data-action="scroll-to-services">
@@ -61,8 +63,9 @@
                         {{ App\Models\Setting::getValue('hero_description', __('Complete pet care in your hands. Easily and quickly find everything using a single app.')) }}
                     </p>
                     <div class="hero-buttons">
-                        <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-                            class="btn-primary" data-action="download-app">
+                        <a href="#" class="btn-primary" data-action="download-app"
+                            data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">
                             {{ __('Download App') }}
                         </a>
                         <a href="#services" class="btn-outline" data-action="scroll-to-services">
@@ -117,11 +120,25 @@
             </div>
 
             <div class="services-grid">
+                @php
+                    $sectionMap = [
+                        'store' => 'store',
+                        'stores' => 'store',
+                        'clinic' => 'clinics',
+                        'clinics' => 'clinics',
+                        'dr-bo' => 'dr-bo',
+                        'dr-paw' => 'dr-bo',
+                        'drbo' => 'dr-bo',
+                        'petposts' => 'petposts',
+                        'pet-posts' => 'petposts',
+                        'petpost' => 'petposts',
+                    ];
+                @endphp
                 @foreach ($services as $service)
                     <div class="service-card animate" data-service="{{ $service->slug }}">
                         <div class="service-icon"><i class="{{ $service->icon }}"></i></div>
                         <h3>{{ $service->name }}</h3>
-                        <a href="#{{ $service->slug }}" class="learn-more"
+                        <a href="#{{ $sectionMap[$service->slug] ?? $service->slug }}" class="learn-more"
                             data-action="scroll-to-section">{{ __('Learn More') }} ></a>
                     </div>
                 @endforeach
@@ -144,9 +161,9 @@
             <div class="store-banner-center">
                 <h3>{{ App\Models\Setting::getValue('store_banner_text', __('Visit the PawApp Store for exclusive offers!')) }}
                 </h3>
-                <a href="{{ App\Models\Setting::getValue('store_button_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                    target="_blank" class="visit-btn"
-                    data-action="visit-store">{{ App\Models\Setting::getValue('store_button_text', __('Visit Store')) }}</a>
+                <a href="#" class="visit-btn" data-action="download-app"
+                    data-android-url="{{ App\Models\Setting::getValue('store_button_url', App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer')) }}"
+                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ App\Models\Setting::getValue('store_button_text', __('Visit Store')) }}</a>
             </div>
             <div class="store-banner-right">
                 @if (App\Models\Setting::getValue('store_banner_right_image_1'))
@@ -177,13 +194,13 @@
                 <div class="info-box" data-info-type="hours">
                     <div class="icon"><i class="fas fa-clock"></i></div>
                     <h4>{{ __('Opening Hours') }}</h4>
-                    <div class="working-hours-display">
+                    <div class="working-hours-display" data-working-hours="{{ App\Models\Setting::getValue('working_hours', 'Mon-Sun: 9AM - 9PM') }}">
                         <div class="working-hours-text">
                             {{ App\Models\Setting::getValue('working_hours', __('Mon-Sun: 9AM - 9PM')) }}
                         </div>
                         <div class="store-status">
-                            <span class="status-indicator open"></span>
-                            <span class="status-text">{{ __('Open Now') }}</span>
+                            <span class="status-indicator"></span>
+                            <span class="status-text"></span>
                         </div>
                     </div>
                     {{-- <div class="detailed-hours">
@@ -255,9 +272,9 @@
                                             <div class="working-hours-info">
                                                 <span
                                                     class="hours-text">{{ $store->working_hours ?: __('Mon-Sun: 9AM - 9PM') }}</span>
-                                                <div class="store-status-indicator">
-                                                    <span class="status-dot open"></span>
-                                                    <span class="status-text">{{ __('Open Now') }}</span>
+                                                <div class="store-status-indicator" data-working-hours="{{ $store->working_hours ?: 'Mon-Sun: 9AM - 9PM' }}">
+                                                    <span class="status-dot"></span>
+                                                    <span class="status-text"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -319,6 +336,10 @@
                                                 data-action="browse-location">
                                                 <i class="fas fa-external-link-alt"></i> {{ __('Browse Location') }}
                                             </a>
+                                            <a href="https://www.google.com/maps/dir/?api=1&destination={{ $clinic->latitude }},{{ $clinic->longitude }}"
+                                                target="_blank" class="directions-btn">
+                                                <i class="fas fa-directions"></i> {{ __('Directions') }}
+                                            </a>
                                         </div>
                                     @endif
                                 </div>
@@ -326,9 +347,9 @@
                         </div>
                     </div>
                     <div class="find-clinic-btn-container">
-                        <a href="{{ App\Models\Setting::getValue('clinics_button_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                            target="_blank" class="find-btn"
-                            data-action="find-clinic">{{ App\Models\Setting::getValue('clinics_button_text', __('Find Nearest Clinic')) }}</a>
+                        <a href="#" class="find-btn" data-action="download-app"
+                            data-android-url="{{ App\Models\Setting::getValue('clinics_button_url', App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer')) }}"
+                            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ App\Models\Setting::getValue('clinics_button_text', __('Find Nearest Clinic')) }}</a>
                     </div>
                 </div>
             </div>
@@ -346,14 +367,14 @@
                 @endif
             </div>
             <div class="dr-bo-content">
-                <h2>{{ App\Models\Setting::getValue('dr_bo_title', __('Meet Dr. Bo')) }}</h2>
+                <h2>{{ App\Models\Setting::getValue('dr_bo_title', __('Meet Dr Paw')) }}</h2>
                 <p>{{ App\Models\Setting::getValue('dr_bo_subtitle', __('Your smart AI assistant')) }}</p>
                 <div class="typing-text">
                     {{ App\Models\Setting::getValue('dr_bo_description', __('Ask me anything about pet health, nutrition, behavior...')) }}
                 </div>
-                <a href="{{ App\Models\Setting::getValue('dr_bo_button_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
-                    target="_blank" class="talk-btn"
-                    data-action="talk-to-drbo">{{ App\Models\Setting::getValue('dr_bo_button_text', __('Talk to Dr. Bo Now')) }}</a>
+                <a href="#" class="talk-btn" data-action="download-app"
+                    data-android-url="{{ App\Models\Setting::getValue('dr_bo_button_url', App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer')) }}"
+                    data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ App\Models\Setting::getValue('dr_bo_button_text', __('Talk to Dr Paw Now')) }}</a>
             </div>
             <div class="chat-interface">
                 <div class="chat-header">
@@ -366,7 +387,7 @@
                         <div class="chat-avatar">DB</div>
                     @endif
                     <div>
-                        <h4 style="margin:0;color:white;">{{ App\Models\Setting::getValue('dr_bo_name', __('Dr. Bo')) }}
+                        <h4 style="margin:0;color:white;">{{ App\Models\Setting::getValue('dr_bo_name', __('Dr Paw')) }}
                         </h4>
                         <p style="margin:0;font-size:14px;opacity:0.9;">
                             {{ App\Models\Setting::getValue('dr_bo_status', __('Always here to help')) }}</p>
@@ -379,7 +400,7 @@
                     {{ App\Models\Setting::getValue('dr_bo_example_answer', __('Don\'t worry! It\'s normal for dogs to have occasional appetite changes. Monitor for 24 hours. If symptoms persist or worsen, consult a vet.')) }}
                 </div>
                 <div class="typing-indicator">
-                    <span>{{ App\Models\Setting::getValue('dr_bo_typing_text', __('Ask Dr. Bo anything...')) }}</span>
+                    <span>{{ App\Models\Setting::getValue('dr_bo_typing_text', __('Ask Dr Paw anything...')) }}</span>
                     <div class="typing-dots">
                         <div class="typing-dot"></div>
                         <div class="typing-dot"></div>
@@ -594,7 +615,7 @@
                     <a href="#clinics">{{ __('Clinics') }}</a>
                     <a href="#petposts">{{ __('Pet Posts') }}</a>
                     <a href="#store">{{ __('Store') }}</a>
-                    <a href="#dr-bo">{{ __('Dr. Bo') }}</a>
+                    <a href="#dr-bo">{{ __('Dr Paw') }}</a>
                 </div>
                 <div class="footer-col">
                     <h4>{{ __('Follow Us') }}</h4>

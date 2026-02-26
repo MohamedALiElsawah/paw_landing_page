@@ -102,7 +102,7 @@
                 <a href="#" class="nav-link" data-section="home">{{ __('Home') }}</a>
                 <a href="#store" class="nav-link" data-section="store">{{ __('Store') }}</a>
                 <a href="#clinics" class="nav-link" data-section="clinics">{{ __('Clinics') }}</a>
-                <a href="#dr-bo" class="nav-link" data-section="dr-bo">{{ __('Dr. Bo') }}</a>
+                <a href="#dr-bo" class="nav-link" data-section="dr-bo">{{ __('Dr Paw') }}</a>
                 <a href="#about" class="nav-link" data-section="about">{{ __('About Us') }}</a>
                 <a href="#contact" class="nav-link" data-section="contact">{{ __('Contact Us') }}</a>
             </nav>
@@ -111,8 +111,9 @@
                 <span>|</span>
                 <button class="lang-btn {{ app()->getLocale() == 'ar' ? 'active' : '' }}" data-lang="ar">عربي</button>
             </div>
-            <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-                class="download-btn" data-action="download-app">{{ __('Download App') }}</a>
+            <a href="#" class="download-btn" data-action="download-app"
+                data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ __('Download App') }}</a>
         </div>
     </header>
 
@@ -122,7 +123,7 @@
             <a href="#" class="nav-link" data-section="home">{{ __('Home') }}</a>
             <a href="#store" class="nav-link" data-section="store">{{ __('Store') }}</a>
             <a href="#clinics" class="nav-link" data-section="clinics">{{ __('Clinics') }}</a>
-            <a href="#dr-bo" class="nav-link" data-section="dr-bo">{{ __('Dr. Bo') }}</a>
+            <a href="#dr-bo" class="nav-link" data-section="dr-bo">{{ __('Dr Paw') }}</a>
             <a href="#about" class="nav-link" data-section="about">{{ __('About Us') }}</a>
             <a href="#contact" class="nav-link" data-section="contact">{{ __('Contact Us') }}</a>
         </div>
@@ -131,8 +132,9 @@
             <span>|</span>
             <button class="lang-btn {{ app()->getLocale() == 'ar' ? 'active' : '' }}" data-lang="ar">عربي</button>
         </div>
-        <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-            class="sidebar-download-btn" data-action="download-app">{{ __('Download App') }}</a>
+        <a href="#" class="sidebar-download-btn" data-action="download-app"
+            data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+            data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">{{ __('Download App') }}</a>
     </div>
 
     <!-- Overlay -->
@@ -155,8 +157,9 @@
                 <div class="sop-service"><i class="fas fa-graduation-cap"></i> Training</div>
                 <div class="sop-service"><i class="fas fa-heart"></i> Animal Rescue</div>
             </div>
-            <a href="https://play.google.com/store/apps/details?id=com.paw.customer" target="_blank"
-                class="access-btn" data-action="access-emergency">Access Emergency Services</a>
+            <a href="#" class="access-btn" data-action="download-app"
+                data-android-url="{{ App\Models\Setting::getValue('android_app_url', 'https://play.google.com/store/apps/details?id=com.paw.customer') }}"
+                data-ios-url="{{ App\Models\Setting::getValue('ios_app_url', 'https://apps.apple.com/app/pawapp/id') }}">Access Emergency Services</a>
             <div class="important-box"><strong>Important:</strong><br>For life-threatening emergencies, please call
                 your nearest veterinary hospital immediately or dial emergency services.</div>
             <div class="hotline">
